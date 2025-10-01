@@ -156,8 +156,8 @@ model = tf.keras.Sequential([
   # Each neuron corresponds to a class (e.g num_class = 3 then 3 neurons), and the one with the highest output is the model's final prediction.
 ])
 
-#using this to visualise our model:
-model.summary()
+#using this to visualise our model uisng a table:
+# model.summary()
 
 # ^--------------------------------------------------------------------------------------
 #configuring the model for training using model.compile:
@@ -171,8 +171,8 @@ model.compile(
 
 #if we want we can also add a tf.keras.callbacks.TensorBoard callback to create and store logs like this:
 #making sure our logs is in our ml-model/models folder:
-log_folder = (os.path.dirname(os.path.abspath(__file__)))
-log_dir = os.path.join(log_folder, "logs")  # Log files will be saved in "logs" folder
+models_folder = (os.path.dirname(os.path.abspath(__file__)))
+log_dir = os.path.join(models_folder, f"logs_{datetime.datetime.now().strftime('%Y%m%d-%H%M%S')}")  # Log files will be saved in "logs" folder
 tensorboard_callback = tf.keras.callbacks.TensorBoard(
     log_dir=log_dir,
     histogram_freq=1) # Enable histogram computation for every epoch.
@@ -192,3 +192,24 @@ history = model.fit(
   epochs=num_epochs,
   callbacks=tensorboard_callback
 )
+# ^--------------------------------------------------------------------------------------
+# Obtain the ordered list of class names from the model predictions:
+predicted_batch = model.predict(image_batch) #here we just use the trained model to make predictions on the image_batch.
+
+predicted_id = tf.math.argmax(predicted_batch, axis=-1) # function looks through the model's predictions for each image 
+#and picks the class with the highest score (the one the model thinks is most likely).
+
+predicted_label_batch = class_names[predicted_id] #here we convert the predicted_id (the index of the predicted class) into the corresponding class name
+#in human readable form.
+
+print(predicted_label_batch)
+
+#so essentially, the model predicts probabilties for each class within the image batch. Then highest probability for each image is selected as predicted class.
+#indices of the predicted classes are mapped to the corresponding class names, and then we print them.
+
+# ^--------------------------------------------------------------------------------------
+
+#exporting our model now:
+exported_models_folder = os.path.join(models_folder,"exported-models")
+myModel = os.path.join(exported_models_folder,f"exported-models_{datetime.datetime.now().strftime('%Y%m%d-%H%M%S')}.keras")
+model.save(myModel)

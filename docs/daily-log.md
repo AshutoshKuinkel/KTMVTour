@@ -32,3 +32,5 @@ but with lamda, we need to tell the model what kind of input shape its taking by
 - Completed model training:
 ![alt text](./images-for-log/image2.png)
 ![alt text](./images-for-log/image3.png)
+
+-Exported model, now starting to test the model.
