@@ -2,21 +2,23 @@ import tensorflow as tf
 import tensorflow_hub as hub
 import os
 import numpy as np
+import datetime
 
 #~ Comments are all to help me make sure I understand what each part is doing.
 #~Used tensor flow documentation to write out this page,
 #~Link: https://www.tensorflow.org/tutorials/images/transfer_learning_with_hub
 #~Doc for converting my model to tensorflow lite (for on device ml) (NEED FOR LATER!!!): https://ai.google.dev/edge/litert/models/convert
+#~USE EXTENSION Colorful Comments to make it easier to read comments.
 
 #pipleline : sequence of steps involved in preparing and feeding data to your model for training or evaluation,
-#steps in pipeline:
-#1) Data loading (Load images from disk)
-#2) Data preprocessing (images get resized, normalised, etc.)
-#3) Batching (split into bacthes instead of throwing all data to model @ once)
-#4) Caching (Cache images memory for faster access.)
-#5) Prefetching (Prefetch the next batch while the current one is being used)
-#6) Shuffling(optional) (you can sometimes shuffle the dataset so model doesn’t learn any unintended patterns from the order of the data)
-#7) Data output (feeding the batches to model for training)
+#?steps in pipeline:
+#?1) Data loading (Load images from disk)
+#?2) Data preprocessing (images get resized, normalised, etc.)
+#?3) Batching (split into bacthes instead of throwing all data to model @ once)
+#?4) Caching (Cache images memory for faster access.)
+#?5) Prefetching (Prefetch the next batch while the current one is being used)
+#?6) Shuffling(optional) (you can sometimes shuffle the dataset so model doesn’t learn any unintended patterns from the order of the data)
+#?7) Data output (feeding the batches to model for training)
 
 #btw epoch is just one loop/pass around the dataset, it's the # of times ur model will learn from your data in training set.
 #more epochs make ur model more accurate up to a point, if you go past that point it'll just make accuracy worse, especially on
@@ -41,23 +43,23 @@ batch_size = 16
 img_height = 224
 img_width = 224
 
-#?importing our dataset here in this model using our image data from our landmarks using
-#?tf.keras.utils.image_dataset_from_directory, which will generate a tf.data.Dataset for training.
-#?train_ds is the data model learns from & val_ds is held-out data to evaluate the model’s performance during training.
+#importing our dataset here in this model using our image data from our landmarks using
+#tf.keras.utils.image_dataset_from_directory, which will generate a tf.data.Dataset for training.
+#train_ds is the data model learns from & val_ds is held-out data to evaluate the model’s performance during training.
 
 train_ds = tf.keras.utils.image_dataset_from_directory(
-  str(dataset_dir), #?path to our dataset folder
-  validation_split=0.2, #?Reserve 20% of data for validation
-  subset="training", #?Makes sure we are using training split
-  seed=123, #?Ensures same shuffle every run
-  image_size=(img_height,img_width), #?Resizing all pics
-  batch_size=batch_size #?16 images per batch to take it easy on the computer
+  str(dataset_dir), #path to our dataset folder
+  validation_split=0.2, #Reserve 20% of data for validation
+  subset="training", #Makes sure we are using training split
+  seed=123, #Ensures same shuffle every run
+  image_size=(img_height,img_width), #Resizing all pics
+  batch_size=batch_size #16 images per batch to take it easy on the computer
 )
 
 val_ds = tf.keras.utils.image_dataset_from_directory(
   str(dataset_dir), 
   validation_split=0.2, 
-  subset="validation", #?Makes sure we are using validation split
+  subset="validation", #Makes sure we are using validation split
   seed=123,
   image_size=(img_height,img_width),
   batch_size=batch_size
@@ -156,3 +158,37 @@ model = tf.keras.Sequential([
 
 #using this to visualise our model:
 model.summary()
+
+# ^--------------------------------------------------------------------------------------
+#configuring the model for training using model.compile:
+model.compile(
+  optimizer=tf.keras.optimizers.Adam(), #optimisers job is to make sure model's weights are updated during tranining. Adam is a good choice.
+
+  loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True), #loss function measures how well model's predictions match the true labels.
+  #SparseCategoricalCrossentropy is used when dealing w multi-class classification problems (like classifying images into one of several categories).
+
+  metrics=['acc']) #we need the metric evaluated during training & testing to be accuracy here so model will report its classification accuracy as a performance measure.
+
+#if we want we can also add a tf.keras.callbacks.TensorBoard callback to create and store logs like this:
+#making sure our logs is in our ml-model/models folder:
+log_folder = (os.path.dirname(os.path.abspath(__file__)))
+log_dir = os.path.join(log_folder, "logs")  # Log files will be saved in "logs" folder
+tensorboard_callback = tf.keras.callbacks.TensorBoard(
+    log_dir=log_dir,
+    histogram_freq=1) # Enable histogram computation for every epoch.
+#tensorboard helps us by providing visualisations to help understand training process, diagnose problems & optimise the model.
+#w tensorboard u can visualise loss/accuracy, monitor training progress by tracking metrics like loss/accruacy etc.
+#run this to see tensorboard: tensorboard --logdir=ml-model/models/logs
+
+# ^--------------------------------------------------------------------------------------
+#alright, now we actually train the model using model.fit
+
+#specifying epochs to 10 for now, test 10 first and then change depending upon accuracy later.
+num_epochs = 10
+
+history = model.fit(
+  train_ds,
+  validation_data=val_ds,
+  epochs=num_epochs,
+  callbacks=tensorboard_callback
+)
