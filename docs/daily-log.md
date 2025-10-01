@@ -20,10 +20,8 @@
   raise ValueError(
   ValueError: Only instances of `keras.Layer` can be added to a Sequential model. Received: <tensorflow_hub.keras_layer.KerasLayer object at 0x000001E2F98C0F10> (of type <class 'tensorflow_hub.keras_layer. KerasLayer'>)
 
-- Originally this was my code:
-![alt text](./screenshots-for-log/image-1.png)
+- I wrote about how I solved it here on github:
+![alt text](image.png)
 
-- Here's how i solved it (it's commented on github aswell):
-![alt text](./screenshots-for-log/image.png)
 - Btw the lambda layer wraps a function and does not declare its input shape. Previously our hub.KerasLayer declared the input shape, so TensorFlow could build model right away. 
 but with lamda, we need to tell the model what kind of input shape its taking by just declaring it like this: tf.keras.layers.InputLayer(input_shape=(img_height,img_width, 3)), e.g (224,224,3)
