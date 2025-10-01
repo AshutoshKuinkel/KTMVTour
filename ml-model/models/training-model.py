@@ -147,7 +147,8 @@ num_classes = len(class_names)
 # Each layer processes the output from the previous layer and passes its own output to the next layer:
 
 model = tf.keras.Sequential([
-  feature_extractor_layer, #we take our data (images) and extract userful features from them using model mobilenet that processes the input and learns patterns
+  tf.keras.layers.InputLayer(input_shape=(img_height,img_width, 3)),
+  tf.keras.layers.Lambda(lambda x: feature_extractor_layer(x)), 
   tf.keras.layers.Dense(num_classes)
   # Dense Layer: The output layer where the classification happens. It will output num_classes predictions.
   # Each neuron corresponds to a class (e.g num_class = 3 then 3 neurons), and the one with the highest output is the model's final prediction.
