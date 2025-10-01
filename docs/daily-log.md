@@ -34,3 +34,28 @@ but with lamda, we need to tell the model what kind of input shape its taking by
 ![alt text](./images-for-log/image3.png)
 
 -Exported model, now starting to test the model.
+
+-when testing the model it turns out that since i used lambda to resolve the sequential access problem i have to import the mnodel using safe_mode=false.
+- That's fine, I did that, but then boom run into another error saying:
+
+```bash
+Traceback (most recent call last):
+  File "c:\Users\ashut\Desktop\KTMVTour\ml-model\models\testing-model.py", line 26, in <module>
+    predictions = myModel.predict(img)
+                  ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ashut\Desktop\KTMVTour\ml-model\venv\Lib\site-packages\keras\src\utils\traceback_utils.py", line 122, in error_handler
+    raise e.with_traceback(filtered_tb) from None
+  File "c:/Users/ashut/Desktop/KTMVTour/ml-model/models/training-model.py", line 153, in <lambda>
+    # Keras Sequential API is a way to build your neural network by lining up layers in order, like a stack of Lego blocks.
+                                       ^^^^^^^^^^^^^^^^^^^^^^^
+NameError: Exception encountered when calling Lambda.call().
+
+name 'feature_extractor_layer' is not defined
+
+Arguments received by Lambda.call():
+  • inputs=tf.Tensor(shape=(1, 224, 224, 3), dtype=float32)
+  • mask=None
+  • training=False
+```
+
+-now im trying to remove the lambda and get it working again.
