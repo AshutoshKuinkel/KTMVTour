@@ -59,3 +59,15 @@ Arguments received by Lambda.call():
 ```
 
 -now im trying to remove the lambda and get it working again.
+- RAHH Finally solved error using this peice:
+```bash
+version_fn = getattr(tf.keras, "version", None)
+if version_fn and version_fn().startswith("3."):
+  import tf_keras as keras
+else:
+  keras = tf.keras
+```
+
+- I did see this before & try it but I didn't change all my tf.keras imports to keras thats why it wasn't working. 
+- I loaded up a simple test script from grok as a sample & it worked:
+![alt text](./images-for-log/image4.png)
