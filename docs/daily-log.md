@@ -10,6 +10,7 @@
 - Continued working through traning-model.py transfer learning
 - currently getting typeerror problem:
 
+```bash
   Traceback (most recent call last):
   File "c:\Users\ashut\Desktop\KTMVTour\ml-model\models\training-model.py", line 149, in <module>
   model = tf.keras.Sequential([
@@ -19,8 +20,9 @@
   File "C:\Users\ashut\Desktop\KTMVTour\ml-model\venv\Lib\site-packages\keras\src\models\sequential.py", line 97, in add
   raise ValueError(
   ValueError: Only instances of `keras.Layer` can be added to a Sequential model. Received: <tensorflow_hub.keras_layer.KerasLayer object at 0x000001E2F98C0F10> (of type <class 'tensorflow_hub.keras_layer. KerasLayer'>)
+```
 
-- I wrote about how I solved it here on github:
+- I wrote about how I solved it here on github (https://github.com/tensorflow/tensorflow/issues/63849#issuecomment-2002501172):
 ![alt text](image.png)
 
 - Btw the lambda layer wraps a function and does not declare its input shape. Previously our hub.KerasLayer declared the input shape, so TensorFlow could build model right away. 
