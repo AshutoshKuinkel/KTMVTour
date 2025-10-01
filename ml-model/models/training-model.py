@@ -3,6 +3,11 @@ import tensorflow_hub as hub
 import os
 import numpy as np
 import datetime
+version_fn = getattr(tf.keras, "version", None)
+if version_fn and version_fn().startswith("3."):
+  import tf_keras as keras
+else:
+  keras = tf.keras
 
 #~ Comments are all to help me make sure I understand what each part is doing.
 #~Used tensor flow documentation to write out this page,
@@ -47,7 +52,7 @@ img_width = 224
 #tf.keras.utils.image_dataset_from_directory, which will generate a tf.data.Dataset for training.
 #train_ds is the data model learns from & val_ds is held-out data to evaluate the model’s performance during training.
 
-train_ds = tf.keras.utils.image_dataset_from_directory(
+train_ds = keras.utils.image_dataset_from_directory(
   str(dataset_dir), #path to our dataset folder
   validation_split=0.2, #Reserve 20% of data for validation
   subset="training", #Makes sure we are using training split
@@ -56,7 +61,7 @@ train_ds = tf.keras.utils.image_dataset_from_directory(
   batch_size=batch_size #16 images per batch to take it easy on the computer
 )
 
-val_ds = tf.keras.utils.image_dataset_from_directory(
+val_ds = keras.utils.image_dataset_from_directory(
   str(dataset_dir), 
   validation_split=0.2, 
   subset="validation", #Makes sure we are using validation split
@@ -90,7 +95,7 @@ class_names = np.array(train_ds.class_names)
 # So normalising helps model perform better/efficient because neural networks work better
 # w consistent scale of inputs e.g [0,1].
 # use the tf.keras.layers.Rescaling preprocessing layer to achieve this:
-normalisation_layer = tf.keras.layers.Rescaling(1./255)
+normalisation_layer = keras.layers.Rescaling(1./255)
 train_ds = train_ds.map(lambda x,y: (normalisation_layer(x),y))
 val_ds = val_ds.map(lambda x,y: (normalisation_layer(x),y))
 
@@ -148,9 +153,9 @@ num_classes = len(class_names)
 # Keras Sequential API is a way to build your neural network by lining up layers in order, like a stack of Lego blocks.
 # Each layer processes the output from the previous layer and passes its own output to the next layer:
 
-model = tf.keras.Sequential([
+model = keras.Sequential([
   feature_extractor_layer,
-  tf.keras.layers.Dense(num_classes)
+  keras.layers.Dense(num_classes)
   # Dense Layer: The output layer where the classification happens. It will output num_classes predictions.
   # Each neuron corresponds to a class (e.g num_class = 3 then 3 neurons), and the one with the highest output is the model's final prediction.
 ])
@@ -161,9 +166,9 @@ model = tf.keras.Sequential([
 # ^--------------------------------------------------------------------------------------
 #configuring the model for training using model.compile:
 model.compile(
-  optimizer=tf.keras.optimizers.Adam(), #optimisers job is to make sure model's weights are updated during tranining. Adam is a good choice.
+  optimizer=keras.optimizers.Adam(), #optimisers job is to make sure model's weights are updated during tranining. Adam is a good choice.
 
-  loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True), #loss function measures how well model's predictions match the true labels.
+  loss=keras.losses.SparseCategoricalCrossentropy(from_logits=True), #loss function measures how well model's predictions match the true labels.
   #SparseCategoricalCrossentropy is used when dealing w multi-class classification problems (like classifying images into one of several categories).
 
   metrics=['acc']) #we need the metric evaluated during training & testing to be accuracy here so model will report its classification accuracy as a performance measure.
@@ -172,7 +177,7 @@ model.compile(
 #making sure our logs is in our ml-model/models folder:
 models_folder = (os.path.dirname(os.path.abspath(__file__)))
 log_dir = os.path.join(models_folder, f"logs_{datetime.datetime.now().strftime('%Y%m%d-%H%M%S')}")  # Log files will be saved in "logs" folder
-tensorboard_callback = tf.keras.callbacks.TensorBoard(
+tensorboard_callback = keras.callbacks.TensorBoard(
     log_dir=log_dir,
     histogram_freq=1) # Enable histogram computation for every epoch.
 #tensorboard helps us by providing visualisations to help understand training process, diagnose problems & optimise the model.
