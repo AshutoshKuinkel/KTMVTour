@@ -27,3 +27,8 @@
 
 - Btw the lambda layer wraps a function and does not declare its input shape. Previously our hub.KerasLayer declared the input shape, so TensorFlow could build model right away. 
 but with lamda, we need to tell the model what kind of input shape its taking by just declaring it like this: tf.keras.layers.InputLayer(input_shape=(img_height,img_width, 3)), e.g (224,224,3)
+
+
+- Completed model training:
+![alt text](./images-for-log/image2.png)
+![alt text](./images-for-log/image3.png)
