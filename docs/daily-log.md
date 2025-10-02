@@ -80,3 +80,4 @@ else:
 ## 1 Oct 25
 
 - got to 200 images for boudha-stupa for now
+- removed ICrawler scripts + photos
