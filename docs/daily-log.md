@@ -76,3 +76,7 @@ else:
 - I need to get the accuracy on this thing up.  faaaaking hell yeah i gotta get like 700 images each for 2 landmarks & they have to be realistic.
 - Ok im only doing this project for 2 landmarks boudha-stupa & dharahara, and i need to add a class called no-landmark & add maybe like 2k images 
 - of just random shit so model can differentiate between landmark and other bullshit.
+
+## 1 Oct 25
+
+- got to 200 images for boudha-stupa for now
