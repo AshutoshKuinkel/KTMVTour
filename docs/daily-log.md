@@ -81,3 +81,11 @@ else:
 
 - got to 200 images for boudha-stupa for now
 - removed ICrawler scripts + photos
+
+## 2 Oct 25
+
+- Spent the day grabbing some more photos of landmark.
+
+## 3 Oct 25
+
+- for now the plan is to get some more photos. Maybe if I can get 400 photos by end of today & then use data augmentation.
