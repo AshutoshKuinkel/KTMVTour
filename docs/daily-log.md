@@ -89,3 +89,4 @@ else:
 ## 3 Oct 25
 
 - for now the plan is to get some more photos. Maybe if I can get 400 photos by end of today & then use data augmentation.
+- maybe start on the frontend aswell?
