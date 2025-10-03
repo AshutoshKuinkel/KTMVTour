@@ -90,3 +90,9 @@ else:
 
 - for now the plan is to get some more photos. Maybe if I can get 400 photos by end of today & then use data augmentation.
 - maybe start on the frontend aswell?
+- creating home page layout/design using figma.
+- Initialised expo project
+
+## 4 Oct 25
+
+-plan for today is to continue grabbing images for dataset & also get some sections of the frontend styling on app complete.
