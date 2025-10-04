@@ -3,8 +3,8 @@ import React from 'react'
 
 const community = () => {
   return (
-    <View>
-      <Text>community</Text>
+    <View className='flex-1 items-center pt-8 bg-black'>
+      <Text className='text-4xl font-bold text-white mt-14'>community</Text>
     </View>
   )
 }
