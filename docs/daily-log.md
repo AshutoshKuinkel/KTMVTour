@@ -96,3 +96,4 @@ else:
 ## 4 Oct 25
 
 -plan for today is to continue grabbing images for dataset & also get some sections of the frontend styling on app complete.
+- Following along with this tutorial to get an idea of how native works + some tips: https://www.youtube.com/watch?v=f8Z9JyB2EIE
