@@ -9,7 +9,7 @@ const layout = () => {
         tabBarStyle: {
           backgroundColor: "#1C1C1E",
           borderColor: "#3A3A3C",
-          paddingTop: 5,
+          paddingTop: 7,
         },
         tabBarLabelStyle: {
           fontSize: 13,
