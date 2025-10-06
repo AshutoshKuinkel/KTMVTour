@@ -101,3 +101,12 @@ else:
 ## 5 Oct 25
 
 - continued grabbing some more images + working on site home
+
+
+## 6 Oct 25
+
+- I didn't even grab any images today, I basically got 500 for first landmark, may just use data augmentation to make total like 800.
+- Spent some time doing my other assignment today + been learning dsa + git workflows + aws these past couple of days.
+- regardless, the frontend styling for home page isn't even gonna take long so it's fine. I may also just start on the backend on node aswell soon.
+- after i finish training my model & importing the AR part, project is just about making use of location APIs, from there it's just basic crud APIs.
+- not much significant errors encountered so far on react native, guess it's basically same as react tho that's why. Just syntax confusion.
