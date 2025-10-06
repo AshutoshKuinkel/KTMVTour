@@ -1,5 +1,5 @@
-import { Text, View } from "react-native";
-import { Navigation } from 'lucide-react-native'
+import { Text, View, Button } from "react-native";
+import { Navigation,MapPin } from 'lucide-react-native'
 
 export default function Index() {
   return (
@@ -29,12 +29,18 @@ export default function Index() {
           </View>
 
           {/* Text */}
-          <View className="mt-5">
+          <View className="mt-4">
             <Text className="text-secondary text-md text-center max-w-[80vw] font-semibold">Discover the closest historical and cultural sites around you</Text>
           </View>
 
           {/* Find nearby landmarks button */}
-          
+          <View className="mt-4 w-[80vw] pb-7">
+            <View className="flex-row items-center bg-button justify-center rounded-lg py-1 hover:cursor-pointer gap-3">
+              <MapPin size={20} color={'white'}/>
+              <Text className="text-white text-lg font-semibold">Find Nearby Landmarks</Text>
+            </View>
+            
+          </View>
         </View>
       </View>
     </View>
