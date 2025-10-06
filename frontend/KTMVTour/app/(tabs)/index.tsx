@@ -34,8 +34,8 @@ export default function Index() {
           </View>
 
           {/* Find nearby landmarks button */}
-          <View className="mt-4 w-[80vw] pb-7">
-            <View className="flex-row items-center bg-button justify-center rounded-lg py-1 hover:cursor-pointer gap-3">
+          <View className="mt-6 w-[80vw] pb-7">
+            <View className="flex-row items-center bg-button justify-center rounded-lg py-3 hover:cursor-pointer gap-3">
               <MapPin size={20} color={'white'}/>
               <Text className="text-white text-lg font-semibold">Find Nearby Landmarks</Text>
             </View>
