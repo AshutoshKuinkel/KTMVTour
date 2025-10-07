@@ -23,19 +23,19 @@
 ```
 
 - I wrote about how I solved it here on github (https://github.com/tensorflow/tensorflow/issues/63849#issuecomment-3354405639):
-![alt text](./images-for-log/image.png)
+  ![alt text](./images-for-log/image.png)
 
-- Btw the lambda layer wraps a function and does not declare its input shape. Previously our hub.KerasLayer declared the input shape, so TensorFlow could build model right away. 
-but with lamda, we need to tell the model what kind of input shape its taking by just declaring it like this: tf.keras.layers.InputLayer(input_shape=(img_height,img_width, 3)), e.g (224,224,3)
-
+- Btw the lambda layer wraps a function and does not declare its input shape. Previously our hub.KerasLayer declared the input shape, so TensorFlow could build model right away.
+  but with lamda, we need to tell the model what kind of input shape its taking by just declaring it like this: tf.keras.layers.InputLayer(input_shape=(img_height,img_width, 3)), e.g (224,224,3)
 
 - Completed model training:
-![alt text](./images-for-log/image2.png)
-![alt text](./images-for-log/image3.png)
+  ![alt text](./images-for-log/image2.png)
+  ![alt text](./images-for-log/image3.png)
 
 -Exported model, now starting to test the model.
 
 -when testing the model it turns out that since i used lambda to resolve the sequential access problem i have to import the mnodel using safe_mode=false.
+
 - That's fine, I did that, but then boom run into another error saying:
 
 ```bash
@@ -59,7 +59,9 @@ Arguments received by Lambda.call():
 ```
 
 -now im trying to remove the lambda and get it working again.
+
 - RAHH Finally solved error using this peice:
+
 ```bash
 version_fn = getattr(tf.keras, "version", None)
 if version_fn and version_fn().startswith("3."):
@@ -68,13 +70,13 @@ else:
   keras = tf.keras
 ```
 
-- I did see this before & try it but I didn't change all my tf.keras imports to keras thats why it wasn't working. 
+- I did see this before & try it but I didn't change all my tf.keras imports to keras thats why it wasn't working.
 - I loaded up a simple test script from grok as a sample & it worked:
-![alt text](./images-for-log/image4.png)
+  ![alt text](./images-for-log/image4.png)
 
 - Ok right, damn when doing testing even if I put a pic of my face it's still guessing between the two landmarks, boudha-stupa & dharahara.
-- I need to get the accuracy on this thing up.  faaaaking hell yeah i gotta get like 700 images each for 2 landmarks & they have to be realistic.
-- Ok im only doing this project for 2 landmarks boudha-stupa & dharahara, and i need to add a class called no-landmark & add maybe like 2k images 
+- I need to get the accuracy on this thing up. faaaaking hell yeah i gotta get like 700 images each for 2 landmarks & they have to be realistic.
+- Ok im only doing this project for 2 landmarks boudha-stupa & dharahara, and i need to add a class called no-landmark & add maybe like 2k images
 - of just random shit so model can differentiate between landmark and other bullshit.
 
 ## 1 Oct 25
@@ -102,7 +104,6 @@ else:
 
 - continued grabbing some more images + working on site home
 
-
 ## 6 Oct 25
 
 - I didn't even grab any images today, I basically got 500 for first landmark, may just use data augmentation to make total like 800.
@@ -116,3 +117,45 @@ else:
 - Filtered out useless images from second landmark folder
 - Plan for today is to grab images of second landmark & get some frontend done + setup backend folders.
 - I'll also dive into what db I should use, mongo should do but lets see.
+
+- Ok i ran into sort of a positioning issue, I was trying to use absolute positioning like this on my icon:
+
+```TypeScript
+          <MapPin
+            size={24}
+            color={"#8B5CF6"}
+            className="absolute top-[20%] left-[10%] animate-pulse"
+          />
+          <MapPin
+            size={24}
+            color={"#8B5CF6"}
+            className="absolute bottom-[10%] left-[15%] animate-pulse"
+          />
+          <MapPin
+            size={24}
+            color={"#8B5CF6"}
+            className="absolute top-[10%] right-[10%] animate-pulse"
+          />
+```
+
+instead needded to do it like this:
+
+```TypeScript
+          <View className="flex flex-col items-center justify-center">
+            <Map size={60} color={"#8B5CF6"}/>
+            <Text className="text-secondary animate-pulse">
+              Interactive map loading...
+            </Text>
+          </View>
+          <View className="absolute top-12 left-12 animate-pulse">
+            <MapPin size={24} color={"#8B5CF6"} />
+          </View>
+          <View className="absolute bottom-12 left-8 animate-pulse">
+            <MapPin size={24} color={"#8B5CF6"} />
+          </View>
+          <View className="absolute top-8 right-8 animate-pulse">
+            <MapPin size={24} color={"#8B5CF6"} />
+          </View>
+```
+- didn't get any images of second landmark today, and just completed half the card.
+- need to speed this up. Gotta get a lot more done tomorrow. Only 1 leetcode tomorrow morning & just focus on dataset + frontend.
