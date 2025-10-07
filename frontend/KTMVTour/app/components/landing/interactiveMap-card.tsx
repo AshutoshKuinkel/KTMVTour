@@ -13,7 +13,7 @@ const InteractiveMapCard = () => {
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 0 }}
       >
-        <View className="flex items-center justify-center h-[230px] w-full ">
+        <View className="flex items-center justify-center h-[230px] w-full">
           <View className="flex flex-col items-center justify-center">
             <Map size={60} color={"#8B5CF6"}/>
             <Text className="text-secondary animate-pulse">
