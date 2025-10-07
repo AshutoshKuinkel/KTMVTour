@@ -110,3 +110,9 @@ else:
 - regardless, the frontend styling for home page isn't even gonna take long so it's fine. I may also just start on the backend on node aswell soon.
 - after i finish training my model & importing the AR part, project is just about making use of location APIs, from there it's just basic crud APIs.
 - not much significant errors encountered so far on react native, guess it's basically same as react tho that's why. Just syntax confusion.
+
+## 7 Oct 25
+
+- Filtered out useless images from second landmark folder
+- Plan for today is to grab images of second landmark & get some frontend done + setup backend folders.
+- I'll also dive into what db I should use, mongo should do but lets see.
