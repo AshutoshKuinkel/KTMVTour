@@ -1,3 +1,4 @@
+#how this should work is that if user is not within 1km radius of landmark it should automatically say no landmark detected.
 import tensorflow as tf
 import tensorflow_hub as hub
 import os
