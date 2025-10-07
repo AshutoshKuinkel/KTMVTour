@@ -72,6 +72,7 @@ else:
 
 - I did see this before & try it but I didn't change all my tf.keras imports to keras thats why it wasn't working.
 - I loaded up a simple test script from grok as a sample & it worked:
+
   ![alt text](./images-for-log/image4.png)
 
 - Ok right, damn when doing testing even if I put a pic of my face it's still guessing between the two landmarks, boudha-stupa & dharahara.
