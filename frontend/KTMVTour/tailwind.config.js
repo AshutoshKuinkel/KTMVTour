@@ -11,7 +11,8 @@ module.exports = {
         button: '#8B5CF6',
         card: '#161220',
         secondary:'#9ca3af',
-        post:'#1A1A1A'
+        post:'#1A1A1A',
+        border:'#2d1b69'
       }
     },
   },
