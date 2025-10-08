@@ -4,9 +4,8 @@ import { LinearGradient } from "expo-linear-gradient";
 
 const InteractiveMapCard = () => {
   return (
-    <View className="bg-post w-[90vw] mt-12 rounded-2xl border border-border h-[400px] overflow-hidden">
+    <View className="bg-post w-[90vw] mt-12 rounded-2xl border border-border pb-5 overflow-hidden">
       {/* Image of card for loading state */}
-
       <LinearGradient
         colors={["#1f1f1f", "rgba(45, 27, 105, 0.2)"]}
         className=" w-full bg-gradient-to-br from-[#1f1f1f] to-[#2d1b69]/20 h-[200px]  flex items-center justify-center rounded-t-2xl"
@@ -31,6 +30,41 @@ const InteractiveMapCard = () => {
           </View>
         </View>
       </LinearGradient>
+
+      {/* Listing nearby landmarks with distance */}
+      <View className="mt-6">
+        <Text className="text-white font-semibold pl-4 text-xl">Nearby Landmarks</Text>
+
+        <View className="p-2 mt-2">
+          {/* First landmark */}
+          <View className="flex-row justify-between items-center">
+            <View className="flex flex-row gap-1 items-center">
+              <MapPin size={14} color={'#8B5CF6'}/>
+              <Text className="text-white text-lg">Swayambhunath Temple</Text>
+            </View>
+            <Text className="text-secondary text-lg text-center">2.1km NW</Text>
+          </View>
+
+          {/* Second landmark */}
+          <View className="flex-row justify-between items-center mt-3">
+            <View className="flex flex-row gap-1 items-center">
+              <MapPin size={14} color={'#8B5CF6'}/>
+              <Text className="text-white text-lg">Durbar Square</Text>
+            </View>
+            <Text className="text-secondary text-lg text-center">1.8km S</Text>
+          </View>
+
+          {/* Third landmark */}
+          <View className="flex-row justify-between items-center mt-3">
+            <View className="flex flex-row gap-1 items-center">
+              <MapPin size={14} color={'#8B5CF6'}/>
+              <Text className="text-white text-lg">Boudhanath Stupa</Text>
+            </View>
+            <Text className="text-secondary text-lg text-center">3.5 km NE</Text>
+          </View>
+        </View>
+
+      </View>
     </View>
   );
 };
