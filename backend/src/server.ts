@@ -1,9 +1,16 @@
-// Server.ts file
+//imports:
 import express, {Request,Response} from 'express';
+import 'dotenv/config'
+import { connectDB } from './config/db.config';
 
+// initialisations:
 const app = express()
-const PORT = 8080
+const PORT = process.env.PORT
+const DB_URI = process.env.DB_URI
 
+connectDB(DB_URI!)
+
+// importing routes:
 
 app.get("/",(req:Request,res:Response) => {
   res.status(200).json({
@@ -14,4 +21,7 @@ app.get("/",(req:Request,res:Response) => {
 app.listen(PORT,()=>{
   console.log(`Server: http://localhost:${PORT}`)
 })
+
+// using error handler:
+
 
