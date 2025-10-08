@@ -1,0 +1,30 @@
+import mongoose from "mongoose";
+
+
+const userSchema = new mongoose.Schema({
+  email:{
+    type:String,
+    required:[true,`Email required.`],
+    unique:[true,`Email already registered.`]
+  },
+
+  password:{
+    type:String,
+    required:[true,`Password required.`],
+    min:[8,`Password must be greater than 8 characters.`]
+  },
+
+  username:{
+    type:String,
+    required:[true,`Username required.`],
+    min:[3,`Username must be greater than 3 characters.`],
+    unique:[true,`That Username already exists. Please choose a different one.`]
+  },
+
+  profilePicture:{
+    type:String 
+  }
+})
+
+const User = mongoose.model('User',userSchema)
+export default User

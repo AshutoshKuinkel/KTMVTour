@@ -2,6 +2,7 @@
 import express, {Request,Response} from 'express';
 import 'dotenv/config'
 import { connectDB } from './config/db.config';
+import { errorHandler } from './middlewares/error-handler.middleware';
 
 // initialisations:
 const app = express()
@@ -18,10 +19,17 @@ app.get("/",(req:Request,res:Response) => {
   })
 })
 
+app.get('/{*all}',(req:Request,res:Response)=>{
+  res.status(404).json({
+    message : `Cannot ${req.method} @ ${req.url}`
+  })
+})
+
 app.listen(PORT,()=>{
   console.log(`Server: http://localhost:${PORT}`)
 })
 
 // using error handler:
+app.use(errorHandler)
 
 
