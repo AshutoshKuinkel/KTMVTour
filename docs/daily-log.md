@@ -160,3 +160,12 @@ instead needded to do it like this:
 ```
 - didn't get any images of second landmark today, and just completed half the card.
 - need to speed this up. Gotta get a lot more done tomorrow. Only 1 leetcode tomorrow morning & just focus on dataset + frontend.
+
+
+## 8 OCT 25
+
+- Got Database setup on mongo, gathered only like 20 no landmark images.
+- look into anomaly detection tomorrow, somehow maybe I can avoid having to fetch 2k images. Link for a video: https://www.youtube.com/watch?v=2K3ScZp1dXQ
+- backend is ready to go now, initial files setup controllers ready to be made.
+- spent a while on devinterview.io today skimming through 10 js & 10 ts questions. I'll aim to do 10 a day if I can..
+- also got more of the frontend home page styling setup aswell
