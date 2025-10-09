@@ -12,7 +12,7 @@ export default function Index() {
       decelerationRate="fast"
       scrollEventThrottle={16}
     >
-      <View className="flex-1 items-center pt-10 bg-black min-h-screen">
+      <View className="flex-1 items-center pt-10 pb-12 bg-black min-h-screen">
         {/* Page heading */}
         <Heading />
 

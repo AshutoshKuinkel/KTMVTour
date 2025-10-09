@@ -1,10 +1,13 @@
-import { View, Text } from 'react-native'
+import { View, Text,Image, Dimensions } from 'react-native'
 import { User } from 'lucide-react-native'
 
 
+
 const FeaturedPosts = () => {
+  const Photo1 = '../../../assets/sample-images/photo1.jpeg'
+  
   return (
-    <View className='mt-12'>
+    <View className=''>
       {/* Heading + subheading */}
       <View className='flex flex-col pl-4 gap-2'>
         <Text className='text-white text-[1.7rem] font-semibold'>Check out what's hot today 🔥</Text>
@@ -27,11 +30,14 @@ const FeaturedPosts = () => {
           </View>
 
           {/* Post image section */}
-          <View className='border-b border-b-border h-[55%]'>
-            
+          <View className='mt-2 items-center h-[60%]'>
+            <Image source={require(Photo1)} className='w-full h-full' resizeMode='cover'/>
           </View>
 
           {/*  */}
+          <View className=' h-[200px] mt-3 rounded-b-2xl'>
+
+          </View>
         </View>
       </View>
 
