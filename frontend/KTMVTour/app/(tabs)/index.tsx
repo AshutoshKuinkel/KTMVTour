@@ -23,7 +23,7 @@ export default function Index() {
         <InteractiveMapCard />
       </View>
 
-      <View className="flex-1 bg-black min-h-screen">
+      <View className="flex-1 bg-black pb-8">
         {/* Check what's hot today posts */}
         <FeaturedPosts />
       </View>
