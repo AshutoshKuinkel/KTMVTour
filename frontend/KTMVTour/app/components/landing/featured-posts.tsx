@@ -1,5 +1,6 @@
 import { View, Text } from 'react-native'
-import React from 'react'
+import { User } from 'lucide-react-native'
+
 
 const FeaturedPosts = () => {
   return (
@@ -15,13 +16,19 @@ const FeaturedPosts = () => {
         {/* Post card 1  */}
         <View className="bg-post w-[90vw] mt-6 rounded-2xl border border-border pb-5 overflow-hidden h-[500px]">
           {/* Top section with username + pfp*/}
-          <View className='bg-card w-full h-[15%] border border-b-border'>
-
+          <View className=' w-full h-[15%] border-b border-b-border flex-row items-center gap-4 pl-4'>
+            <View className='bg-third rounded-full p-2'>
+              <User size={30} color={'white'}/>
+            </View>
+            <View className='flex flex-col gap-1'>
+              <Text className='text-white text-lg'>@sarah_explores</Text>
+              <Text className='text-secondary'>Swayambhunath Temple</Text>
+            </View>
           </View>
 
           {/* Post image section */}
-          <View className='border border-b-border h-[55%]'>
-
+          <View className='border-b border-b-border h-[55%]'>
+            
           </View>
 
           {/*  */}
