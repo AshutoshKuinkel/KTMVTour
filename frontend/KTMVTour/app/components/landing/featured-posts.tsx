@@ -1,11 +1,11 @@
 import { View, Text,Image, Dimensions } from 'react-native'
-import { User } from 'lucide-react-native'
+import { User,Heart,MessageCircleMore,Forward } from 'lucide-react-native'
 
 
 
 const FeaturedPosts = () => {
   const Photo1 = '../../../assets/sample-images/photo1.jpeg'
-  
+
   return (
     <View className=''>
       {/* Heading + subheading */}
@@ -17,9 +17,9 @@ const FeaturedPosts = () => {
       {/* Post cards */}
       <View className='flex items-center'>
         {/* Post card 1  */}
-        <View className="bg-post w-[90vw] mt-6 rounded-2xl border border-border pb-5 overflow-hidden h-[500px]">
+        <View className="bg-post w-[90vw] mt-6 rounded-2xl border border-border overflow-hidden">
           {/* Top section with username + pfp*/}
-          <View className=' w-full h-[15%] border-b border-b-border flex-row items-center gap-4 pl-4'>
+          <View className=' w-full h-[12%] border-b border-b-border flex-row items-center gap-4 pl-4'>
             <View className='bg-third rounded-full p-2'>
               <User size={30} color={'white'}/>
             </View>
@@ -30,13 +30,39 @@ const FeaturedPosts = () => {
           </View>
 
           {/* Post image section */}
-          <View className='mt-2 items-center h-[60%]'>
-            <Image source={require(Photo1)} className='w-full h-full' resizeMode='cover'/>
+          <View className='items-center h-[65%]'>
+            <Image source={require(Photo1)} className='w-full h-full object-cover' resizeMode='cover'/>
           </View>
 
-          {/*  */}
-          <View className=' h-[200px] mt-3 rounded-b-2xl'>
+          {/* comments + post section */}
+          <View className=' mt-3 rounded-b-2xl'>
 
+            {/* Like + comment section */}
+            <View className='flex flex-row gap-3 items-start pl-4'>
+              {/* Like button + text */}
+              <View className='flex flex-row gap-2 items-center'>
+                <Heart color={'#fff'}/>
+                <Text className='text-white'>324</Text>
+              </View>
+
+              {/* Comment section + text */}
+              <View className='flex flex-row gap-2 items-center'>
+                <MessageCircleMore color={'#fff'}/>
+                <Text className='text-white'>42</Text>
+              </View>
+
+              {/* Forward section + text */}
+              <View className='flex flex-row gap-2 items-center'>
+                <Forward color={'#fff'}/>
+                <Text className='text-white'>6</Text>
+              </View>
+            </View>
+          </View>
+
+          {/* Caption section */}
+          <View className='pl-4 mt-4'>
+            <Text className='text-white line-clamp-3'><Text className='font-bold'>@sarah_explores</Text> Amazing sunrise at the Monkey Temple! 🐒✨</Text>
+            <Text className='mt-2 text-secondary'>2hrs ago</Text>
           </View>
         </View>
       </View>
