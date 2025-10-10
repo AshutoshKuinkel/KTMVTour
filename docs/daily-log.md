@@ -169,3 +169,15 @@ instead needded to do it like this:
 - backend is ready to go now, initial files setup controllers ready to be made.
 - spent a while on devinterview.io today skimming through 10 js & 10 ts questions. I'll aim to do 10 a day if I can..
 - also got more of the frontend home page styling setup aswell
+
+## 9 OCT 25
+
+- Did the posts section. Had a bit of trouble with overflowing issue because of one h-screen element on parent View tag.
+- No images collected.
+
+## 10 OCT 25
+
+- Created the share your experience card styling.
+- Grabbed 100 images. Plan from today is to grab 100 images everyday & then in 20 days i'll be done grabbing 2k images for no landmark class.
+- Shoudln't be hard to get 100 images of random things a day.
+- Also set up a very basic register function with no password hashing.

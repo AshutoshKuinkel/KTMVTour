@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import CustomError from "../middlewares/error-handler.middleware";
 import User from "../models/user.model";
 //register/signup function:
-const register = async (req: Request, res: Response, next: NextFunction) => {
+export const register = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { email, password, username, profilePicture } = req.body;
 
@@ -16,7 +16,7 @@ const register = async (req: Request, res: Response, next: NextFunction) => {
       throw new CustomError(`Username required`,400)
     }
     
-    const user = await User.create(email,password,username,profilePicture)
+    const user = await User.create({email,password,username,profilePicture})
 
     res.status(201).json({
       message: `User registered`,

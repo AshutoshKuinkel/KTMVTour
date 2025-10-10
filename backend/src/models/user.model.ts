@@ -5,7 +5,7 @@ const userSchema = new mongoose.Schema({
   email:{
     type:String,
     required:[true,`Email required.`],
-    unique:[true,`Email already registered.`]
+    unique:[true,`Email already registered. Log In instead.`]
   },
 
   password:{
