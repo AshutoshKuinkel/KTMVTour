@@ -3,6 +3,7 @@ import Heading from "../components/landing/heading";
 import TakeToLandmark from "../components/landing/take2landmark-card";
 import InteractiveMapCard from "../components/landing/interactiveMap-card";
 import FeaturedPosts from "../components/landing/featured-posts";
+import ShareExperienceCard from "../components/landing/share-experience.card";
 
 export default function Index() {
   return (
@@ -26,6 +27,10 @@ export default function Index() {
       <View className="flex-1 bg-black pb-8">
         {/* Check what's hot today posts */}
         <FeaturedPosts />
+      </View>
+
+      <View className="flex-1 items-center bg-black pb-8">
+        <ShareExperienceCard/>
       </View>
     </ScrollView>
   );
