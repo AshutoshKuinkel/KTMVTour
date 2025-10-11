@@ -193,3 +193,9 @@ instead needded to do it like this:
 app.use(express.json()); //used to parse incoming requests with Content-Type: application/json
 app.use(express.urlencoded({ extended: true })); //used to parse application/x-www-form-urlencoded data
 ```
+
+
+## 12 OCT 25
+
+- got 100 images today of no landmark class
+- setup login function boilerplate
