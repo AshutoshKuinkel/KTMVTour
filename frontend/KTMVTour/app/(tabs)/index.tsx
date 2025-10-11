@@ -34,7 +34,7 @@ export default function Index() {
         {/* Share your experience {post/checkIn} card */}
         <ShareExperienceCard/>
 
-        {/*  */}
+        {/* Category Cards */}
         <CategoryCards/>
       </View>
     </ScrollView>
