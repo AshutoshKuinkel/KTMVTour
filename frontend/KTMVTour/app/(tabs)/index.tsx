@@ -4,6 +4,7 @@ import TakeToLandmark from "../components/landing/take2landmark-card";
 import InteractiveMapCard from "../components/landing/interactiveMap-card";
 import FeaturedPosts from "../components/landing/featured-posts";
 import ShareExperienceCard from "../components/landing/share-experience.card";
+import CategoryCards from "../components/landing/historical&temples.cards";
 
 export default function Index() {
   return (
@@ -32,6 +33,9 @@ export default function Index() {
       <View className="flex-1 items-center bg-black pb-8">
         {/* Share your experience {post/checkIn} card */}
         <ShareExperienceCard/>
+
+        {/*  */}
+        <CategoryCards/>
       </View>
     </ScrollView>
   );
