@@ -40,6 +40,23 @@ export const register = async (req:Request,res:Response,next:NextFunction) => {
 };
 
 // login function:
+export const login = async(req:Request,res:Response,next:NextFunction)=>{
+  try{
+    const {email,password} = req.body
+
+    if(!email){
+      throw new CustomError(`Email required`,400)
+    }
+    if(!password){
+      throw new CustomError(`Password required`,400)
+    }
+
+    // Validate password:
+    
+  }catch(err){
+    next(err)
+  }
+}
 
 // logout function:
 
