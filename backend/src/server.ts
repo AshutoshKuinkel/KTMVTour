@@ -11,7 +11,15 @@ const DB_URI = process.env.DB_URI
 
 connectDB(DB_URI!)
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 // importing routes:
+import authRoutes from './routes/auth.routes'
+
+
+// using routes:
+app.use('/api/auth',authRoutes)
 
 app.get("/",(req:Request,res:Response) => {
   res.status(200).json({

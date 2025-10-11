@@ -13,11 +13,11 @@ class CustomError extends Error{
 
 export const errorHandler = async(err:any,req:Request,res:Response,next:NextFunction)=>{
   
-  const message = err.message || 'Internal Server Error'
-  const statusCode = err.statusCode || 500
+  const message = err?.message || 'Internal Server Error'
+  const statusCode = err?.statusCode || 500
 
   res.status(statusCode).json({
-    message:null,
+    message:message,
     data:null
   })
 
