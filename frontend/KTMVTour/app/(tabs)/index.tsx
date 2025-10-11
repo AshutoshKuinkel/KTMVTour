@@ -30,6 +30,7 @@ export default function Index() {
       </View>
 
       <View className="flex-1 items-center bg-black pb-8">
+        {/* Share your experience {post/checkIn} card */}
         <ShareExperienceCard/>
       </View>
     </ScrollView>
