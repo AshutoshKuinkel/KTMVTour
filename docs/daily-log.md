@@ -181,3 +181,15 @@ instead needded to do it like this:
 - Grabbed 100 images. Plan from today is to grab 100 images everyday & then in 20 days i'll be done grabbing 2k images for no landmark class.
 - Shoudln't be hard to get 100 images of random things a day.
 - Also set up a very basic register function with no password hashing.
+
+
+## 11 OCT 25
+
+- just writing some errors i encountered while doing the backend:
+
+- forgot to use:
+
+```TypeScript
+app.use(express.json()); //used to parse incoming requests with Content-Type: application/json
+app.use(express.urlencoded({ extended: true })); //used to parse application/x-www-form-urlencoded data
+```
