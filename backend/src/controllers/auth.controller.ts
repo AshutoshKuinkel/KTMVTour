@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import CustomError from "../middlewares/error-handler.middleware";
 import User from "../models/user.model";
-import { HashPassword } from "../utils/bcrypt.utils";
+import { checkPassword, HashPassword } from "../utils/bcrypt.utils";
 //register function:
 export const register = async (req:Request,res:Response,next:NextFunction) => {
   try {
@@ -52,6 +52,24 @@ export const login = async(req:Request,res:Response,next:NextFunction)=>{
     }
 
     // Validate password:
+    const user = await User.findOne({email})
+    if(!user){
+      throw new CustomError(`No user registered with that account. Please Sign up instead.`,404)
+    }
+
+    const isPassMatch = await checkPassword(password,user.password)
+
+    if(!isPassMatch){
+      throw new CustomError(`Invalid credentials`,400)
+    }
+
+    const userObject = user.toObject()
+    const {password:pass,...userWithoutPass} = userObject
+
+    res.status(200).json({
+      message:`Logged in`,
+      data:userWithoutPass
+    })
     
   }catch(err){
     next(err)
