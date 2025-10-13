@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import CustomError from "../middlewares/error-handler.middleware";
 import User from "../models/user.model";
+import 'dotenv/config'
 import { checkPassword, HashPassword } from "../utils/bcrypt.utils";
 //register function:
 export const register = async (req:Request,res:Response,next:NextFunction) => {
@@ -66,9 +67,18 @@ export const login = async(req:Request,res:Response,next:NextFunction)=>{
     const userObject = user.toObject()
     const {password:pass,...userWithoutPass} = userObject
 
+    const KTMVTour_token = null
+
+    res.cookie('KTMVTour_token',KTMVTour_token,{
+      httpOnly:false,
+      secure: process.env.NODE_ENV === 'DEVELOPMENT' ? false : true,
+      maxAge: Number(process.env.COOKIE_EXPIRY) * 24 * 60 * 60 * 1000,
+      sameSite:"none"
+    })
+
     res.status(200).json({
       message:`Logged in`,
-      data:userWithoutPass
+      data:userWithoutPass,KTMVTour_token
     })
     
   }catch(err){
