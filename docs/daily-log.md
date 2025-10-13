@@ -204,3 +204,9 @@ app.use(express.urlencoded({ extended: true })); //used to parse application/x-w
 
 - alright im starting off grabbing 100 images for dataset, if I don't do it first thing I'll probably not do it at all.
 - also I need to see if and how we can use cookies for react native.
+- god damn, Im in 2 sticky situations;
+- Firstly, I can't use react native vision camera with the default expo go app, I need to use development builds or EAS build.
+- Secondly, i have somewhat of an idea of what not to do for cookies, but it's still a bit rough man. I may have to send cookies from backend &
+use react-native-cookies library + axios, in frontend if that's even possible.
+- ok i think adding the camera will be one of the last things I do. I'll do it when im transitioning into dev build my expo project.
+- for now i'll just try to deal with the cookie problem.
