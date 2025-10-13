@@ -210,3 +210,29 @@ app.use(express.urlencoded({ extended: true })); //used to parse application/x-w
 use react-native-cookies library + axios, in frontend if that's even possible.
 - ok i think adding the camera will be one of the last things I do. I'll do it when im transitioning into dev build my expo project.
 - for now i'll just try to deal with the cookie problem.
+- alr faak it imma build the login function and try to connect it to frontend using that cookies library. If it doesn't work, it'll be a lesson for next time.
+- completed the backend of login + the 100 dataset images.
+
+
+- ran across this error:
+![alt text](./images-for-log/image6.png)
+
+- I checked how we avoided this in class but it was just avoiding the type like this:
+
+```TypeScript
+const user:any = ...
+```
+
+- It gets rid of the problem, but throws away the point of typescript & type checking.
+- maybe this solution i implemented here is a little better, because we still retain our types for everything else?
+
+```TypeScript
+  const payload:JWTPayload = {
+    _id:user._id as any,
+    email:user.email,
+    username:user.username,
+    profilePicture:user.profilePicture
+  }
+```
+
+- but maybe it doesn't even matter in the end because our JWTPayload is already setting types to string etc.
