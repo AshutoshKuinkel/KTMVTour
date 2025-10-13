@@ -80,7 +80,7 @@ export const login = async(req:Request,res:Response,next:NextFunction)=>{
     const KTMVTour_token = generateAccessToken(payload)
 
     res.cookie('KTMVTour_token',KTMVTour_token,{
-      httpOnly:false,
+      httpOnly:true,
       secure: process.env.NODE_ENV === 'DEVELOPMENT' ? false : true,
       maxAge: Number(process.env.COOKIE_EXPIRY) * 24 * 60 * 60 * 1000,
       sameSite:"none"
