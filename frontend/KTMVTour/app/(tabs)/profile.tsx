@@ -10,7 +10,7 @@ const profile = () => {
           {/* Intro text */}
           <View className='text-center flex items-center gap-2'>
             <Text className='text-white text-4xl font-semibold'><Text className='animate-pulse'>📍</Text>KTMVTour</Text>
-            <Text className='text-secondary text-lg'>Join thousands of travelers exploring Kathmandu</Text>
+            <Text className='text-secondary text-lg mx-6 text-center'>Join thousands of travelers exploring Kathmandu</Text>
           </View>
 
           <LoginForm/>
