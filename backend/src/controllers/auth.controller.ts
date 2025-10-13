@@ -3,6 +3,9 @@ import CustomError from "../middlewares/error-handler.middleware";
 import User from "../models/user.model";
 import 'dotenv/config'
 import { checkPassword, HashPassword } from "../utils/bcrypt.utils";
+import { generateAccessToken } from "../utils/jwt.utils";
+import { JWTPayload } from "../types/global.types";
+import mongoose, { Schema } from "mongoose";
 //register function:
 export const register = async (req:Request,res:Response,next:NextFunction) => {
   try {
@@ -67,7 +70,14 @@ export const login = async(req:Request,res:Response,next:NextFunction)=>{
     const userObject = user.toObject()
     const {password:pass,...userWithoutPass} = userObject
 
-    const KTMVTour_token = null
+    const payload:JWTPayload = {
+      _id:user._id as any,
+      email:user.email,
+      username:user.username,
+      profilePicture:user.profilePicture
+    }
+
+    const KTMVTour_token = generateAccessToken(payload)
 
     res.cookie('KTMVTour_token',KTMVTour_token,{
       httpOnly:false,
