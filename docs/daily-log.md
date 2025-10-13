@@ -236,3 +236,8 @@ const user:any = ...
 ```
 
 - but maybe it doesn't even matter in the end because our JWTPayload is already setting types to string etc.
+
+## 14 OCT 25
+
+- ok what I want to do for my project is make sure I have a frontend styling of auth forms and implement different routes for them, e.g so if user clicks community
+or profile it just redirects them to the login page for now + also get the 100 images dataset. 

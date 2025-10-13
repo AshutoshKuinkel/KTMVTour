@@ -5,7 +5,7 @@ import 'dotenv/config'
 import { checkPassword, HashPassword } from "../utils/bcrypt.utils";
 import { generateAccessToken } from "../utils/jwt.utils";
 import { JWTPayload } from "../types/global.types";
-import mongoose, { Schema } from "mongoose";
+
 //register function:
 export const register = async (req:Request,res:Response,next:NextFunction) => {
   try {
