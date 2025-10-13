@@ -199,3 +199,8 @@ app.use(express.urlencoded({ extended: true })); //used to parse application/x-w
 
 - got 100 images today of no landmark class
 - setup login function boilerplate
+
+## 13 OCT 25
+
+- alright im starting off grabbing 100 images for dataset, if I don't do it first thing I'll probably not do it at all.
+- also I need to see if and how we can use cookies for react native.
