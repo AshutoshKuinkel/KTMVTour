@@ -1,6 +1,5 @@
 import { View, Text, TextInput, Button, Pressable } from "react-native";
 import React from "react";
-import { LinearGradient } from "expo-linear-gradient";
 
 const LoginForm = () => {
   return (
