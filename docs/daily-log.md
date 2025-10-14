@@ -239,7 +239,7 @@ const user:any = ...
 
 ## 14 OCT 25
 
-- ok what I want to do for my project is make sure I have a frontend styling of auth forms and implement different routes for them, e.g so if user clicks community
+- ok what I want to do for my project today is make sure I have a frontend styling of auth forms and implement different routes for them, e.g so if user clicks community
 or profile it just redirects them to the login page for now + also get the 100 images dataset. 
 
 - Ts in stack overflow saved me harrd, had to hide passowrd as it was being input and they dont got type password like react:
@@ -249,3 +249,8 @@ or profile it just redirects them to the login page for now + also get the 100 i
 
 - Big GOAT right here, shoutout my boy (even tho its on RHF RN docs, still helped w the understanding part):
   https://medium.com/@rutikpanchal121/building-a-robust-form-in-react-native-with-react-hook-form-and-zod-for-validation-7583678970c3
+
+- I finished the frontend part with React hook form + yup aswell and now all that's left is just call backend using axios. I'll try doing it with no 
+RN cookies library and try to find a bug/error.
+
+- Can't be bothered doing no more, gotta play some fifa tn, gotta go over one leetcode problem & answer some basic react interview q's then continue tomorrow.
