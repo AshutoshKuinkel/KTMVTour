@@ -244,3 +244,8 @@ or profile it just redirects them to the login page for now + also get the 100 i
 
 - Ts in stack overflow saved me harrd, had to hide passowrd as it was being input and they dont got type password like react:
 ![alt text](./images-for-log/image7.png) 
+
+- finished the 100 images collection
+
+- Big GOAT right here, shoutout my boy (even tho its on RHF RN docs, still helped w the understanding part):
+  https://medium.com/@rutikpanchal121/building-a-robust-form-in-react-native-with-react-hook-form-and-zod-for-validation-7583678970c3
