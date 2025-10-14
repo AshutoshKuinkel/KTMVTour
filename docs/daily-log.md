@@ -243,4 +243,4 @@ const user:any = ...
 or profile it just redirects them to the login page for now + also get the 100 images dataset. 
 
 - Ts in stack overflow saved me harrd, had to hide passowrd as it was being input and they dont got type password like react:
-![alt text](./images-for-log/image7.png)
+![alt text](./images-for-log/image7.png) 
