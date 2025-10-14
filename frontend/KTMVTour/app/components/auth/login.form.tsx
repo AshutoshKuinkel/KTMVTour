@@ -1,9 +1,11 @@
-import { View, Text, TextInput } from "react-native";
+import { View, Text, TextInput, Button, Pressable } from "react-native";
 import React from "react";
+import { LinearGradient } from "expo-linear-gradient";
 
 const LoginForm = () => {
   return (
-    <View className="mt-8 h-[450px] min-w-[90vw] bg-post shadow-2xl border border-border rounded-2xl">
+    
+    <View className="mt-8 pb-10 min-w-[90vw] bg-post shadow-2xl border border-border rounded-2xl">
       <View className=" flex-col mt-8">
         <Text className="text-green-50 text-4xl spacing font-semibold text-center">
           Login
@@ -40,6 +42,21 @@ const LoginForm = () => {
               color: "white",
             }}
           />
+        </View>
+
+        {/* Submit button */}
+        <View className="flex items-center mt-8">
+          <Pressable
+            onPress={null}
+            className="border w-[90%] items-center p-3 rounded-lg bg-button"
+          >
+            <Text className="text-green-50 font-semibold text-lg">Sign In</Text>
+          </Pressable>
+        </View>
+
+        {/* Sign up prompt */}
+        <View className="mt-4 flex items-center">
+          <Text className="text-white">Don't have an account? <Text className="text-button">Sign Up</Text></Text>
         </View>
       </View>
     </View>
