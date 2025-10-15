@@ -254,3 +254,6 @@ or profile it just redirects them to the login page for now + also get the 100 i
 RN cookies library and try to find a bug/error.
 
 - Can't be bothered doing no more, gotta play some fifa tn, gotta go over one leetcode problem & answer some basic react interview q's then continue tomorrow.
+
+## 15 OCT 25
+- starting off by grabbing 100 images for my no landmark class. (grabbed almost 3/4 from my camera roll)
