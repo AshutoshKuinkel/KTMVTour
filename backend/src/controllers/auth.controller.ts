@@ -58,7 +58,7 @@ export const login = async(req:Request,res:Response,next:NextFunction)=>{
     // Validate password:
     const user = await User.findOne({email})
     if(!user){
-      throw new CustomError(`No user registered with that account. Please Sign up instead.`,404)
+      throw new CustomError(`No user found. Please Sign up instead.`,404)
     }
 
     const isPassMatch = await checkPassword(password,user.password)
