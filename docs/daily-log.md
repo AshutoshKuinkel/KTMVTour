@@ -432,3 +432,20 @@ Import stack:
 
 - ahhh I see the problem now, i forgot to add accessible for any ip in mongodb account:
 ![alt text](./images-for-log/image9.png)
+
+- ok that problem is fixed, I can login now finally, but I think process.env.EXPO_PUBLIC_API_BASE_URL isn't returning correct url because when i do axios.post('myurl') it works but not when I do api.post('/auth/login').
+
+- I just added it in extra inside of app.json and then imported the expo constants in the instance file like this:
+```TypeScript
+// using this file to create an instance
+import axios from "axios";
+import Constants from 'expo-constants';
+
+const apiBaseUrl = Constants.expoConfig?.extra?.apiBaseUrl
+const instance = axios.create({
+  baseURL: apiBaseUrl,
+  withCredentials:true
+})
+
+export default instance
+```
