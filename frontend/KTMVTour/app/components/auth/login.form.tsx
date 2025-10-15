@@ -6,7 +6,24 @@ import { loginSchema } from "@/src/schema/auth.schema";
 import { useMutation } from "@tanstack/react-query";
 import { loginAPI } from "@/src/api/auth.api";
 import { ILoginData } from "@/src/types/auth.types";
-import ToastManager,{ Toast } from "toastify-react-native";
+import ToastManager, { Toast } from "toastify-react-native";
+import { CircleAlertIcon,CircleCheck } from "lucide-react-native";
+
+const toastConfig = {
+  success: (props: any) => (
+    <View className="bg-post p-4 rounded-2xl flex-row items-center gap-3">
+      <CircleCheck color={"#8B5CF6"} fontWeight={"bold"} />
+      <Text className="text-white font-bold">{props.text1}</Text>
+    </View>
+  ),
+
+  error: (props: any) => (
+    <View className="bg-post p-4 rounded-2xl flex-row items-center gap-3">
+      <CircleAlertIcon color={"#8B5CF6"} fontWeight={"bold"} />
+      <Text className="text-white font-bold">{props.text1}</Text>
+    </View>
+  ),
+};
 
 const LoginForm = () => {
   const {
@@ -22,18 +39,18 @@ const LoginForm = () => {
     mode: "all",
   });
 
-  const {mutate} = useMutation({
+  const { mutate, isPending } = useMutation({
+    mutationKey: ["login_API"],
     mutationFn: loginAPI,
-    mutationKey:['login_API'],
-    onSuccess:(response)=>{
-      Toast.success(response?.message ?? 'Successfully Logged In','top')
+    onSuccess: (response) => {
+      Toast.success(response?.message ?? "Successfully Logged In", "top");
     },
-    onError: (err)=>{
-      Toast.error(err?.message ?? `Login Failed`,'top')
-    }
-  })
-  const onSubmit = (data:ILoginData) => {
-    mutate(data)
+    onError: (err) => {
+      Toast.error(err?.message ?? `Login Failed`, "top");
+    },
+  });
+  const onSubmit = async (data: ILoginData) => {
+    mutate(data);
   };
 
   return (
@@ -117,11 +134,14 @@ const LoginForm = () => {
         {/* Sign up prompt */}
         <View className="mt-4 flex items-center">
           <Text className="text-white">
-            Don't have an account? <Text className="text-button">Sign Up</Text>
+            Don't have an account?{" "}
+            <Text className="text-button">
+              {isPending ? "Signing in..." : "Sign Up"}
+            </Text>
           </Text>
         </View>
       </View>
-      <ToastManager />
+      <ToastManager config={toastConfig} />
     </View>
   );
 };

@@ -7,6 +7,10 @@ export const loginAPI = async(data:ILoginData)=>{
     const response = await axios.post('http://localhost:8080/api/auth/login',data)
     return response.data
   }catch(err:any){
-    throw err.response.data
+    if (err?.response) {
+      throw err.response.data;
+    } else {
+      throw new Error('Network or Server Error');
+    }
   }
 }
