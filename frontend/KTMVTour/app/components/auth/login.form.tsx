@@ -6,7 +6,7 @@ import { loginSchema } from "@/src/schema/auth.schema";
 import { useMutation } from "@tanstack/react-query";
 import { loginAPI } from "@/src/api/auth.api";
 import { ILoginData } from "@/src/types/auth.types";
-import { Toast } from "toastify-react-native";
+import ToastManager,{ Toast } from "toastify-react-native";
 
 const LoginForm = () => {
   const {
@@ -121,6 +121,7 @@ const LoginForm = () => {
           </Text>
         </View>
       </View>
+      <ToastManager />
     </View>
   );
 };
