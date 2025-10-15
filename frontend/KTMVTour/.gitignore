@@ -44,3 +44,6 @@ app-example
 
 #sample images
 assets/sample-images
+
+#.env file
+src/.env
