@@ -18,9 +18,9 @@ const toastConfig = {
   ),
 
   error: (props: any) => (
-    <View className="bg-post p-4 rounded-2xl flex-row items-center gap-3">
+    <View className="bg-post p-4 rounded-2xl flex-row items-center gap-3 max-w-[90vw]">
       <CircleAlertIcon color={"#8B5CF6"} fontWeight={"bold"} />
-      <Text className="text-white font-bold">{props.text1}</Text>
+      <Text className="text-white font-bold text-center max-w-[90vw]">{props.text1}</Text>
     </View>
   ),
 };
