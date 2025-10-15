@@ -364,3 +364,27 @@ export default function RootLayout() {
 - Okay I set the toastmanager tag in my login form where toast is being used and that solved my problem.
 
 - Now the login form is working, but when im entering correct details it says login failed still.
+
+- ahh, the error message is saying cannot read property data of undefined. I think the inputs aren't being sent properly to the backend function.
+
+- using our clg statement, i can clearly see that the correct data is being submitted. it logs the email + password being submitted.:
+```TypeScript
+  const onSubmit = async(data:ILoginData) => {
+    console.log('Submit data:', data);
+    mutate(data)
+  };
+```
+
+- It's mad weird because it's working on postman but not my expo app. Maybe not having the deployed backend is a problem?
+
+- okay look:
+```TypeScript
+    if (err?.response) {
+      throw err.response.data;
+    } else {
+      throw new Error('Network or Server Error');
+    }
+```
+
+- I'm hitting toast message that says network or server error. I 100% think it's a problem with the url not being read properly 
+by react native since im using local host, so it doesn't recognise my backend. I will deploy my backend on render + style the toast messages and then it should work.
