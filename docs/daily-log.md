@@ -282,3 +282,85 @@ RN cookies library and try to find a bug/error.
   but I think it should be fine.
 
 - hmm so there are no errors logged but app still isn't working because of an error
+
+- ahh yes, the problem is in the layout file in which I had this:
+
+```TypeScript
+import { Stack } from "expo-router";
+import "./globals.css";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import ToastManager from "toastify-react-native";
+
+// Create a client
+const queryClient = new QueryClient();
+
+export default function RootLayout() {
+  return (
+    //wrapping out app with the queryClientProvider
+    <QueryClientProvider client={queryClient}>
+      <ToastManager>
+        <Stack>
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        </Stack>
+      </ToastManager>
+    </QueryClientProvider>
+  );
+}
+```
+
+- changing it to this again, makes it work but then when I try to access the temporary login page it tells me no queryclient set:
+```TypeScript
+import { Stack } from "expo-router";
+import "./globals.css";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+export default function RootLayout() {
+  return (
+    <Stack>
+      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+    </Stack>
+  );
+}
+```
+
+- i'll try structuring the query client provider within the stack
+- still not working like this aswell:
+```TypeScript
+    <Stack>
+      <QueryClientProvider client={queryClient}>
+        <ToastManager>
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        </ToastManager>
+      </QueryClientProvider>
+    </Stack>
+```
+
+- there's also another error that says:
+```TypeScript
+  //cant perform react state update on a component that hasn't mounted yet. This indicates that you have a side-effect in your render function that asynchronously later calls tries to update the component. Move this work to useEffect instead.
+```
+
+- ok i found the problem for the first error, it wasn't with queryclient provider it was with the toast manager instead, because my project is working well like this:
+```TypeScript
+import { Stack } from "expo-router";
+import "./globals.css";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+// Create a client
+const queryClient = new QueryClient();
+
+export default function RootLayout() {
+  return (
+    //wrapping out app with the queryClientProvider
+    <QueryClientProvider client={queryClient}>
+      <Stack>
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+      </Stack>
+    </QueryClientProvider>
+  );
+}
+```
+
+- Okay I set the toastmanager tag in my login form where toast is being used and that solved my problem.
+
+- Now the login form is working, but when im entering correct details it says login failed still.
