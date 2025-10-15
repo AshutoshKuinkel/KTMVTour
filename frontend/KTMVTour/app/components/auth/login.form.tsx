@@ -25,11 +25,11 @@ const LoginForm = () => {
   const {mutate} = useMutation({
     mutationFn: loginAPI,
     mutationKey:['login_API'],
-    onSuccess:()=>{
-      Toast.success(`Successfully Logged in.`,'top')
+    onSuccess:(response)=>{
+      Toast.success(response?.message ?? 'Successfully Logged In','top')
     },
-    onError: ()=>{
-      Toast.error(`Login Failed`,'top')
+    onError: (err)=>{
+      Toast.error(err?.message ?? `Login Failed`,'top')
     }
   })
   const onSubmit = (data:ILoginData) => {
