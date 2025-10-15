@@ -257,3 +257,28 @@ RN cookies library and try to find a bug/error.
 
 ## 15 OCT 25
 - starting off by grabbing 100 images for my no landmark class. (grabbed almost 3/4 from my camera roll)
+
+- with axios im just using my basic localhost url rn, since I haven't deployed backend. Alright, now it's time to do the react query implementation.
+
+- found a very good recent tutorial that goes over exactly what im trying to do (with react query):
+  https://www.youtube.com/watch?v=H0CuK7MPtnI
+
+- using toastify-react-native library for the onSuccess/onError messages.
+- Link: https://www.npmjs.com/package/toastify-react-native
+
+- Im running into these errors, because I think i put the .ts files in my app folder and im thinking its being included in a route defintion inside the app folder:
+
+```bash
+ WARN  Route "./api/auth.api.ts" is missing the required default export. Ensure a React component is exported as default.
+ WARN  Route "./schema/auth.schema.ts" is missing the required default export. Ensure a React component is exported as default.
+ WARN  Route "./types/auth.types.ts" is missing the required default export. Ensure a React component is exported as default.
+ ```
+
+- Yeah that should be the problem, i looked on stack overflow and have other people saying the same thing,:
+ ![alt text](./images-for-log/image8.png)
+
+- I created a src folder with the api, schema + types folders within it, basically anything that was not tsx file.
+- Since the folders are moved elsewhere, im a little skeptical about the layout file in which I wrapped it with my queryclientprovider + toastmanager,
+  but I think it should be fine.
+
+- hmm so there are no errors logged but app still isn't working because of an error
