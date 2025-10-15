@@ -7,7 +7,7 @@ import { useMutation } from "@tanstack/react-query";
 import { loginAPI } from "@/src/api/auth.api";
 import { ILoginData } from "@/src/types/auth.types";
 import ToastManager, { Toast } from "toastify-react-native";
-import { CircleAlertIcon,CircleCheck } from "lucide-react-native";
+import { CircleAlertIcon, CircleCheck } from "lucide-react-native";
 
 const toastConfig = {
   success: (props: any) => (
@@ -46,7 +46,7 @@ const LoginForm = () => {
       Toast.success(response?.message ?? "Successfully Logged In", "top");
     },
     onError: (err) => {
-      Toast.error(err?.message ?? `Login Failed`, "top");
+      Toast.error(err?.message ?? `Sorry, we couldn't log you in at this time.`, "top");
     },
   });
   const onSubmit = async (data: ILoginData) => {
@@ -127,17 +127,14 @@ const LoginForm = () => {
             onPress={handleSubmit(onSubmit)}
             className="border w-[90%] items-center p-3 rounded-lg bg-button"
           >
-            <Text className="text-green-50 font-semibold text-lg">Sign In</Text>
+            <Text className="text-green-50 font-semibold text-lg">{isPending ? "Signing in..." : "Sign Up"}</Text>
           </Pressable>
         </View>
 
         {/* Sign up prompt */}
         <View className="mt-4 flex items-center">
           <Text className="text-white">
-            Don't have an account?{" "}
-            <Text className="text-button">
-              {isPending ? "Signing in..." : "Sign Up"}
-            </Text>
+            Don't have an account? <Text className="text-button">Sign Up</Text>
           </Text>
         </View>
       </View>
