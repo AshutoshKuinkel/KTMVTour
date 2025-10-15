@@ -2,10 +2,11 @@ import { View, Text, TextInput, Pressable } from "react-native";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import React from "react";
-import { loginSchema } from "@/app/schema/auth.schema";
+import { loginSchema } from "@/src/schema/auth.schema";
 import { useMutation } from "@tanstack/react-query";
-import { loginAPI } from "@/app/api/auth.api";
-import { ILoginData } from "@/app/types/auth.types";
+import { loginAPI } from "@/src/api/auth.api";
+import { ILoginData } from "@/src/types/auth.types";
+import { Toast } from "toastify-react-native";
 
 const LoginForm = () => {
   const {
@@ -25,10 +26,10 @@ const LoginForm = () => {
     mutationFn: loginAPI,
     mutationKey:['login_API'],
     onSuccess:()=>{
-      // implement toast message from react native toast library
+      Toast.success(`Successfully Logged in.`,'top')
     },
     onError: ()=>{
-      // get error toast message setup
+      Toast.error(`Login Failed`,'top')
     }
   })
   const onSubmit = (data:ILoginData) => {
