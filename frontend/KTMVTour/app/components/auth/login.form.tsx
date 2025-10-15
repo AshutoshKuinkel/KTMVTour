@@ -3,6 +3,9 @@ import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import React from "react";
 import { loginSchema } from "@/app/schema/auth.schema";
+import { useMutation } from "@tanstack/react-query";
+import { loginAPI } from "@/app/api/auth.api";
+import { ILoginData } from "@/app/types/auth.types";
 
 const LoginForm = () => {
   const {
@@ -17,8 +20,19 @@ const LoginForm = () => {
     resolver: yupResolver(loginSchema),
     mode: "all",
   });
-  const onSubmit = (data: any) => {
-    console.log(data);
+
+  const {mutate} = useMutation({
+    mutationFn: loginAPI,
+    mutationKey:['login_API'],
+    onSuccess:()=>{
+      // implement toast message from react native toast library
+    },
+    onError: ()=>{
+      // get error toast message setup
+    }
+  })
+  const onSubmit = (data:ILoginData) => {
+    mutate(data)
   };
 
   return (
