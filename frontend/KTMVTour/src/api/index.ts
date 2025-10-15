@@ -1,8 +1,10 @@
 // using this file to create an instance
 import axios from "axios";
+import Constants from 'expo-constants';
 
+const apiBaseUrl = Constants.expoConfig?.extra?.apiBaseUrl
 const instance = axios.create({
-  baseURL: process.env.EXPO_PUBLIC_API_BASE_URL,
+  baseURL: apiBaseUrl,
   withCredentials:true
 })
 
