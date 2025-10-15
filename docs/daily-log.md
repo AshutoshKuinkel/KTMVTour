@@ -388,3 +388,47 @@ export default function RootLayout() {
 
 - I'm hitting toast message that says network or server error. I 100% think it's a problem with the url not being read properly 
 by react native since im using local host, so it doesn't recognise my backend. I will deploy my backend on render + style the toast messages and then it should work.
+
+
+- deployed my site on render and connected it to frontend by creating axios instance, but ran into this error:
+```bash
+iOS Bundling failed 1612ms node_modules\expo-router\entry.js (3242 modules)
+The package at "node_modules\dotenv\lib\main.js" attempted to import the Node standard library module "path".
+It failed because the native React runtime does not include the Node standard library.
+Learn more: https://docs.expo.dev/workflow/using-libraries/#using-third-party-libraries
+  1 | const fs = require('fs')
+> 2 | const path = require('path')
+    |                       ^
+  3 | const os = require('os')
+  4 | const crypto = require('crypto')
+  5 | const packageJson = require('../package.json')
+
+Import stack:
+
+ node_modules\dotenv\lib\main.js
+ | import "path"
+
+ src\api\index.ts
+ | import "dotenv"
+
+ src\api\auth.api.ts
+ | import "./index"
+
+ app\components\auth\login.form.tsx
+ | import "@/src/api/auth.api"
+
+ app\(tabs)\profile.tsx
+ | import "../components/auth/login.form"
+
+ app (require.context)
+```
+
+- apparently you don't need dotenv or anyting, in expo projects u can just make sure your variables start with EXPO_PUBLIC_ & use process.env in ur files , the expo docs said this:
+```TypeScript
+//The Expo CLI will automatically load environment variables with an EXPO_PUBLIC_ prefix from .env files for use within your JavaScript code whenever you use the Expo CLI, such as when running npx expo start to start your app in local development mode.
+```
+
+- hmmm it's connected to render now but it's still not logging me in
+
+- ahhh I see the problem now, i forgot to add accessible for any ip in mongodb account:
+![alt text](./images-for-log/image9.png)
