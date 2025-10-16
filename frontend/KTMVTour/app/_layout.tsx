@@ -4,6 +4,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 // Create a client
 const queryClient = new QueryClient();
+// Need to create authcontext for this later on
 const isAuthenticated = false
 
 export default function RootLayout() {
@@ -16,6 +17,7 @@ export default function RootLayout() {
         </Stack.Protected>
         <Stack.Protected guard={!isAuthenticated}>
           <Stack.Screen name="login" options={{headerShown: false}}/>
+          <Stack.Screen name="signup" options={{headerShown: false}}/>
         </Stack.Protected>
       </Stack>
     </QueryClientProvider>
