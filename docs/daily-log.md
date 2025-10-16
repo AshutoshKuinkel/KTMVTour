@@ -537,3 +537,8 @@ PS C:\Users\ashut\Desktop\KTMVTour\frontend\KTMVTour>
 
 - man wtf is this, to even create an apple dev account u need to pay $150 a year. Im gonna have to run an andriod emulator on pc and install it there because it's free on andriod
  apparently.
+
+- finally got the dev build working on andriod. I can run my own app now. Task for tomorrow now is to make sure I get the auth all setup.
+
+- Ahh, im working tomorrow so yeah, I won't be able to get much done. Hopefully just zustand + mmkv setup and then saturday I should be
+ able to finish profile page completely, or at least get a lot done.
