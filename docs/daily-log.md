@@ -531,3 +531,9 @@ PS C:\Users\ashut\Desktop\KTMVTour\frontend\KTMVTour>
 
 - Ok so I knew it was saying it couldn't find a file named splash-icon.png. I searched up what is splash icon and it turns out it's what the user sees when the app is intially loading.
 - I'll go on figma and quickly create this. BTW, it's only creating an andriod folder so far when I run npx expo prebuild so idk what's up with that.
+
+- splash screen done, I will now go and use EAS build, very good tutorial walking through the process of actually getting the app running 
+ from expo youtube channel: https://www.youtube.com/watch?v=FdjczjkwQKE
+
+- man wtf is this, to even create an apple dev account u need to pay $150 a year. Im gonna have to run an andriod emulator on pc and install it there because it's free on andriod
+ apparently.
