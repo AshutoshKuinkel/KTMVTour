@@ -158,9 +158,9 @@ instead needded to do it like this:
             <MapPin size={24} color={"#8B5CF6"} />
           </View>
 ```
+
 - didn't get any images of second landmark today, and just completed half the card.
 - need to speed this up. Gotta get a lot more done tomorrow. Only 1 leetcode tomorrow morning & just focus on dataset + frontend.
-
 
 ## 8 OCT 25
 
@@ -182,7 +182,6 @@ instead needded to do it like this:
 - Shoudln't be hard to get 100 images of random things a day.
 - Also set up a very basic register function with no password hashing.
 
-
 ## 11 OCT 25
 
 - just writing some errors i encountered while doing the backend:
@@ -193,7 +192,6 @@ instead needded to do it like this:
 app.use(express.json()); //used to parse incoming requests with Content-Type: application/json
 app.use(express.urlencoded({ extended: true })); //used to parse application/x-www-form-urlencoded data
 ```
-
 
 ## 12 OCT 25
 
@@ -207,15 +205,14 @@ app.use(express.urlencoded({ extended: true })); //used to parse application/x-w
 - god damn, Im in 2 sticky situations;
 - Firstly, I can't use react native vision camera with the default expo go app, I need to use development builds or EAS build.
 - Secondly, i have somewhat of an idea of what not to do for cookies, but it's still a bit rough man. I may have to send cookies from backend &
-use react-native-cookies library + axios, in frontend if that's even possible.
+  use react-native-cookies library + axios, in frontend if that's even possible.
 - ok i think adding the camera will be one of the last things I do. I'll do it when im transitioning into dev build my expo project.
 - for now i'll just try to deal with the cookie problem.
 - alr faak it imma build the login function and try to connect it to frontend using that cookies library. If it doesn't work, it'll be a lesson for next time.
 - completed the backend of login + the 100 dataset images.
 
-
 - ran across this error:
-![alt text](./images-for-log/image6.png)
+  ![alt text](./images-for-log/image6.png)
 
 - I checked how we avoided this in class but it was just avoiding the type like this:
 
@@ -240,22 +237,23 @@ const user:any = ...
 ## 14 OCT 25
 
 - ok what I want to do for my project today is make sure I have a frontend styling of auth forms and implement different routes for them, e.g so if user clicks community
-or profile it just redirects them to the login page for now + also get the 100 images dataset. 
+  or profile it just redirects them to the login page for now + also get the 100 images dataset.
 
 - Ts in stack overflow saved me harrd, had to hide passowrd as it was being input and they dont got type password like react:
-![alt text](./images-for-log/image7.png) 
+  ![alt text](./images-for-log/image7.png)
 
 - finished the 100 images collection
 
 - Big GOAT right here, shoutout my boy (even tho its on RHF RN docs, still helped w the understanding part):
   https://medium.com/@rutikpanchal121/building-a-robust-form-in-react-native-with-react-hook-form-and-zod-for-validation-7583678970c3
 
-- I finished the frontend part with React hook form + yup aswell and now all that's left is just call backend using axios. I'll try doing it with no 
-RN cookies library and try to find a bug/error.
+- I finished the frontend part with React hook form + yup aswell and now all that's left is just call backend using axios. I'll try doing it with no
+  RN cookies library and try to find a bug/error.
 
 - Can't be bothered doing no more, gotta play some fifa tn, gotta go over one leetcode problem & answer some basic react interview q's then continue tomorrow.
 
 ## 15 OCT 25
+
 - starting off by grabbing 100 images for my no landmark class. (grabbed almost 3/4 from my camera roll)
 
 - with axios im just using my basic localhost url rn, since I haven't deployed backend. Alright, now it's time to do the react query implementation.
@@ -272,10 +270,10 @@ RN cookies library and try to find a bug/error.
  WARN  Route "./api/auth.api.ts" is missing the required default export. Ensure a React component is exported as default.
  WARN  Route "./schema/auth.schema.ts" is missing the required default export. Ensure a React component is exported as default.
  WARN  Route "./types/auth.types.ts" is missing the required default export. Ensure a React component is exported as default.
- ```
+```
 
 - Yeah that should be the problem, i looked on stack overflow and have other people saying the same thing,:
- ![alt text](./images-for-log/image8.png)
+  ![alt text](./images-for-log/image8.png)
 
 - I created a src folder with the api, schema + types folders within it, basically anything that was not tsx file.
 - Since the folders are moved elsewhere, im a little skeptical about the layout file in which I wrapped it with my queryclientprovider + toastmanager,
@@ -309,6 +307,7 @@ export default function RootLayout() {
 ```
 
 - changing it to this again, makes it work but then when I try to access the temporary login page it tells me no queryclient set:
+
 ```TypeScript
 import { Stack } from "expo-router";
 import "./globals.css";
@@ -325,6 +324,7 @@ export default function RootLayout() {
 
 - i'll try structuring the query client provider within the stack
 - still not working like this aswell:
+
 ```TypeScript
     <Stack>
       <QueryClientProvider client={queryClient}>
@@ -336,11 +336,13 @@ export default function RootLayout() {
 ```
 
 - there's also another error that says:
+
 ```TypeScript
   //cant perform react state update on a component that hasn't mounted yet. This indicates that you have a side-effect in your render function that asynchronously later calls tries to update the component. Move this work to useEffect instead.
 ```
 
 - ok i found the problem for the first error, it wasn't with queryclient provider it was with the toast manager instead, because my project is working well like this:
+
 ```TypeScript
 import { Stack } from "expo-router";
 import "./globals.css";
@@ -368,6 +370,7 @@ export default function RootLayout() {
 - ahh, the error message is saying cannot read property data of undefined. I think the inputs aren't being sent properly to the backend function.
 
 - using our clg statement, i can clearly see that the correct data is being submitted. it logs the email + password being submitted.:
+
 ```TypeScript
   const onSubmit = async(data:ILoginData) => {
     console.log('Submit data:', data);
@@ -378,6 +381,7 @@ export default function RootLayout() {
 - It's mad weird because it's working on postman but not my expo app. Maybe not having the deployed backend is a problem?
 
 - okay look:
+
 ```TypeScript
     if (err?.response) {
       throw err.response.data;
@@ -386,11 +390,11 @@ export default function RootLayout() {
     }
 ```
 
-- I'm hitting toast message that says network or server error. I 100% think it's a problem with the url not being read properly 
-by react native since im using local host, so it doesn't recognise my backend. I will deploy my backend on render + style the toast messages and then it should work.
-
+- I'm hitting toast message that says network or server error. I 100% think it's a problem with the url not being read properly
+  by react native since im using local host, so it doesn't recognise my backend. I will deploy my backend on render + style the toast messages and then it should work.
 
 - deployed my site on render and connected it to frontend by creating axios instance, but ran into this error:
+
 ```bash
 iOS Bundling failed 1612ms node_modules\expo-router\entry.js (3242 modules)
 The package at "node_modules\dotenv\lib\main.js" attempted to import the Node standard library module "path".
@@ -423,7 +427,8 @@ Import stack:
  app (require.context)
 ```
 
-- apparently you don't need dotenv or anyting, in expo projects u can just make sure your variables start with EXPO_PUBLIC_ & use process.env in ur files , the expo docs said this:
+- apparently you don't need dotenv or anyting, in expo projects u can just make sure your variables start with EXPO*PUBLIC* & use process.env in ur files , the expo docs said this:
+
 ```TypeScript
 //The Expo CLI will automatically load environment variables with an EXPO_PUBLIC_ prefix from .env files for use within your JavaScript code whenever you use the Expo CLI, such as when running npx expo start to start your app in local development mode.
 ```
@@ -431,11 +436,12 @@ Import stack:
 - hmmm it's connected to render now but it's still not logging me in
 
 - ahhh I see the problem now, i forgot to add accessible for any ip in mongodb account:
-![alt text](./images-for-log/image9.png)
+  ![alt text](./images-for-log/image9.png)
 
 - ok that problem is fixed, I can login now finally, but I think process.env.EXPO_PUBLIC_API_BASE_URL isn't returning correct url because when i do axios.post('myurl') it works but not when I do api.post('/auth/login').
 
 - I just added it in extra inside of app.json and then imported the expo constants in the instance file like this:
+
 ```TypeScript
 // using this file to create an instance
 import axios from "axios";
@@ -451,7 +457,83 @@ export default instance
 ```
 
 - Im reading more about how I should store data and MMKV seems like a good storage since, it's similar to asyncStorage but allows you to encrypt your data aswell.
- So it's good for storing more sensitive data aswell. But anyways, that should be good enough for today. I'll continue tomorrow. Tomorrow if I can get the user stored 
- using MMKV and make sure to add protected route to the whole app. Essientially, the user must create an account to use the app. Originally I was thinking maybe we let user
- see home page + tour landmarks without logging in but nah, it's just much more efficient if user is logged in before even accessing anything. Ok, i also got an idea, once we 
- give the user a virtual tour of a landmark it should feature an end screen that prompts them to share their experience (in other words post a picture of them @ the landmark)
+  So it's good for storing more sensitive data aswell. But anyways, that should be good enough for today. I'll continue tomorrow. Tomorrow if I can get the user stored
+  using MMKV and make sure to add protected route to the whole app. Essientially, the user must create an account to use the app. Originally I was thinking maybe we let user
+  see home page + tour landmarks without logging in but nah, it's just much more efficient if user is logged in before even accessing anything. Ok, i also got an idea, once we
+  give the user a virtual tour of a landmark it should feature an end screen that prompts them to share their experience (in other words post a picture of them @ the landmark)
+
+## 16 OCT 25
+
+- Ok mmkv is a drag you have to setup dev build, eas, expo dev account etc. I'm watching this tutorial with JWT auth: https://www.youtube.com/watch?v=uP9SGbglMe4
+
+- Ok i made sure the entire app is protected using expo router within layout file, it's just a simple test script for now:
+
+```TypeScript
+import { Stack } from "expo-router";
+import "./globals.css";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+// Create a client
+const queryClient = new QueryClient();
+const isAuthenticated = false
+
+export default function RootLayout() {
+  return (
+    //wrapping out app with the queryClientProvider
+    <QueryClientProvider client={queryClient}>
+      <Stack>
+        <Stack.Protected guard={isAuthenticated}>
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        </Stack.Protected>
+      </Stack>
+    </QueryClientProvider>
+  );
+}
+```
+
+- This makes it so that you must be logged in to access the app.
+
+- It's working well but it's showing like a white navbar with the page name, i need to get rid of that:
+  ![alt text](./images-for-log/image10.png)
+
+- This was as simple as setting showHeader false:
+
+```TypeScript
+  <Stack.Protected guard={!isAuthenticated}>
+    <Stack.Screen name="login" options={{headerShown: false}}/>
+    <Stack.Screen name="signup" options={{headerShown: false}}/>
+  </Stack.Protected>
+```
+- Initialised a signup page, need to style it later and make it work:
+![alt text](./images-for-log/image11.png)
+
+- following that JWT tutorial & installing zustant + mmkv. I tried to do npx expo prebuild & this is the error it gave me:
+```bash
+PS C:\Users\ashut\Desktop\KTMVTour\frontend\KTMVTour> npx expo prebuild
+› Android package name: com.anonymous.KTMVTour
+√ Created native directory
+√ Updated package.json
+× Prebuild failed
+Error: [android.dangerous]: withAndroidDangerousBaseMod: ENOENT: no such file or directory, open 'C:\Users\ashut\Desktop\KTMVTour\frontend\KTMVTour\assets\images\splash-icon.png'
+Error: [android.dangerous]: withAndroidDangerousBaseMod: ENOENT: no such file or directory, open 'C:\Users\ashut\Desktop\KTMVTour\frontend\KTMVTour\assets\images\splash-icon.png'
+    at Object.openSync (node:fs:562:18)
+    at Object.readFileSync (node:fs:446:35)
+    at calculateHash (C:\Users\ashut\Desktop\KTMVTour\frontend\KTMVTour\node_modules\@expo\image-utils\build\Cache.js:19:76)
+    at createCacheKey (C:\Users\ashut\Desktop\KTMVTour\frontend\KTMVTour\node_modules\@expo\image-utils\build\Cache.js:24:18)
+    at Object.createCacheKeyWithDirectoryAsync (C:\Users\ashut\Desktop\KTMVTour\frontend\KTMVTour\node_modules\@expo\image-utils\build\Cache.js:32:33)
+    at generateImageAsync (C:\Users\ashut\Desktop\KTMVTour\frontend\KTMVTour\node_modules\@expo\image-utils\build\Image.js:227:34)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async C:\Users\ashut\Desktop\KTMVTour\frontend\KTMVTour\node_modules\@expo\prebuild-config\build\plugins\unversioned\expo-splash-screen\withAndroidSplashImages.js:177:11
+    at async Promise.all (index 0)
+    at async setSplashImageDrawablesForThemeAsync (C:\Users\ashut\Desktop\KTMVTour\frontend\KTMVTour\node_modules\@expo\prebuild-config\build\plugins\unversioned\expo-splash-screen\withAndroidSplashImages.js:162:3)
+PS C:\Users\ashut\Desktop\KTMVTour\frontend\KTMVTour> 
+```
+
+- Ok so I knew it was saying it couldn't find a file named splash-icon.png. I searched up what is splash icon and it turns out it's what the user sees when the app is intially loading.
+- I'll go on figma and quickly create this. BTW, it's only creating an andriod folder so far when I run npx expo prebuild so idk what's up with that.
+
+- splash screen done, I will now go and use EAS build, very good tutorial walking through the process of actually getting the app running 
+ from expo youtube channel: https://www.youtube.com/watch?v=FdjczjkwQKE
+
+- man wtf is this, to even create an apple dev account u need to pay $150 a year. Im gonna have to run an andriod emulator on pc and install it there because it's free on andriod
+ apparently.

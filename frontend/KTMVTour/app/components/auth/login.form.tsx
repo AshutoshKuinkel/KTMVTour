@@ -1,13 +1,14 @@
 import { View, Text, TextInput, Pressable } from "react-native";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import React from "react";
+import React, { useState } from "react";
 import { loginSchema } from "@/src/schema/auth.schema";
 import { useMutation } from "@tanstack/react-query";
 import { loginAPI } from "@/src/api/auth.api";
 import { ILoginData } from "@/src/types/auth.types";
 import ToastManager, { Toast } from "toastify-react-native";
 import { CircleAlertIcon, CircleCheck } from "lucide-react-native";
+import { router } from "expo-router";
 
 const toastConfig = {
   success: (props: any) => (
@@ -44,6 +45,7 @@ const LoginForm = () => {
     mutationFn: loginAPI,
     onSuccess: (response) => {
       Toast.success(response?.message ?? "Successfully Logged In", "top");
+      router.push("/(tabs)")
     },
     onError: (err) => {
       Toast.error(err?.message ?? `Sorry, we couldn't log you in at this time.`, "top");
@@ -134,7 +136,7 @@ const LoginForm = () => {
         {/* Sign up prompt */}
         <View className="mt-4 flex items-center">
           <Text className="text-white">
-            Don't have an account? <Text className="text-button">Sign Up</Text>
+            Don't have an account? <Text className="text-button" onPress={()=> router.push('/signup')}>Sign Up</Text>
           </Text>
         </View>
       </View>
