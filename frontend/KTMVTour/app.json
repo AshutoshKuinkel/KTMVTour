@@ -9,7 +9,11 @@
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.anonymous.KTMVTour",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -46,7 +50,12 @@
       "reactCompiler": true
     },
     "extra": {
-      "apiBaseUrl": "https://ktmvtour.onrender.com/api"
-    }
+      "apiBaseUrl": "https://ktmvtour.onrender.com/api",
+      "router": {},
+      "eas": {
+        "projectId": "1de565ef-d7a8-41ae-997b-b2e6b8acdca6"
+      }
+    },
+    "owner": "ashutoshkuinkel"
   }
 }
