@@ -51,3 +51,6 @@ src/.env
 #android + ios files
 android
 ios
+
+#priv file:
+dLink.md
