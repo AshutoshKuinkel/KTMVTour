@@ -47,3 +47,7 @@ assets/sample-images
 
 #.env file
 src/.env
+
+#android + ios files
+android
+ios

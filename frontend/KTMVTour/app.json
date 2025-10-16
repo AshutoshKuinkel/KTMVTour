@@ -19,7 +19,8 @@
         "monochromeImage": "./assets/images/playstore.png"
       },
       "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "package": "com.anonymous.KTMVTour"
     },
     "web": {
       "output": "static",
@@ -45,7 +46,7 @@
       "reactCompiler": true
     },
     "extra": {
-      "apiBaseUrl":"https://ktmvtour.onrender.com/api"
+      "apiBaseUrl": "https://ktmvtour.onrender.com/api"
     }
   }
 }

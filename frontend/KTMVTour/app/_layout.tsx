@@ -5,7 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 // Create a client
 const queryClient = new QueryClient();
 // Need to create authcontext for this later on
-const isAuthenticated = false
+const isAuthenticated = true
 
 export default function RootLayout() {
   return (
