@@ -656,3 +656,7 @@ const handlelogout = () => {
 };
 ```  
 
+- all right, that's it closing off today. Tomorrow I need to watch the video on how we saved our storage on page refresh and apply that
+ to this app so user doesn't have to keep logging in on reload of app. I should be good in completing functional signup page tomorrow
+ and getting frontend styling of profile page done. After I get profile page working, I should be fine in setting up the styling/basic
+ idea of tours page with react native vision camera + some text. Also just add an alert saying, we only offer tour for one landmark rn.
