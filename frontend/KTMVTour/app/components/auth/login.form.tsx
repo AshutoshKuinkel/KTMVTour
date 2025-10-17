@@ -10,6 +10,7 @@ import ToastManager, { Toast } from "toastify-react-native";
 import { CircleAlertIcon, CircleCheck } from "lucide-react-native";
 import { router } from "expo-router";
 import { useAuthStore } from "@/src/store/auth.store";
+import {MMKV} from 'react-native-mmkv'
 
 const toastConfig = {
   success: (props: any) => (
@@ -30,6 +31,9 @@ const toastConfig = {
 };
 
 const LoginForm = () => {
+  // initialising MMKV:
+  const storage = new MMKV()
+
   const { login } = useAuthStore();
 
   const handleLogin = () => {
@@ -55,6 +59,10 @@ const LoginForm = () => {
     onSuccess: (response) => {
       setTimeout(()=>Toast.success(response?.message ?? "Successfully Logged In", "top"),500);
       setTimeout(()=>handleLogin(),1000);
+      // console.log(`Response data {user}: ${JSON.stringify(response.data)}`)
+      // console.log(`Access token response:${response.KTMVTour_token}`)
+      storage.set('user',JSON.stringify(response.data))
+      storage.set('KTMVTour_token',response.KTMVTour_token)
     },
     onError: (err) => {
       Toast.error(
