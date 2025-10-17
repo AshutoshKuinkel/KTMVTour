@@ -53,8 +53,8 @@ const LoginForm = () => {
     mutationKey: ["login_API"],
     mutationFn: loginAPI,
     onSuccess: (response) => {
-      Toast.success(response?.message ?? "Successfully Logged In", "top");
-      handleLogin()
+      setTimeout(()=>Toast.success(response?.message ?? "Successfully Logged In", "top"),500);
+      setTimeout(()=>handleLogin(),1000);
     },
     onError: (err) => {
       Toast.error(
