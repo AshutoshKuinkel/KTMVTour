@@ -1,7 +1,7 @@
 import { View, Text, TextInput, Pressable } from "react-native";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import React, { useState } from "react";
+import React from "react";
 import { loginSchema } from "@/src/schema/auth.schema";
 import { useMutation } from "@tanstack/react-query";
 import { loginAPI } from "@/src/api/auth.api";
@@ -9,6 +9,7 @@ import { ILoginData } from "@/src/types/auth.types";
 import ToastManager, { Toast } from "toastify-react-native";
 import { CircleAlertIcon, CircleCheck } from "lucide-react-native";
 import { router } from "expo-router";
+import { useAuthStore } from "@/src/store/auth.store";
 
 const toastConfig = {
   success: (props: any) => (
@@ -21,12 +22,20 @@ const toastConfig = {
   error: (props: any) => (
     <View className="bg-post p-4 rounded-2xl flex-row items-center gap-3 max-w-[90vw]">
       <CircleAlertIcon color={"#8B5CF6"} fontWeight={"bold"} />
-      <Text className="text-white font-bold text-center max-w-[90vw]">{props.text1}</Text>
+      <Text className="text-white font-bold text-center max-w-[90vw]">
+        {props.text1}
+      </Text>
     </View>
   ),
 };
 
 const LoginForm = () => {
+  const { login } = useAuthStore();
+
+  const handleLogin = () => {
+    login();
+  };
+
   const {
     control,
     handleSubmit,
@@ -45,10 +54,13 @@ const LoginForm = () => {
     mutationFn: loginAPI,
     onSuccess: (response) => {
       Toast.success(response?.message ?? "Successfully Logged In", "top");
-      router.push("/(tabs)")
+      handleLogin()
     },
     onError: (err) => {
-      Toast.error(err?.message ?? `Sorry, we couldn't log you in at this time.`, "top");
+      Toast.error(
+        err?.message ?? `Sorry, we couldn't log you in at this time.`,
+        "top"
+      );
     },
   });
   const onSubmit = async (data: ILoginData) => {
@@ -129,14 +141,22 @@ const LoginForm = () => {
             onPress={handleSubmit(onSubmit)}
             className="border w-[90%] items-center p-3 rounded-lg bg-button"
           >
-            <Text className="text-green-50 font-semibold text-lg">{isPending ? "Signing in..." : "Sign Up"}</Text>
+            <Text className="text-green-50 font-semibold text-lg">
+              {isPending ? "Signing in..." : "Sign In"}
+            </Text>
           </Pressable>
         </View>
 
         {/* Sign up prompt */}
         <View className="mt-4 flex items-center">
           <Text className="text-white">
-            Don't have an account? <Text className="text-button" onPress={()=> router.push('/signup')}>Sign Up</Text>
+            Don't have an account?{" "}
+            <Text
+              className="text-button"
+              onPress={() => router.push("/signup")}
+            >
+              Sign Up
+            </Text>
           </Text>
         </View>
       </View>
