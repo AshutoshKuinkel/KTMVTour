@@ -504,10 +504,12 @@ export default function RootLayout() {
     <Stack.Screen name="signup" options={{headerShown: false}}/>
   </Stack.Protected>
 ```
+
 - Initialised a signup page, need to style it later and make it work:
-![alt text](./images-for-log/image11.png)
+  ![alt text](./images-for-log/image11.png)
 
 - following that JWT tutorial & installing zustant + mmkv. I tried to do npx expo prebuild & this is the error it gave me:
+
 ```bash
 PS C:\Users\ashut\Desktop\KTMVTour\frontend\KTMVTour> npx expo prebuild
 › Android package name: com.anonymous.KTMVTour
@@ -526,27 +528,27 @@ Error: [android.dangerous]: withAndroidDangerousBaseMod: ENOENT: no such file or
     at async C:\Users\ashut\Desktop\KTMVTour\frontend\KTMVTour\node_modules\@expo\prebuild-config\build\plugins\unversioned\expo-splash-screen\withAndroidSplashImages.js:177:11
     at async Promise.all (index 0)
     at async setSplashImageDrawablesForThemeAsync (C:\Users\ashut\Desktop\KTMVTour\frontend\KTMVTour\node_modules\@expo\prebuild-config\build\plugins\unversioned\expo-splash-screen\withAndroidSplashImages.js:162:3)
-PS C:\Users\ashut\Desktop\KTMVTour\frontend\KTMVTour> 
+PS C:\Users\ashut\Desktop\KTMVTour\frontend\KTMVTour>
 ```
 
 - Ok so I knew it was saying it couldn't find a file named splash-icon.png. I searched up what is splash icon and it turns out it's what the user sees when the app is intially loading.
 - I'll go on figma and quickly create this. BTW, it's only creating an andriod folder so far when I run npx expo prebuild so idk what's up with that.
 
-- splash screen done, I will now go and use EAS build, very good tutorial walking through the process of actually getting the app running 
- from expo youtube channel: https://www.youtube.com/watch?v=FdjczjkwQKE
+- splash screen done, I will now go and use EAS build, very good tutorial walking through the process of actually getting the app running
+  from expo youtube channel: https://www.youtube.com/watch?v=FdjczjkwQKE
 
 - man wtf is this, to even create an apple dev account u need to pay $150 a year. Im gonna have to run an andriod emulator on pc and install it there because it's free on andriod
- apparently.
+  apparently.
 
 - finally got the dev build working on andriod. I can run my own app now. Task for tomorrow now is to make sure I get the auth all setup.
 
 - Ahh, im working tomorrow so yeah, I won't be able to get much done. Hopefully just zustand + mmkv setup and then saturday I should be
- able to finish profile page completely, or at least get a lot done.
-
+  able to finish profile page completely, or at least get a lot done.
 
 ## 17 OCT 25
 
 - Ok when setting up the auth store I ran into a problem for a while because of some silly mistake(the is authenticated was outside function root layout):
+
 ```TypeScript
 import { Stack } from "expo-router";
 import "./globals.css";
@@ -577,6 +579,7 @@ export default function RootLayout() {
 ```
 
 I changed it to this and it worked (also when calling handleLogin function in onSuccess, it should be handlelogin() not handlelogin):
+
 ```TypeScript
 import { Stack } from "expo-router";
 import "./globals.css";
@@ -589,7 +592,7 @@ const queryClient = new QueryClient();
 export default function RootLayout() {
   // Successfully created authstore using zustand
   const { isAuthenticated } = useAuthStore();
-  
+
   return (
     //wrapping out app with the queryClientProvider
     <QueryClientProvider client={queryClient}>
@@ -606,3 +609,50 @@ export default function RootLayout() {
   );
 }
 ```
+
+- ok I think i figured it out, storing mmkv is the exact same with how I did it in my localstorage in previous web project.
+  So to store the user + access token in mmkv within the onSuccess in mutation fn I just set it like this(checked for correct output using logs):
+
+```TypeScript
+  console.log(`Response data {user}: ${JSON.stringify(response.data)}`)
+  console.log(`Access token response:${response.KTMVTour_token}`)
+  storage.set('user',JSON.stringify(response.data))
+  storage.set('KTMVTour_token',response.KTMVTour_token)
+```
+
+- I need to revisit the tutorial from class and see how we handled our localstorage stuff and then replicate that and it should be working.
+
+- I asked chatgpt how I could access the user from mmkv storage & it said I needed these lines in the doc I was trying to access it on:
+```TypeScript
+interface User {
+  username: string;
+  id: string;
+  email: string;
+}
+
+// all this inside component function
+  const [user, setUser] = useState<User | null>(null);
+  const storage = new MMKV();
+
+  useEffect(() => {
+    const storedUser = storage.getString("user");
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
+```
+
+- Its simple logic, I get what it's doing but i will have to repeat myself for every page I want to access the user info.
+- there must be a better way to do this than to repeat myself for every page. It's not too important for now, but maybe come
+ back to it later and find a better solution.
+
+- also removed the tokens on logout(used log statement to confirm user was null after logout), note password is never even stored in all of this because my backend function doesn't even send password in response. It just hashes it and saves it do db and db only.:
+```TypeScript
+const handlelogout = () => {
+  storage.delete('user')
+  storage.delete('KTMVTour_token')
+  logout()
+  // console.log(user)
+};
+```  
+
