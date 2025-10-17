@@ -542,3 +542,67 @@ PS C:\Users\ashut\Desktop\KTMVTour\frontend\KTMVTour>
 
 - Ahh, im working tomorrow so yeah, I won't be able to get much done. Hopefully just zustand + mmkv setup and then saturday I should be
  able to finish profile page completely, or at least get a lot done.
+
+
+## 17 OCT 25
+
+- Ok when setting up the auth store I ran into a problem for a while because of some silly mistake(the is authenticated was outside function root layout):
+```TypeScript
+import { Stack } from "expo-router";
+import "./globals.css";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { useAuthStore } from "@/src/store/auth.store";
+
+// Create a client
+const queryClient = new QueryClient();
+// Successfully created authstore using zustand
+const {isAuthenticated} = useAuthStore()
+
+export default function RootLayout() {
+  return (
+    //wrapping out app with the queryClientProvider
+    <QueryClientProvider client={queryClient}>
+      <Stack >
+        <Stack.Protected guard={isAuthenticated}>
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        </Stack.Protected>
+        <Stack.Protected guard={!isAuthenticated}>
+          <Stack.Screen name="login" options={{headerShown: false}}/>
+          <Stack.Screen name="signup" options={{headerShown: false}}/>
+        </Stack.Protected>
+      </Stack>
+    </QueryClientProvider>
+  );
+}
+```
+
+I changed it to this and it worked (also when calling handleLogin function in onSuccess, it should be handlelogin() not handlelogin):
+```TypeScript
+import { Stack } from "expo-router";
+import "./globals.css";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { useAuthStore } from "@/src/store/auth.store";
+
+// Create a client
+const queryClient = new QueryClient();
+
+export default function RootLayout() {
+  // Successfully created authstore using zustand
+  const { isAuthenticated } = useAuthStore();
+  
+  return (
+    //wrapping out app with the queryClientProvider
+    <QueryClientProvider client={queryClient}>
+      <Stack>
+        <Stack.Protected guard={isAuthenticated}>
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        </Stack.Protected>
+        <Stack.Protected guard={!isAuthenticated}>
+          <Stack.Screen name="login" options={{ headerShown: false }} />
+          <Stack.Screen name="signup" options={{ headerShown: false }} />
+        </Stack.Protected>
+      </Stack>
+    </QueryClientProvider>
+  );
+}
+```
