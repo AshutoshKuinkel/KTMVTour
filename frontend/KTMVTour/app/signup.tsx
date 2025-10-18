@@ -1,14 +1,31 @@
-import { View, Text, Button } from 'react-native'
-import React from 'react'
-import { router } from 'expo-router'
+import { View, Text, Button, ImageBackground } from "react-native";
+import React from "react";
+import { router } from "expo-router";
+import SignupForm from "./components/auth/signup.form";
 
 const Signup = () => {
   return (
-    <View className='flex items-center justify-center h-screen'>
-      <Text className='text-4xl font-bold'>Signup Page</Text>
-      <Button title='Go Back' onPress={()=>router.back()} />
-    </View>
-  )
-}
+    <View className="flex-1 items-center bg-black">
+      <ImageBackground
+        source={require("../assets/sample-images/form-bg.png")}
+        className="h-full w-full"
+      >
+        <View className="flex items-center justify-center h-screen">
+          {/* Intro text */}
+          <View className="text-center flex items-center gap-2">
+            <Text className="text-white text-4xl font-semibold">
+              <Text className="animate-pulse">📍</Text>KTMVTour
+            </Text>
+            <Text className="text-secondary text-lg mx-6 text-center">
+              Join thousands of travelers exploring Kathmandu
+            </Text>
+          </View>
 
-export default Signup
+          <SignupForm/>
+        </View>
+      </ImageBackground>
+    </View>
+  );
+};
+
+export default Signup;
