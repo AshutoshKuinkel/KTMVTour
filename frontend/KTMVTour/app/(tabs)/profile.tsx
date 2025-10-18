@@ -2,6 +2,7 @@ import { View, Text, ImageBackground, Button } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useAuthStore } from "@/src/store/auth.store";
 import { MMKV } from "react-native-mmkv";
+import { removeItem } from "@/src/store/storage";
 
 interface User {
   username: string;
@@ -22,8 +23,8 @@ const profile = () => {
   }, []);
 
   const handlelogout = () => {
-    storage.delete('user')
-    storage.delete('KTMVTour_token')
+    removeItem('user')
+    removeItem('KTMVTour_token')
     logout()
     // console.log(user)
   };
