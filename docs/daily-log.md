@@ -692,3 +692,7 @@ if(authUserData && authTokenData){
 ```
 
 - next I have to figure out how to access the user name etc. now 
+
+- fk that, I can't get much done today im short on time. I'l just try to style much of the signup page as I can.
+
+- ahh, I got the signup with full functionality within 5 mins, because it was basically copy paste of login + one more field and another function from backend that needed to be changed.
