@@ -690,3 +690,5 @@ if(authUserData && authTokenData){
 
   return false
 ```
+
+- next I have to figure out how to access the user name etc. now 
