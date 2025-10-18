@@ -623,6 +623,7 @@ export default function RootLayout() {
 - I need to revisit the tutorial from class and see how we handled our localstorage stuff and then replicate that and it should be working.
 
 - I asked chatgpt how I could access the user from mmkv storage & it said I needed these lines in the doc I was trying to access it on:
+
 ```TypeScript
 interface User {
   username: string;
@@ -644,9 +645,10 @@ interface User {
 
 - Its simple logic, I get what it's doing but i will have to repeat myself for every page I want to access the user info.
 - there must be a better way to do this than to repeat myself for every page. It's not too important for now, but maybe come
- back to it later and find a better solution.
+  back to it later and find a better solution.
 
 - also removed the tokens on logout(used log statement to confirm user was null after logout), note password is never even stored in all of this because my backend function doesn't even send password in response. It just hashes it and saves it do db and db only.:
+
 ```TypeScript
 const handlelogout = () => {
   storage.delete('user')
@@ -654,9 +656,37 @@ const handlelogout = () => {
   logout()
   // console.log(user)
 };
-```  
+```
 
 - all right, that's it closing off today. Tomorrow I need to watch the video on how we saved our storage on page refresh and apply that
- to this app so user doesn't have to keep logging in on reload of app. I should be good in completing functional signup page tomorrow
- and getting frontend styling of profile page done. After I get profile page working, I should be fine in setting up the styling/basic
- idea of tours page with react native vision camera + some text. Also just add an alert saying, we only offer tour for one landmark rn.
+  to this app so user doesn't have to keep logging in on reload of app. I should be good in completing functional signup page tomorrow
+  and getting frontend styling of profile page done. After I get profile page working, I should be fine in setting up the styling/basic
+  idea of tours page with react native vision camera + some text. Also just add an alert saying, we only offer tour for one landmark rn.
+
+## 18 OCT 25
+
+- ahh im going over that JWT tutorail in RN and i think i get it, now. If i create a store file then I don't have to keep calling the state + effect hooks and I can also save my auth state even on reloading.
+
+- i followed the code in the tutorial & it wasn't saving the state on reloading. I asked chat gpt it said within my checkAuth function,
+  I should have these lines and it fixed the problem:
+
+```TypeScript
+ if (authUserData && authTokenData) {
+    set({ isAuthenticated: true });
+    return true;
+  }
+
+  set({ isAuthenticated: false });
+  return false;
+```
+
+- instead of:
+
+```TypeScript
+if(authUserData && authTokenData){
+    set(authTokenData,authUserData)
+    return true
+  }
+
+  return false
+```
