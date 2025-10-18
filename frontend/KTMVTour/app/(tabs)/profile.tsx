@@ -2,25 +2,12 @@ import { View, Text, ImageBackground, Button } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useAuthStore } from "@/src/store/auth.store";
 import { MMKV } from "react-native-mmkv";
-import { removeItem } from "@/src/store/storage";
+import { getItem, removeItem } from "@/src/store/storage";
 
-interface User {
-  username: string;
-  id: string;
-  email: string;
-}
 
 const profile = () => {
   const { logout } = useAuthStore();
-  const [user, setUser] = useState<User | null>(null);
-  const storage = new MMKV();
-
-  useEffect(() => {
-    const storedUser = storage.getString("user");
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
-  }, []);
+  const user = getItem('user')
 
   const handlelogout = () => {
     removeItem('user')
