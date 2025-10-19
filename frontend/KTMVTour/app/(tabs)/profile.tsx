@@ -1,28 +1,131 @@
-import { View, Text, ImageBackground, Button } from "react-native";
-import React, { useEffect, useState } from "react";
+import { View, Text, Pressable, TextInput } from "react-native";
+import React from "react";
 import { useAuthStore } from "@/src/store/auth.store";
-import { MMKV } from "react-native-mmkv";
 import { getItem, removeItem } from "@/src/store/storage";
-
+import { LinearGradient } from "expo-linear-gradient";
+import { User } from "lucide-react-native";
 
 const profile = () => {
   const { logout } = useAuthStore();
-  const user = getItem('user')
+  const user = getItem("user");
 
   const handlelogout = () => {
-    removeItem('user')
-    removeItem('KTMVTour_token')
-    logout()
+    removeItem("user");
+    removeItem("KTMVTour_token");
+    logout();
     // console.log(user)
   };
 
   return (
     <View className="flex-1 items-center bg-black">
-      <Text className="text-4xl font-bold text-white mt-14">Profile</Text>
-      <Text className="text-4xl font-bold text-white mt-2 mb-14">
-        Hi {user?.username ?? "guest"}
-      </Text>
-      <Button title="logout" onPress={handlelogout} />
+      {/* Header Section: Gradient + Profile Picture */}
+      <View className="relative w-full h-[20%]">
+        <LinearGradient
+          colors={["#25153e", "#10071b", "#321e55"]}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 1 }}
+          style={{ flex: 1 }}
+        />
+
+        {/* Profile Picture (Positioned inside gradient) */}
+        <View className="absolute left-[5%] bottom-[-50px] bg-third rounded-full p-7 z-10 border-[1px] border-border">
+          <User size={60} color={"white"} />
+        </View>
+      </View>
+
+      {/* Content section {below header} */}
+      <View className="mt-16">
+        {/* profile name + stats section */}
+        <View className="flex items-center">
+          <Text className="text-white text-3xl font-semibold">
+            {user ? user.username : "Guest"}{" "}
+          </Text>
+          <Text className="text-secondary text-lg">Member since Oct 25</Text>
+          {/* Stats */}
+          <View className="mt-2 flex-row gap-8 items-center justify-center">
+            {/* Posts stats */}
+            <View className="flex items-center">
+              <Text className="text-white text-2xl font-semibold">12</Text>
+              <Text className="text-white">Posts</Text>
+            </View>
+
+            {/* Places visited. */}
+            <View className="flex items-center">
+              <Text className="text-white text-2xl font-semibold">18</Text>
+              <Text className="text-white">Check Ins</Text>
+            </View>
+          </View>
+        </View>
+
+        {/* Basic info section */}
+        <View className="mt-8 pb-10 min-w-[90vw] bg-post shadow-2xl border border-border rounded-2xl">
+          <View className=" flex-col mt-8">
+            <View className="pl-7 flex-row gap-2">
+              <User color={'#8B5CF6'}/>
+              <Text className="text-white text-lg">Basic Information</Text>
+            </View>
+            {/* Input fields */}
+            {/* Username field */}
+            <View className="mt-4">
+              <View className="flex items-start mt-2 mb-2 pl-7">
+                <Text className="text-secondary text-start">Username</Text>
+              </View>
+              <TextInput
+                placeholder="John Doe"
+                placeholderTextColor={"grey"}
+                className="border border-secondary active:border-border p-3 rounded-lg w-[90%] mx-auto text-white"
+                style={{
+                  color: "white",
+                }}
+              />
+            </View>
+
+            {/* Email field */}
+            <View className="mt-3">
+              <View className="flex items-start mt-2 mb-2 pl-8">
+                <Text className="text-secondary text-start">Email</Text>
+              </View>
+
+              <TextInput
+                placeholder="your.email@example.com"
+                placeholderTextColor={"grey"}
+                className="border border-secondary active:border-border p-3 rounded-lg w-[90%] mx-auto text-white"
+                style={{
+                  color: "white",
+                }}
+              />
+            </View>
+
+            {/* Password field */}
+            <View className="mt-3">
+              <View className="flex items-start mt-2 mb-2 pl-7">
+                <Text className="text-secondary text-start">Password</Text>
+              </View>
+
+              <TextInput
+                placeholder="********"
+                secureTextEntry={true}
+                placeholderTextColor={"grey"}
+                className="border border-secondary active:border-border p-3 rounded-lg w-[90%] mx-auto text-white"
+                style={{
+                  color: "white",
+                }}
+              />
+            </View>
+          </View>
+        </View>
+
+        {/* Recent Activity section */}
+        <View></View>
+
+        {/* logout button */}
+        <Pressable
+          onPress={handlelogout}
+          className="border border-red-500 w-[90vw] rounded-lg p-2 flex items-center justify-center mt-6"
+        >
+          <Text className="text-red-500 font-bold text-lg">Logout</Text>
+        </Pressable>
+      </View>
     </View>
   );
 };
