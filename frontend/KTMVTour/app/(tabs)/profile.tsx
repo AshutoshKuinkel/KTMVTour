@@ -71,7 +71,7 @@ const profile = () => {
                 <Text className="text-secondary text-start">Username</Text>
               </View>
               <TextInput
-                placeholder="John Doe"
+                placeholder={user.username}
                 placeholderTextColor={"grey"}
                 className="border border-secondary active:border-border p-3 rounded-lg w-[90%] mx-auto text-white"
                 style={{
@@ -87,7 +87,7 @@ const profile = () => {
               </View>
 
               <TextInput
-                placeholder="your.email@example.com"
+                placeholder={user.email}
                 placeholderTextColor={"grey"}
                 className="border border-secondary active:border-border p-3 rounded-lg w-[90%] mx-auto text-white"
                 style={{
