@@ -48,7 +48,13 @@ const profile = () => {
             <Text className="text-white text-3xl font-semibold">
               {user ? user.username : "Guest"}{" "}
             </Text>
-            <Text className="text-secondary text-lg">Member since Oct 25</Text>
+            <Text className="text-secondary text-lg">
+              Member since{" "}
+              {new Date(user?.createdAt!).toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "long",
+              })}
+            </Text>
             {/* Stats */}
             <View className="mt-2 flex-row gap-8 items-center justify-center">
               {/* Posts stats */}

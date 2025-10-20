@@ -1,31 +1,73 @@
-import { View, Text, TextInput } from "react-native";
-import React from "react";
-import { User } from "lucide-react-native";
+import { View, Text, TextInput, Pressable } from "react-native";
+import React, { useState } from "react";
+import { User, Pencil, Save } from "lucide-react-native";
 import { getItem } from "@/src/store/storage";
 
 const BasicInfoSection = () => {
   const user = getItem("user");
+  const [isEditing, setIsEditing] = useState(false);
+
+  const handlePress = () => {
+    setIsEditing(true);
+  };
+
+  const onSubmit = () => {
+    setIsEditing(false);
+  };
   return (
     <View className="mt-8 pb-10 min-w-[90vw] bg-post shadow-2xl border border-border rounded-2xl">
       <View className=" flex-col mt-8">
-        <View className="pl-7 flex-row gap-2 items-center">
-          <User color={"#8B5CF6"} />
-          <Text className="text-white text-lg">Basic Information</Text>
+        <View className="justify-between flex-row pr-7">
+          <View className="pl-7 flex-row gap-2 items-center">
+            <User color={"#8B5CF6"} />
+            <Text className="text-white text-lg">Basic Information</Text>
+          </View>
+
+          {isEditing ? (
+            <Pressable
+              className="flex-row items-center gap-2 bg-button p-3 rounded-lg"
+              onPress={onSubmit}
+            >
+              <Save size={16} color={"#2d1b69"} />
+              <Text className="text-border">Save</Text>
+            </Pressable>
+          ) : (
+            <Pressable
+              className="flex-row items-center gap-2 bg-button p-3 rounded-lg"
+              onPress={handlePress}
+            >
+              <Pencil size={16} color={"#2d1b69"} />
+              <Text className="text-border">Edit</Text>
+            </Pressable>
+          )}
         </View>
+
         {/* Input fields */}
         {/* Username field */}
         <View className="mt-4">
           <View className="flex items-start mt-2 mb-2 pl-7">
             <Text className="text-secondary text-start">Username</Text>
           </View>
-          <TextInput
-            placeholder={user.username}
-            placeholderTextColor={"grey"}
-            className="border border-secondary active:border-border p-3 rounded-lg w-[90%] mx-auto text-white"
-            style={{
-              color: "white",
-            }}
-          />
+          {isEditing ? (
+            <TextInput
+              placeholder={user.username}
+              placeholderTextColor={"white"}
+              className="border border-white active:border-border p-3 rounded-lg w-[90%] mx-auto text-white"
+              style={{
+                color: "white",
+              }}
+            />
+          ) : (
+            <TextInput
+              placeholder={user.username}
+              placeholderTextColor={"grey"}
+              className="border border-secondary active:border-border p-3 rounded-lg w-[90%] mx-auto text-white"
+              editable={false}
+              style={{
+                color: "white",
+              }}
+            />
+          )}
         </View>
 
         {/* Email field */}
@@ -34,14 +76,26 @@ const BasicInfoSection = () => {
             <Text className="text-secondary text-start">Email</Text>
           </View>
 
-          <TextInput
-            placeholder={user.email}
-            placeholderTextColor={"grey"}
-            className="border border-secondary active:border-border p-3 rounded-lg w-[90%] mx-auto text-white"
-            style={{
-              color: "white",
-            }}
-          />
+          {isEditing ? (
+            <TextInput
+              placeholder={user.email}
+              placeholderTextColor={"white"}
+              className="border border-white active:border-border p-3 rounded-lg w-[90%] mx-auto text-white"
+              style={{
+                color: "white",
+              }}
+            />
+          ) : (
+            <TextInput
+              placeholder={user.email}
+              placeholderTextColor={"grey"}
+              className="border border-secondary active:border-border p-3 rounded-lg w-[90%] mx-auto text-white"
+              editable={false}
+              style={{
+                color: "white",
+              }}
+            />
+          )}
         </View>
 
         {/* Password field */}
@@ -50,15 +104,28 @@ const BasicInfoSection = () => {
             <Text className="text-secondary text-start">Password</Text>
           </View>
 
-          <TextInput
-            placeholder="********"
-            secureTextEntry={true}
-            placeholderTextColor={"grey"}
-            className="border border-secondary active:border-border p-3 rounded-lg w-[90%] mx-auto text-white"
-            style={{
-              color: "white",
-            }}
-          />
+          {isEditing ? (
+            <TextInput
+              placeholder="********"
+              secureTextEntry={true}
+              placeholderTextColor={"white"}
+              className="border border-white active:border-border p-3 rounded-lg w-[90%] mx-auto text-white"
+              style={{
+                color: "white",
+              }}
+            />
+          ) : (
+            <TextInput
+              placeholder="********"
+              secureTextEntry={true}
+              placeholderTextColor={"grey"}
+              className="border border-secondary active:border-border p-3 rounded-lg w-[90%] mx-auto text-white"
+              editable={false}
+              style={{
+                color: "white",
+              }}
+            />
+          )}
         </View>
       </View>
     </View>
