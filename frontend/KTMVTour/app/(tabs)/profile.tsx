@@ -36,7 +36,7 @@ const profile = () => {
           />
 
           {/* Profile Picture (Positioned inside gradient) */}
-          <View className="absolute left-[5%] bottom-[-50px] bg-third rounded-full p-7 z-10 border-[1px] border-border">
+          <View className="absolute left-[5%] bottom-[-55px] bg-third rounded-full p-7 z-10 border-[1px] border-border">
             <User size={60} color={"white"} />
           </View>
         </View>

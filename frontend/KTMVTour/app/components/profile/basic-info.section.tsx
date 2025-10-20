@@ -1,6 +1,6 @@
 import { View, Text, TextInput, Pressable } from "react-native";
 import React, { useState } from "react";
-import { User, Pencil, Save } from "lucide-react-native";
+import { User, Pencil, Save, Camera } from "lucide-react-native";
 import { getItem } from "@/src/store/storage";
 
 const BasicInfoSection = () => {
@@ -15,7 +15,7 @@ const BasicInfoSection = () => {
     setIsEditing(false);
   };
   return (
-    <View className="mt-8 pb-10 min-w-[90vw] bg-post shadow-2xl border border-border rounded-2xl">
+    <View className="mt-8 pb-6 min-w-[90vw] bg-post shadow-2xl border border-border rounded-2xl">
       <View className=" flex-col mt-8">
         <View className="justify-between flex-row pr-7">
           <View className="pl-7 flex-row gap-2 items-center">
@@ -127,6 +127,15 @@ const BasicInfoSection = () => {
             />
           )}
         </View>
+
+        {isEditing && (
+          <View className="items-center mt-6">
+            <Text className="text-secondary mb-2">Change Profile Picture:</Text>
+            <View className="py-6 bg-bg w-20 items-center rounded-full">
+              <Camera size={24} color={"#8B5CF6"} />
+            </View>
+          </View>
+        )}
       </View>
     </View>
   );
