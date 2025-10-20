@@ -710,3 +710,5 @@ if(authUserData && authTokenData){
 - Finished off the profile page styling to start off with. I ran into an overflow issue because i was using h-[20%] for the linear bg in profile page, but switching it to h-48 or 44 whatever it was + adding scrollview component ended up fixing the issue.
 
 - I'll see if I can add some backend functionality to the profile page today.
+
+- Didn't get to adding backend functionality, just worked some more on the frontend, adding states when user clicks edit on profile page etc.
