@@ -13,7 +13,8 @@ module.exports = {
         secondary:'#9ca3af',
         post:'#1A1A1A',
         border:'#2d1b69',
-        third:'#2A2A2A'
+        third:'#2A2A2A',
+        bg:'#312746'
       }
     },
   },
