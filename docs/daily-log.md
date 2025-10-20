@@ -712,3 +712,7 @@ if(authUserData && authTokenData){
 - I'll see if I can add some backend functionality to the profile page today.
 
 - Didn't get to adding backend functionality, just worked some more on the frontend, adding states when user clicks edit on profile page etc.
+
+## 21 OCT 25
+
+- I'll start off by creating an update profile backend function.
