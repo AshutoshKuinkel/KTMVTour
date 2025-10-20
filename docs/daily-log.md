@@ -700,3 +700,13 @@ if(authUserData && authTokenData){
 - updated profile tsx to have just getItem('user') instead of the state + effect hook I had yesterday, so the solution to the problem I was looking for yesterday is set. 
 
 - alright thats a close off for today, tomorrow I'll build the full profile page, or at least do as much as I can. Also im thinking we have a plus icon in our tabs (in the middle) that links us to a post screen. Just like tiktok, otherwise user's have to go through more of a search to try & find the post button which will just turn them away from posting.
+
+## 19 OCT 25
+
+- Couldn't do much, was out basically whole day. But I managed to finish half of the profile page styling
+
+## 20 OCT 25
+
+- Finished off the profile page styling to start off with. I ran into an overflow issue because i was using h-[20%] for the linear bg in profile page, but switching it to h-48 or 44 whatever it was + adding scrollview component ended up fixing the issue.
+
+- I'll see if I can add some backend functionality to the profile page today.
