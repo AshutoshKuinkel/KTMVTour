@@ -751,3 +751,5 @@ Error handler caught: TypeError: Cannot read properties of undefined (reading 'K
 - Ok changing the env to production didn't work so i think it's the cookie parser problem. Let's install cookie parser and see.
 
 - yes, not having cookie parser was the problem. Okay, now the backend for update profile is done.
+
+- i'll probably implement this into frontend tomorrow, i may just close off for today here.
