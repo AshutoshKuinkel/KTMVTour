@@ -95,7 +95,3 @@ export const login = async(req:Request,res:Response,next:NextFunction)=>{
     next(err)
   }
 }
-
-// logout function:
-
-// profile function
