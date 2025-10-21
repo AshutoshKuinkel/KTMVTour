@@ -691,13 +691,13 @@ if(authUserData && authTokenData){
   return false
 ```
 
-- next I have to figure out how to access the user name etc. now 
+- next I have to figure out how to access the user name etc. now
 
 - fk that, I can't get much done today im short on time. I'l just try to style much of the signup page as I can.
 
 - ahh, I got the signup with full functionality within 5 mins, because it was basically copy paste of login + one more field and another function from backend that needed to be changed.
 
-- updated profile tsx to have just getItem('user') instead of the state + effect hook I had yesterday, so the solution to the problem I was looking for yesterday is set. 
+- updated profile tsx to have just getItem('user') instead of the state + effect hook I had yesterday, so the solution to the problem I was looking for yesterday is set.
 
 - alright thats a close off for today, tomorrow I'll build the full profile page, or at least do as much as I can. Also im thinking we have a plus icon in our tabs (in the middle) that links us to a post screen. Just like tiktok, otherwise user's have to go through more of a search to try & find the post button which will just turn them away from posting.
 
@@ -717,7 +717,8 @@ if(authUserData && authTokenData){
 
 - I'll start off by creating an update profile backend function.
 
-- Ok so I just tried to use req.user._id and I couldn't use it because I didn't have an auth middleware function so I got an error saying cannot read properties of undefined reading id. I also had to create an express.d.ts docs:
+- Ok so I just tried to use req.user.\_id and I couldn't use it because I didn't have an auth middleware function so I got an error saying cannot read properties of undefined reading id. I also had to create an express.d.ts docs:
+
 ```TypeScript
 import { Request } from 'express';
 import { JWTPayload } from './global.types';
@@ -732,6 +733,7 @@ declare global {
 ```
 
 - i created the auth middleware and now its saying:
+
 ```bash
 Error handler caught: TypeError: Cannot read properties of undefined (reading 'KTMVTour_token')
     at C:\Users\ashut\Desktop\KTMVTour\backend\src\middlewares\auth.middleware.ts:15:42
@@ -753,3 +755,48 @@ Error handler caught: TypeError: Cannot read properties of undefined (reading 'K
 - yes, not having cookie parser was the problem. Okay, now the backend for update profile is done.
 
 - i'll probably implement this into frontend tomorrow, i may just close off for today here.
+
+## 22 OCT 25
+
+- starting off by connecting the backend update profile function with the frontend.
+
+- Ok im facing two issues right now. The first one is when im trying to display error message:
+
+```TypeScript
+{errors.email && (
+            <Text className="text-red-500 text-xs pl-8 mt-1">
+              {errors.email.message}
+            </Text>
+          )}
+```
+
+- This is the error it says:
+
+```TypeScript
+No overload matches this call.
+  Overload 1 of 2, '(props: TextProps): Text', gave the following error.
+    Type 'string | FieldError | Merge<FieldError, FieldErrorsImpl<any>> | undefined' is not assignable to type 'ReactNode'.
+      Type 'FieldError' is not assignable to type 'ReactNode'.
+        Type 'FieldError' is missing the following properties from type 'ReactPortal': children, props, key
+  Overload 2 of 2, '(props: TextProps, context: any): Text', gave the following error.
+    Type 'string | FieldError | Merge<FieldError, FieldErrorsImpl<any>> | undefined' is not assignable to type 'ReactNode'.
+      Type 'FieldError' is not assignable to type 'ReactNode'.
+        Type 'FieldError' is missing the following properties from type 'ReactPortal': children, props, keyts(2769)
+Text.d.ts(114, 3): The expected type comes from property 'children' which is declared here on type 'IntrinsicAttributes & IntrinsicClassAttributes<Text> & Readonly<TextProps>'
+Text.d.ts(114, 3): The expected type comes from property 'children' which is declared here on type 'IntrinsicAttributes & IntrinsicClassAttributes<Text> & Readonly<TextProps>'
+(property) message?: string | FieldError | Merge<FieldError, FieldErrorsImpl<any>> | undefined
+```
+
+- The second error is because of my default values for username + email in my RHF, when I try to change the values, it just cancels what I wrote after like half a second and adds back the original default values. I asked chat gpt, apparently we can solve this with a useEffect hook and using the reset function within RHF, but i'll search online for it aswell lets see. Ahh ha, i asked gpt, claude and grok. Claude gave me the same solution as the other two, but it gave me a much simpler + quicker solution aswell. It told me to change onChange which is more suited for web and not react native to onChangeText = {onChange} and that ended up fixing the issue. Ok so that's one issue done, the other issue i have is about that type error & I also can't seem to submit form/make request to backend when i click save so let's see whats going on there aswell.
+
+- AHHH HAHAH i forgot to deploy this shit on the backend to render. It just came in my mind as soon as I was going to check the error logs on render.
+
+- and in terms of my errors.email.message error, i just replaced it like this for now(since im pretty sure the only error that we can get on it is Invalid email format. But anyways, i may fix that later if I find a good solution.):
+
+```TypeScript
+{errors.email && (
+            <Text className="text-red-500 text-xs pl-8 mt-1">
+              Invalid Email Format
+            </Text>
+          )}
+```
