@@ -63,6 +63,7 @@ const BasicInfoSection = () => {
         () => Toast.success(response?.message ?? "Profile Updated", "top"),
         500
       );
+      setIsEditing(false);
       RNRestart.restart();
     },
     onError: (err) => {
@@ -78,7 +79,7 @@ const BasicInfoSection = () => {
   };
 
   const onSubmit = (data: IUser) => {
-    (mutate(data), setIsEditing(false));
+    mutate(data);
   };
 
   return (
@@ -96,7 +97,7 @@ const BasicInfoSection = () => {
               onPress={handleSubmit(onSubmit)}
             >
               <Save size={16} color={"#2d1b69"} />
-              <Text className="text-border">Save</Text>
+              {isPending? <Text className="text-border">Saving...</Text>:<Text className="text-border">Save</Text>}
             </Pressable>
           ) : (
             <Pressable
@@ -121,7 +122,7 @@ const BasicInfoSection = () => {
               name="username"
               render={({ field: { onChange, onBlur, value } }) => (
                 <TextInput
-                  onChange={onChange}
+                  onChangeText={onChange}
                   onBlur={onBlur}
                   value={value}
                   placeholderTextColor={"white"}
@@ -138,7 +139,7 @@ const BasicInfoSection = () => {
               name="username"
               render={({ field: { onChange, onBlur, value } }) => (
                 <TextInput
-                  onChange={onChange}
+                  onChangeText={onChange}
                   onBlur={onBlur}
                   value={value}
                   editable={false}
@@ -165,7 +166,7 @@ const BasicInfoSection = () => {
               name="email"
               render={({ field: { onChange, onBlur, value } }) => (
                 <TextInput
-                  onChange={onChange}
+                  onChangeText={onChange}
                   onBlur={onBlur}
                   value={value}
                   placeholderTextColor={"white"}
@@ -182,7 +183,7 @@ const BasicInfoSection = () => {
               name="email"
               render={({ field: { onChange, onBlur, value } }) => (
                 <TextInput
-                  onChange={onChange}
+                  onChangeText={onChange}
                   onBlur={onBlur}
                   value={value}
                   editable={false}
