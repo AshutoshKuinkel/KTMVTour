@@ -3,6 +3,7 @@ import express, {Request,Response} from 'express';
 import 'dotenv/config'
 import { connectDB } from './config/db.config';
 import { errorHandler } from './middlewares/error-handler.middleware';
+import cookieParser from 'cookie-parser';
 
 // initialisations:
 const app = express()
@@ -13,6 +14,7 @@ connectDB(DB_URI!)
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser())
 
 // importing routes:
 import authRoutes from './routes/auth.routes'

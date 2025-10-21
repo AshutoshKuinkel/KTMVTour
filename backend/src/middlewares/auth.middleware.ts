@@ -12,14 +12,14 @@ export const authenticate = () => {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
       //getting token:
-      const app_token = req.cookies.KTMVTour_token;
+      const KTMVTour_token = req.cookies.KTMVTour_token;
 
-      if (!app_token) {
+      if (!KTMVTour_token) {
         throw new CustomError(`Unauthorised.`, 401);
       }
 
       // verifying token:
-      const decodedData = verifyAccessToken(app_token)
+      const decodedData = verifyAccessToken(KTMVTour_token)
 
       if (Date.now() > decodedData.exp * 1000) {
         res.clearCookie("KTMVTour_token", {

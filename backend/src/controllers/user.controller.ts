@@ -10,8 +10,7 @@ export const updateProfile = async (
   next: NextFunction
 ) => {
   try {
-    console.log(req.user._id)
-    const id = req.user._id
+    const id = req.user._id;
 
     const user = await User.findById(id);
 
@@ -29,6 +28,10 @@ export const updateProfile = async (
           400
         );
       }
+
+      //have to hash the updated password
+      const updatedPass = await HashPassword(password);
+      updatedInfo.password = updatedPass;
     }
 
     if (username) {
@@ -37,10 +40,6 @@ export const updateProfile = async (
       }
     }
 
-    //have to hash the updated password
-    const updatedPass = await HashPassword(password);
-    updatedInfo.password = updatedPass;
-
     const updatedUser = await User.findByIdAndUpdate(id, updatedInfo, {
       new: true,
       runValidators: true,
@@ -48,7 +47,7 @@ export const updateProfile = async (
 
     res.status(201).json({
       message: `Profile Updated`,
-      data: updatedUser,
+      data: null,
     });
   } catch (err) {
     next(err);
