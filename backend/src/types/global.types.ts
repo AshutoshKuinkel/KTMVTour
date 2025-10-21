@@ -7,3 +7,8 @@ export interface JWTPayload{
   username:string,
   profilePicture?:string | null
 }
+
+export interface JWTDecodedPayload extends JWTPayload{
+  exp:number,
+  iat:number
+}
