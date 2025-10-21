@@ -716,3 +716,38 @@ if(authUserData && authTokenData){
 ## 21 OCT 25
 
 - I'll start off by creating an update profile backend function.
+
+- Ok so I just tried to use req.user._id and I couldn't use it because I didn't have an auth middleware function so I got an error saying cannot read properties of undefined reading id. I also had to create an express.d.ts docs:
+```TypeScript
+import { Request } from 'express';
+import { JWTPayload } from './global.types';
+
+declare global {
+  namespace Express{
+    interface Request{
+      user:JWTPayload
+    }
+  }
+}
+```
+
+- i created the auth middleware and now its saying:
+```bash
+Error handler caught: TypeError: Cannot read properties of undefined (reading 'KTMVTour_token')
+    at C:\Users\ashut\Desktop\KTMVTour\backend\src\middlewares\auth.middleware.ts:15:42
+    at Layer.handleRequest (C:\Users\ashut\Desktop\KTMVTour\backend\node_modules\router\lib\layer.js:152:17)
+    at next (C:\Users\ashut\Desktop\KTMVTour\backend\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (C:\Users\ashut\Desktop\KTMVTour\backend\node_modules\router\lib\route.js:117:3)
+    at handle (C:\Users\ashut\Desktop\KTMVTour\backend\node_modules\router\index.js:435:11)
+    at Layer.handleRequest (C:\Users\ashut\Desktop\KTMVTour\backend\node_modules\router\lib\layer.js:152:17)
+    at C:\Users\ashut\Desktop\KTMVTour\backend\node_modules\router\index.js:295:15
+    at processParams (C:\Users\ashut\Desktop\KTMVTour\backend\node_modules\router\index.js:582:12)
+    at next (C:\Users\ashut\Desktop\KTMVTour\backend\node_modules\router\index.js:291:5)
+    at Function.handle (C:\Users\ashut\Desktop\KTMVTour\backend\node_modules\router\index.js:186:3)
+```
+
+- I will try to install cookie parser see if that helps or maybe its because my site is in development instead of production or whateever so that makes secure true instead of false or the other way around I forgot.
+
+- Ok changing the env to production didn't work so i think it's the cookie parser problem. Let's install cookie parser and see.
+
+- yes, not having cookie parser was the problem. Okay, now the backend for update profile is done.
