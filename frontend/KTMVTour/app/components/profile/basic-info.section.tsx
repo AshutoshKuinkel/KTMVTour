@@ -49,7 +49,7 @@ const BasicInfoSection = () => {
     defaultValues: {
       username: user.username,
       email: user.email,
-      password: user.password,
+      password: "",
     },
     resolver: yupResolver(profileSchema),
     mode: "all",
@@ -67,6 +67,7 @@ const BasicInfoSection = () => {
       RNRestart.restart();
     },
     onError: (err) => {
+      console.log("Error occurred:", err);
       Toast.error(
         err?.message ?? "Error updating profile. Please try again later.",
         "top"
@@ -97,7 +98,11 @@ const BasicInfoSection = () => {
               onPress={handleSubmit(onSubmit)}
             >
               <Save size={16} color={"#2d1b69"} />
-              {isPending? <Text className="text-border">Saving...</Text>:<Text className="text-border">Save</Text>}
+              {isPending ? (
+                <Text className="text-border">Saving...</Text>
+              ) : (
+                <Text className="text-border">Save</Text>
+              )}
             </Pressable>
           ) : (
             <Pressable
@@ -210,25 +215,43 @@ const BasicInfoSection = () => {
           </View>
 
           {isEditing ? (
-            <TextInput
-              placeholder="********"
-              secureTextEntry={true}
-              placeholderTextColor={"white"}
-              className="border border-white active:border-border p-3 rounded-lg w-[90%] mx-auto text-white"
-              style={{
-                color: "white",
-              }}
+            <Controller
+              control={control}
+              name="password"
+              render={({ field: { onChange, onBlur, value } }) => (
+                <TextInput
+                  onChangeText={onChange}
+                  onBlur={onBlur}
+                  value={value}
+                  secureTextEntry={true}
+                  placeholderTextColor={"white"}
+                  placeholder="********"
+                  className="border border-white active:border-border p-3 rounded-lg w-[90%] mx-auto text-white"
+                  style={{
+                    color: "white",
+                  }}
+                />
+              )}
             />
           ) : (
-            <TextInput
-              placeholder="********"
-              secureTextEntry={true}
-              placeholderTextColor={"grey"}
-              className="border border-secondary active:border-border p-3 rounded-lg w-[90%] mx-auto text-white"
-              editable={false}
-              style={{
-                color: "white",
-              }}
+            <Controller
+              control={control}
+              name="password"
+              render={({ field: { onChange, onBlur, value } }) => (
+                <TextInput
+                  onChangeText={onChange}
+                  onBlur={onBlur}
+                  value={value}
+                  secureTextEntry={true}
+                  editable={false}
+                  placeholderTextColor={"#9ca3af"}
+                  placeholder="********"
+                  className="border border-secondary active:border-border p-3 rounded-lg w-[90%] mx-auto text-secondary"
+                  style={{
+                    color: "#9ca3af",
+                  }}
+                />
+              )}
             />
           )}
         </View>
