@@ -812,4 +812,59 @@ Text.d.ts(114, 3): The expected type comes from property 'children' which is dec
  LOG  Error occurred: [TypeError: Cannot read property 'restart' of null]
  ```
 
- - Bombooclaat I think it's because i need to rebuild app after importing the RNrestart for it to work.
+ - Bombooclaat I think it's because i need to rebuild app after importing the RNrestart for it to work. Let me just remove the rn restart for now. Ok, so the data is getting updated on the database when I make a change on my app, but i think the problem is because the app is using the token which has the old data stored. Hence, it's showing the old data instead of the new changed data. I asked claude, it said this was the problem, and it suggested me to set a new token with the updated data once user updates profile like this:
+ ```TypeScript
+ const onSubmit = (data: IUser) => {
+  const payload: Partial<IUser> = {};
+
+  if (data.username !== user.username) {
+    payload.username = data.username;
+  }
+  if (data.email !== user.email) {
+    payload.email = data.email;
+  }
+  if (data.password && data.password.trim() !== "") {
+    payload.password = data.password;
+  }
+
+  console.log(`Form Submitted (only changed fields):`, payload);
+
+  if (Object.keys(payload).length === 0) {
+    Toast.error("No changes detected", "top");
+    return;
+  }
+
+  mutate(payload as IUser);
+};
+
+const { mutate, isPending } = useMutation({
+  mutationFn: updateProfileAPI,
+  mutationKey: ["update_profile_key"],
+  onSuccess: (response, variables) => { // variables contains the payload you sent
+    // Update local storage with new values
+    const currentUser = getItem("user");
+    const updatedUser = {
+      ...currentUser,
+      ...variables, // The payload from mutate()
+    };
+    
+    setItem("user", updatedUser); // Make sure to import setItem from your storage
+    
+    Toast.success(response?.message ?? "Profile Updated", "top");
+    setIsEditing(false);
+  },
+  onError: (err) => {
+    console.log("Error occurred:", err);
+    Toast.error(
+      err?.message ?? "Error updating profile. Please try again later.",
+      "top"
+    );
+  },
+});
+```
+
+- This will probably work but how scalable is this? let's say im fetching a users posts right, will I have to set a new token every time user posts aswell? or sends a comment on the app etc.? Maybe for now i guess I can just remove the user/token so user needs to login again after they make a change to their profile info. But then again, will I have to do the same with posting, commenting etc. for it to take effect? Oh well, I'll worry about that when doing it. For now this is a temporary solution. I need to come back to it, it's important to fix this. 
+
+- ahh problem after problem, but its fine i guess. The toast messages aren't showing at all for the upate profile. I moved the toast manager + toast config style initialisation to layout.tsx, lets see if that works. Im changing from toastify react native to react native toast message. Hopefully that'll work.
+
+- finally toast problem is done. Now I have to look into how we can update everything without having the user have to logout + login again.
