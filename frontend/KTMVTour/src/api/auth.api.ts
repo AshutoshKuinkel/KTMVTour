@@ -33,6 +33,6 @@ export const profileAPI = async()=>{
     const response = await api.get('/auth/me')
     return response.data
   }catch(err:any){
-    return err.response.data
+    throw err.response.data
   }
 }

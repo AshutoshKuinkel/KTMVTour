@@ -18,9 +18,6 @@ const LoginForm = () => {
 
   const { login } = useAuthStore();
 
-  const handleLogin = () => {
-    login();
-  };
 
   const {
     control,
@@ -48,10 +45,10 @@ const LoginForm = () => {
           }),
         500
       );
-      setTimeout(() => handleLogin(), 1000);
-      // console.log(`Response data {user}: ${JSON.stringify(response.data)}`)
+      setTimeout(() => login(response.data), 1000);
+      // console.log(`Response data {user}: ${JSON.stringify(response.data._id)}`)
       // console.log(`Access token response:${response.KTMVTour_token}`)
-      setItem("user", response.data);
+      setItem("user", response.data._id);
       setItem("KTMVTour_token", response.KTMVTour_token);
     },
     onError: (err) => {

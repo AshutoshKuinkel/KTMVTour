@@ -9,7 +9,7 @@ import RecentActivitySection from "../components/profile/recent-activity.section
 
 const profile = () => {
   const { logout } = useAuthStore();
-  const user = getItem("user");
+  const {user} = useAuthStore()
 
   const handlelogout = () => {
     removeItem("user");

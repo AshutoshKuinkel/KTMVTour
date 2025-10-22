@@ -9,9 +9,10 @@ import { IUser } from "@/src/types/user.types";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { profileSchema } from "@/src/schema/user.schema";
+import { useAuthStore } from "@/src/store/auth.store";
 
 const BasicInfoSection = () => {
-  const user = getItem("user");
+  const {user} = useAuthStore()
   const [isEditing, setIsEditing] = useState(false);
   const payloadRef = useRef<Partial<IUser>>({}); //using a useRef hook to update without rerendering + hold current payload.
 
@@ -21,8 +22,8 @@ const BasicInfoSection = () => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      username: user.username,
-      email: user.email,
+      username: user?.username,
+      email: user?.email,
       password: "",
     },
     resolver: yupResolver(profileSchema),
@@ -62,10 +63,10 @@ const BasicInfoSection = () => {
   const onSubmit = (data: IUser) => {
     const payload: Partial<IUser> = {} //purpose of this partial is to help make all the fields we defined in our type optional.
 
-    if (data.username !== user.username) {
+    if (data.username !== user?.username) {
       payload.username = data.username
     }
-    if (data.email !== user.email) {
+    if (data.email !== user?.email) {
       payload.email = data.email;
     }
     if (data.password && data.password.trim() !== "") {
