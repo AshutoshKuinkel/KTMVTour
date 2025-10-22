@@ -1,45 +1,27 @@
 import { View, Text, TextInput, Pressable } from "react-native";
 import React, { useState } from "react";
-import {
-  User,
-  Pencil,
-  Save,
-  Camera,
-  CircleAlertIcon,
-  CircleCheck,
-} from "lucide-react-native";
-import { getItem } from "@/src/store/storage";
+import { User, Pencil, Save, Camera } from "lucide-react-native";
+import { getItem, removeItem } from "@/src/store/storage";
 import { useMutation } from "@tanstack/react-query";
 import { updateProfileAPI } from "@/src/api/user.api";
-import { Toast } from "toastify-react-native";
-import ToastManager from "toastify-react-native/components/ToastManager";
+import Toast from "react-native-toast-message";
 import { IUser } from "@/src/types/user.types";
-import RNRestart from "react-native-restart";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { profileSchema } from "@/src/schema/user.schema";
-
-const toastConfig = {
-  success: (props: any) => (
-    <View className="bg-post p-4 rounded-2xl flex-row items-center gap-3">
-      <CircleCheck color={"#8B5CF6"} fontWeight={"bold"} />
-      <Text className="text-white font-bold">{props.text1}</Text>
-    </View>
-  ),
-
-  error: (props: any) => (
-    <View className="bg-post p-4 rounded-2xl flex-row items-center gap-3 max-w-[90vw]">
-      <CircleAlertIcon color={"#8B5CF6"} fontWeight={"bold"} />
-      <Text className="text-white font-bold text-center max-w-[90vw]">
-        {props.text1}
-      </Text>
-    </View>
-  ),
-};
+import { useAuthStore } from "@/src/store/auth.store";
 
 const BasicInfoSection = () => {
   const user = getItem("user");
   const [isEditing, setIsEditing] = useState(false);
+
+  const { logout } = useAuthStore();
+  const handlelogout = () => {
+    removeItem("user");
+    removeItem("KTMVTour_token");
+    logout();
+    // console.log(user)
+  };
 
   const {
     control,
@@ -59,19 +41,21 @@ const BasicInfoSection = () => {
     mutationFn: updateProfileAPI,
     mutationKey: ["update_profile_key"],
     onSuccess: (response) => {
-      setTimeout(
-        () => Toast.success(response?.message ?? "Profile Updated", "top"),
-        500
-      );
+      Toast.show({
+        type: "success",
+        text1: response.message ?? "Profile Updated",
+        position: "top",
+      });
       setIsEditing(false);
-      RNRestart.restart();
     },
     onError: (err) => {
       console.log("Error occurred:", err);
-      Toast.error(
-        err?.message ?? "Error updating profile. Please try again later.",
-        "top"
-      );
+      Toast.show({
+        type: "error",
+        text1:
+          err?.message ?? "Error updating profile. Please try again later.",
+        position: "top",
+      });
     },
   });
 
@@ -80,7 +64,30 @@ const BasicInfoSection = () => {
   };
 
   const onSubmit = (data: IUser) => {
-    mutate(data);
+    const payload: Partial<IUser> = {};
+
+    if (data.username !== user.username) {
+      payload.username = data.username;
+    }
+    if (data.email !== user.email) {
+      payload.email = data.email;
+    }
+    if (data.password && data.password.trim() !== "") {
+      payload.password = data.password;
+    }
+
+    // Make sure there's at least one field to update
+    if (Object.keys(payload).length === 0) {
+      Toast.show({
+        type: "error",
+        text1: "Nothing to update",
+        position: "top",
+      });
+      setIsEditing(false);
+      return;
+    }
+
+    mutate(payload as IUser);
   };
 
   return (
@@ -266,7 +273,6 @@ const BasicInfoSection = () => {
           </View>
         )} */}
       </View>
-      <ToastManager config={toastConfig} />
     </View>
   );
 };

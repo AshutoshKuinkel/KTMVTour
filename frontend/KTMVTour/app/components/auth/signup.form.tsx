@@ -6,30 +6,12 @@ import { loginSchema, signupSchema } from "@/src/schema/auth.schema";
 import { useMutation } from "@tanstack/react-query";
 import { loginAPI, signupAPI } from "@/src/api/auth.api";
 import { ILoginData, ISignupData } from "@/src/types/auth.types";
-import ToastManager, { Toast } from "toastify-react-native";
 import { CircleAlertIcon, CircleCheck } from "lucide-react-native";
 import { router } from "expo-router";
 import { useAuthStore } from "@/src/store/auth.store";
 import { MMKV } from "react-native-mmkv";
 import { setItem } from "@/src/store/storage";
-
-const toastConfig = {
-  success: (props: any) => (
-    <View className="bg-post p-4 rounded-2xl flex-row items-center gap-3">
-      <CircleCheck color={"#8B5CF6"} fontWeight={"bold"} />
-      <Text className="text-white font-bold">{props.text1}</Text>
-    </View>
-  ),
-
-  error: (props: any) => (
-    <View className="bg-post p-4 rounded-2xl flex-row items-center gap-3 max-w-[90vw]">
-      <CircleAlertIcon color={"#8B5CF6"} fontWeight={"bold"} />
-      <Text className="text-white font-bold text-center max-w-[90vw]">
-        {props.text1}
-      </Text>
-    </View>
-  ),
-};
+import Toast from "react-native-toast-message";
 
 const SignupForm = () => {
   const {
@@ -52,16 +34,21 @@ const SignupForm = () => {
     onSuccess: (response) => {
       setTimeout(
         () =>
-          Toast.success(response?.message ?? "Successfully Signed Up", "top"),
+          Toast.show({
+            type: "success",
+            text1: response.message ?? "Successfully Signed up",
+            position: "top",
+          }),
         500
       );
       setTimeout(() => router.push("/login"), 1000);
     },
     onError: (err) => {
-      Toast.error(
-        err?.message ?? `Sorry, we couldn't sign you up at this time.`,
-        "top"
-      );
+      Toast.show({
+        type: "error",
+        text1: err?.message ?? "Sorry, we couldn't sign you up at this time.",
+        position: "top",
+      });
     },
   });
   const onSubmit = async (data: ISignupData) => {
@@ -181,16 +168,12 @@ const SignupForm = () => {
         <View className="mt-4 flex items-center">
           <Text className="text-white">
             Already have an account?{" "}
-            <Text
-              className="text-button"
-              onPress={() => router.push("/login")}
-            >
+            <Text className="text-button" onPress={() => router.push("/login")}>
               Log In
             </Text>
           </Text>
         </View>
       </View>
-      <ToastManager config={toastConfig} />
     </View>
   );
 };
