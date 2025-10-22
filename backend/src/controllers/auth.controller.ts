@@ -95,3 +95,23 @@ export const login = async(req:Request,res:Response,next:NextFunction)=>{
     next(err)
   }
 }
+
+//fetch profile function
+export const profile = async(req:Request,res:Response,next:NextFunction)=>{
+  try{
+    const userId = req.user._id
+
+    const user = await User.findById(userId)
+
+    if(!user){
+      throw new CustomError(`User not found`,404)
+    }
+
+    res.status(200).json({
+      message:`User fetched`,
+      data:user
+    })
+  }catch(err){
+    next(err)
+  }
+}
