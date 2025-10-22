@@ -804,67 +804,94 @@ Text.d.ts(114, 3): The expected type comes from property 'children' which is dec
 - re deploying it didn't fix problem.
 
 - Yo yo yo, I added all these debugging statements and I think it was a problem with the fking react native restart library:
+
 ```bash
  LOG  Form Submitted {"email": "ashutoshkuinkel42@gmail.com", "username": "ashK"}
  LOG  About to call mutate
  LOG  Mutate called
  LOG  Success response: {"data": null, "message": "Profile Updated"}
  LOG  Error occurred: [TypeError: Cannot read property 'restart' of null]
- ```
+```
 
- - Bombooclaat I think it's because i need to rebuild app after importing the RNrestart for it to work. Let me just remove the rn restart for now. Ok, so the data is getting updated on the database when I make a change on my app, but i think the problem is because the app is using the token which has the old data stored. Hence, it's showing the old data instead of the new changed data. I asked claude, it said this was the problem, and it suggested me to set a new token with the updated data once user updates profile like this:
- ```TypeScript
- const onSubmit = (data: IUser) => {
-  const payload: Partial<IUser> = {};
+- Bombooclaat I think it's because i need to rebuild app after importing the RNrestart for it to work. Let me just remove the rn restart for now. Ok, so the data is getting updated on the database when I make a change on my app, but i think the problem is because the app is using the token which has the old data stored. Hence, it's showing the old data instead of the new changed data. I asked claude, it said this was the problem, and it suggested me to set a new token with the updated data once user updates profile like this:
 
-  if (data.username !== user.username) {
-    payload.username = data.username;
-  }
-  if (data.email !== user.email) {
-    payload.email = data.email;
-  }
-  if (data.password && data.password.trim() !== "") {
-    payload.password = data.password;
-  }
+```TypeScript
+const onSubmit = (data: IUser) => {
+ const payload: Partial<IUser> = {};
 
-  console.log(`Form Submitted (only changed fields):`, payload);
+ if (data.username !== user.username) {
+   payload.username = data.username;
+ }
+ if (data.email !== user.email) {
+   payload.email = data.email;
+ }
+ if (data.password && data.password.trim() !== "") {
+   payload.password = data.password;
+ }
 
-  if (Object.keys(payload).length === 0) {
-    Toast.error("No changes detected", "top");
-    return;
-  }
+ console.log(`Form Submitted (only changed fields):`, payload);
 
-  mutate(payload as IUser);
+ if (Object.keys(payload).length === 0) {
+   Toast.error("No changes detected", "top");
+   return;
+ }
+
+ mutate(payload as IUser);
 };
 
 const { mutate, isPending } = useMutation({
-  mutationFn: updateProfileAPI,
-  mutationKey: ["update_profile_key"],
-  onSuccess: (response, variables) => { // variables contains the payload you sent
-    // Update local storage with new values
-    const currentUser = getItem("user");
-    const updatedUser = {
-      ...currentUser,
-      ...variables, // The payload from mutate()
-    };
-    
-    setItem("user", updatedUser); // Make sure to import setItem from your storage
-    
-    Toast.success(response?.message ?? "Profile Updated", "top");
-    setIsEditing(false);
-  },
-  onError: (err) => {
-    console.log("Error occurred:", err);
-    Toast.error(
-      err?.message ?? "Error updating profile. Please try again later.",
-      "top"
-    );
-  },
+ mutationFn: updateProfileAPI,
+ mutationKey: ["update_profile_key"],
+ onSuccess: (response, variables) => { // variables contains the payload you sent
+   // Update local storage with new values
+   const currentUser = getItem("user");
+   const updatedUser = {
+     ...currentUser,
+     ...variables, // The payload from mutate()
+   };
+
+   setItem("user", updatedUser); // Make sure to import setItem from your storage
+
+   Toast.success(response?.message ?? "Profile Updated", "top");
+   setIsEditing(false);
+ },
+ onError: (err) => {
+   console.log("Error occurred:", err);
+   Toast.error(
+     err?.message ?? "Error updating profile. Please try again later.",
+     "top"
+   );
+ },
 });
 ```
 
-- This will probably work but how scalable is this? let's say im fetching a users posts right, will I have to set a new token every time user posts aswell? or sends a comment on the app etc.? Maybe for now i guess I can just remove the user/token so user needs to login again after they make a change to their profile info. But then again, will I have to do the same with posting, commenting etc. for it to take effect? Oh well, I'll worry about that when doing it. For now this is a temporary solution. I need to come back to it, it's important to fix this. 
+- This will probably work but how scalable is this? let's say im fetching a users posts right, will I have to set a new token every time user posts aswell? or sends a comment on the app etc.? Maybe for now i guess I can just remove the user/token so user needs to login again after they make a change to their profile info. But then again, will I have to do the same with posting, commenting etc. for it to take effect? Oh well, I'll worry about that when doing it. For now this is a temporary solution. I need to come back to it, it's important to fix this.
 
 - ahh problem after problem, but its fine i guess. The toast messages aren't showing at all for the upate profile. I moved the toast manager + toast config style initialisation to layout.tsx, lets see if that works. Im changing from toastify react native to react native toast message. Hopefully that'll work.
 
 - finally toast problem is done. Now I have to look into how we can update everything without having the user have to logout + login again.
+
+- I asked this over on the coding den discord. Im also seeing what AI says, it tells me when I write the same message to it, & it's telling me to maybe just update mmkv key user to new values on success of update profile function. That seems like a good idea, maybe thats not a good way to go about it though? I'll wait for answers on discord aswell while i try to implement the updating mmkv on success:
+
+```bash
+hey guys, im currently working on the profile page for my app. But I want to know how I could handle this issue better.
+
+So when user updates their username for example, the request is successful and it does update the username on the database. However, since im using mmkv storage, it doesn't automatically show the changes all over the app. Im 100% sure its because when user logs in i store the user in mmkv storage.  When I change username and save it, it only takes effect after user logs out and logs in again because on logout i delete the storage.
+
+So initially i thought it'd be fine if we just make the user login again every time they change their username or email or password etc. but then i thought this idea may work well for the problem right now, but it's not really scalable because what if the user makes a post or comments on someone elses posts? How can I just get those changes to fetch without having user logout login again. But now im thinking since i only store the user and token in mmkv, i won't need to worry about posts, comments etc. not fetching since they aren't stored with hardcoded values on login. I can't say this with certainty though until I try posting or making comments etc. but thats a job for later.
+
+Now, if the logout login is a solution that works fine and doesn't really effect anything else I will implement it. However, I still don't want user to have to login again everytime they change their username only for example. It's just a bit annoying. I want the user to change username and boom the new data just fetches. I was also thinking maybe we could use react native restart library, but then I realised restarting app won't do anything, because we'll still be using the same user key.
+
+Any ideas on how I can efficiently go about this problem?
+
+Idk, should I update the mmkv storage after updating profile? so I assign user key to the new set of updated values? or is there a better way?
+```
+
+- I asked chat gpt, to update storage variables but haha, it's bs. It just wastes a lot of time and gets the answer wrong. I watched a vid on useRef because it told me I needed useRef and the video said useRef does not re-render component like useState does. But chat gpt, still told me to use useRef, i told it why we can't useRef and it then suggested me an alternative talking about how we can access our data that we mutate (our payload in this case) by passing another param to onSuccess function calling it e.g variables and then just do this:
+
+```TypeScript
+ onSuccess: (response,variables) => {
+      // updating user key to our updated values
+      const updatedUser = {...user,...variables}
+      setItem('user',updatedUser)}
+```
