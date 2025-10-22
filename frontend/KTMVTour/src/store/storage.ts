@@ -1,5 +1,4 @@
 import { MMKV } from "react-native-mmkv";
-import { object } from "yup";
 
 export const storage = new MMKV({
   id:'auth-storage'

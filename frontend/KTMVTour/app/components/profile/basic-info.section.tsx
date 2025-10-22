@@ -1,7 +1,7 @@
 import { View, Text, TextInput, Pressable } from "react-native";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { User, Pencil, Save, Camera } from "lucide-react-native";
-import { getItem, removeItem } from "@/src/store/storage";
+import { getItem, setItem} from "@/src/store/storage";
 import { useMutation } from "@tanstack/react-query";
 import { updateProfileAPI } from "@/src/api/user.api";
 import Toast from "react-native-toast-message";
@@ -9,19 +9,11 @@ import { IUser } from "@/src/types/user.types";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { profileSchema } from "@/src/schema/user.schema";
-import { useAuthStore } from "@/src/store/auth.store";
 
 const BasicInfoSection = () => {
   const user = getItem("user");
   const [isEditing, setIsEditing] = useState(false);
-
-  const { logout } = useAuthStore();
-  const handlelogout = () => {
-    removeItem("user");
-    removeItem("KTMVTour_token");
-    logout();
-    // console.log(user)
-  };
+  const payloadRef = useRef<Partial<IUser>>({}); //using a useRef hook to update without rerendering + hold current payload.
 
   const {
     control,
@@ -40,7 +32,11 @@ const BasicInfoSection = () => {
   const { mutate, isPending } = useMutation({
     mutationFn: updateProfileAPI,
     mutationKey: ["update_profile_key"],
-    onSuccess: (response) => {
+    onSuccess: (response,variables) => {
+      // updating user key to our updated values
+      const updatedUser = {...user,...variables}
+      setItem('user',updatedUser) 
+
       Toast.show({
         type: "success",
         text1: response.message ?? "Profile Updated",
@@ -64,19 +60,19 @@ const BasicInfoSection = () => {
   };
 
   const onSubmit = (data: IUser) => {
-    const payload: Partial<IUser> = {};
+    const payload: Partial<IUser> = {} //purpose of this partial is to help make all the fields we defined in our type optional.
 
     if (data.username !== user.username) {
-      payload.username = data.username;
+      payload.username = data.username
     }
     if (data.email !== user.email) {
       payload.email = data.email;
     }
     if (data.password && data.password.trim() !== "") {
-      payload.password = data.password;
+      payload.password = data.password
     }
 
-    // Make sure there's at least one field to update
+    // making sure theres at least one field to update
     if (Object.keys(payload).length === 0) {
       Toast.show({
         type: "error",
@@ -86,7 +82,7 @@ const BasicInfoSection = () => {
       setIsEditing(false);
       return;
     }
-
+    payloadRef.current = payload //making sure our current payload is updated to our payload ref so it stores updated values.
     mutate(payload as IUser);
   };
 
