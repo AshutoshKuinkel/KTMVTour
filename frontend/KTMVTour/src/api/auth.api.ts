@@ -27,3 +27,12 @@ export const signupAPI = async(data:ISignupData)=>{
     }
   }
 }
+
+export const profileAPI = async()=>{
+  try{
+    const response = await api.get('/auth/me')
+    return response.data
+  }catch(err:any){
+    return err.response.data
+  }
+}
