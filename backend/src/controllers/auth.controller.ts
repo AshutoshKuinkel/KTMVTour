@@ -99,9 +99,9 @@ export const login = async(req:Request,res:Response,next:NextFunction)=>{
 //fetch profile function
 export const profile = async(req:Request,res:Response,next:NextFunction)=>{
   try{
-    const userId = req.user._id
+    const id = req.user._id
 
-    const user = await User.findById(userId)
+    const user = await User.findById(id)
 
     if(!user){
       throw new CustomError(`User not found`,404)
