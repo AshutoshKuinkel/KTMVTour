@@ -800,3 +800,16 @@ Text.d.ts(114, 3): The expected type comes from property 'children' which is dec
             </Text>
           )}
 ```
+
+- re deploying it didn't fix problem.
+
+- Yo yo yo, I added all these debugging statements and I think it was a problem with the fking react native restart library:
+```bash
+ LOG  Form Submitted {"email": "ashutoshkuinkel42@gmail.com", "username": "ashK"}
+ LOG  About to call mutate
+ LOG  Mutate called
+ LOG  Success response: {"data": null, "message": "Profile Updated"}
+ LOG  Error occurred: [TypeError: Cannot read property 'restart' of null]
+ ```
+
+ - Bombooclaat I think it's because i need to rebuild app after importing the RNrestart for it to work.
