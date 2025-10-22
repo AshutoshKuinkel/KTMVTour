@@ -8,4 +8,4 @@ router.post('/register',register)
 router.post('/login',login)
 router.get('/me',authenticate(),profile)
 
-export default router
+export default router 
