@@ -46,7 +46,7 @@ export const updateProfile = async (
     });
 
     res.status(201).json({
-      message: `Profile Updated`,
+      message: `Profile Updated. Changes will show when you reload app.`,
       data: null,
     });
   } catch (err) {
