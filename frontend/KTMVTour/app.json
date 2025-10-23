@@ -43,6 +43,10 @@
             "backgroundColor": "#000000"
           }
         }
+      ],
+      [
+        "react-native-vision-camera",
+        {"cameraPermissionText": "KTMVTour needs access to your Camera."}
       ]
     ],
     "experiments": {
