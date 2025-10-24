@@ -2,9 +2,9 @@ import { View, Text, Image, Dimensions, ScrollView } from "react-native";
 import { User, Heart, MessageCircleMore, Forward } from "lucide-react-native";
 
 const FeaturedPosts = () => {
-  const Photo1 = "../../../assets/sample-images/photo1.jpeg";
-  const Photo2 = "../../../assets/sample-images/photo2.jpeg";
-  const Photo3 = "../../../assets/sample-images/photo3.jpeg";
+  const Photo1 = "../../assets/sample-images/photo1.jpeg";
+  const Photo2 = "../../assets/sample-images/photo2.jpeg";
+  const Photo3 = "../../assets/sample-images/photo3.jpeg";
 
   return (
     <View className="">
@@ -125,7 +125,8 @@ const FeaturedPosts = () => {
           {/* Caption section */}
           <View className="pl-4 mt-4">
             <Text className="text-white line-clamp-4">
-              <Text className="font-bold">@wanderlust_mike</Text> The architecture here is absolutely breathtaking 🏛️
+              <Text className="font-bold">@wanderlust_mike</Text> The
+              architecture here is absolutely breathtaking 🏛️
             </Text>
             <Text className="mt-2 text-secondary pb-4">4hrs ago</Text>
           </View>
@@ -180,7 +181,8 @@ const FeaturedPosts = () => {
           {/* Caption section */}
           <View className="pl-4 mt-4">
             <Text className="text-white line-clamp-4">
-              <Text className="font-bold">@nepal_vibes</Text> Peace and spirituality in the heart of Kathmandu 🙏
+              <Text className="font-bold">@nepal_vibes</Text> Peace and
+              spirituality in the heart of Kathmandu 🙏
             </Text>
             <Text className="mt-2 text-secondary pb-4">6hrs ago</Text>
           </View>
