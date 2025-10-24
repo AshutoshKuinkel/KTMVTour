@@ -909,3 +909,5 @@ Idk, should I update the mmkv storage after updating profile? so I assign user k
 - Ok i didn't collect the images for the model. I'll start off by converting the files from my phone to jpg and then adding react native vision camera.
 
 - Ok i installed vision camera and setup the plugin + app needs camera permission looking @ the docs for rn vision camera and now Im waiting for the 1005 mb build which will take some hours.
+
+- RN Vision camera is successfully installed and the build is completed I think. That's it for today, tomorrow I will try setting up the tours page.
