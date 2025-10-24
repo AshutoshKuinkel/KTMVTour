@@ -1,10 +1,10 @@
 import { View, ScrollView } from "react-native";
-import Heading from "../components/landing/heading";
-import TakeToLandmark from "../components/landing/take2landmark-card";
-import InteractiveMapCard from "../components/landing/interactiveMap-card";
-import FeaturedPosts from "../components/landing/featured-posts";
-import ShareExperienceCard from "../components/landing/share-experience.card";
-import CategoryCards from "../components/landing/historical&temples.cards";
+import Heading from "../../components/landing/heading";
+import TakeToLandmark from "../../components/landing/take2landmark-card";
+import InteractiveMapCard from "../../components/landing/interactiveMap-card";
+import FeaturedPosts from "../../components/landing/featured-posts";
+import ShareExperienceCard from "../../components/landing/share-experience.card";
+import CategoryCards from "../../components/landing/historical&temples.cards";
 
 export default function Index() {
   return (

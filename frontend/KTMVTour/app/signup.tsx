@@ -1,7 +1,7 @@
 import { View, Text, Button, ImageBackground } from "react-native";
 import React from "react";
 import { router } from "expo-router";
-import SignupForm from "./components/auth/signup.form";
+import SignupForm from "../components/auth/signup.form";
 
 const Signup = () => {
   return (

@@ -4,8 +4,8 @@ import { useAuthStore } from "@/src/store/auth.store";
 import { getItem, removeItem } from "@/src/store/storage";
 import { LinearGradient } from "expo-linear-gradient";
 import { User } from "lucide-react-native";
-import BasicInfoSection from "../components/profile/basic-info.section";
-import RecentActivitySection from "../components/profile/recent-activity.section";
+import BasicInfoSection from "../../components/profile/basic-info.section";
+import RecentActivitySection from "../../components/profile/recent-activity.section";
 
 const profile = () => {
   const { logout } = useAuthStore();
