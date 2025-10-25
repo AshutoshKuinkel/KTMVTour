@@ -54,7 +54,7 @@ const tours = () => {
 
   return (
     <View className="flex-1 items-center pt-8 bg-black">
-      <Text className="text-3xl font-bold text-white mt-14 mb-6 text-center">Scan a landmark to receive a Virtual Tour!</Text>
+      { hasPermission && <Text className="text-3xl font-bold text-white mt-14 mb-6 text-center">Scan a landmark to receive a Virtual Tour!</Text>}
       <Camera device={device} isActive={true} style={{height:'80%',width:'90%'}}/>
     </View>
   );
