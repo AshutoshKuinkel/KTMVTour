@@ -1,7 +1,7 @@
 import { View, Text, Linking, Platform } from "react-native";
 import React from "react";
 import { MapPin, Navigation } from "lucide-react-native";
-import Location from "expo-location";
+import * as Location from "expo-location";
 
 interface openMapArgs {
   latitude: string | number;

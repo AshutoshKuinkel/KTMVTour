@@ -911,3 +911,7 @@ Idk, should I update the mmkv storage after updating profile? so I assign user k
 - Ok i installed vision camera and setup the plugin + app needs camera permission looking @ the docs for rn vision camera and now Im waiting for the 1005 mb build which will take some hours.
 
 - RN Vision camera is successfully installed and the build is completed I think. That's it for today, tomorrow I will try setting up the tours page.
+
+## 25 OCT 25
+
+- Ain't no way I just did a rebuild this morning because vision camera wasn't working properly and now I gotta do a rebuild again for expo location. I did add the take me to landmark function though, so when user clicks take me to nearby landmark button, it opens up maps with the search label Landmarks near me.
