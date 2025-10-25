@@ -20,7 +20,7 @@ const tours = () => {
       <Text className="text-4xl font-bold text-white mt-14">Tours</Text>
       <Camera device={device} isActive={true} />
     </View>
-  );
+  ); 
 };
 
 export default tours;
