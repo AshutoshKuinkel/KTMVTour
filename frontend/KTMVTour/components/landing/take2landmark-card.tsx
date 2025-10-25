@@ -1,4 +1,4 @@
-import { View, Text, Linking, Platform } from "react-native";
+import { View, Text, Linking, Platform, Pressable } from "react-native";
 import React from "react";
 import { MapPin, Navigation } from "lucide-react-native";
 import * as Location from "expo-location";
@@ -61,13 +61,13 @@ const TakeToLandmark = () => {
 
         {/* Find nearby landmarks button */}
         <View className="mt-6 w-[80vw] pb-7">
-          <View className="flex-row items-center bg-button justify-center rounded-lg py-3 hover:cursor-pointer gap-3"> 
+          <Pressable className="flex-row items-center bg-button justify-center rounded-lg py-3 hover:cursor-pointer gap-3" onPress={handleOpenMap}> 
             {/* Convert this into a pressable next so we can call function on press */}
             <MapPin size={20} color={"white"} />
             <Text className="text-white text-lg font-semibold">
               Find Nearby Landmarks
             </Text>
-          </View>
+          </Pressable>
         </View>
       </View>
     </View>
