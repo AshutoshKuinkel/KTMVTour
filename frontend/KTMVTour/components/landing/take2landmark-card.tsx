@@ -6,13 +6,14 @@ import * as Location from "expo-location";
 interface openMapArgs {
   latitude: string | number;
   longitude: string | number;
-  label: "Landmarks near me";
 }
 const TakeToLandmark = () => {
-  const openMap = ({ latitude, longitude, label }: openMapArgs) => {
+  const openMap = ({ latitude, longitude}: openMapArgs) => {
+    const searchQuery = encodeURIComponent('Landmarks near me')
+    
     const scheme = Platform.select({
-      ios: `maps:?q=${label}&ll=${latitude},${longitude}`,
-      android: `geo:${latitude},${longitude}?q=${latitude},${longitude}(${label})`,
+      ios: `maps://?q=${searchQuery}&sll=${latitude},${longitude}`,
+      android: `https://www.google.com/maps/search/?api=1&query=${searchQuery}&center=${latitude},${longitude}`,
     });
 
     if (scheme) {
@@ -34,7 +35,6 @@ const TakeToLandmark = () => {
     openMap({
       latitude:location.coords.latitude,
       longitude:location.coords.longitude,
-      label:'Landmarks near me'
     })
   };
   return (
