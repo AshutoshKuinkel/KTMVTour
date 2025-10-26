@@ -5,6 +5,7 @@ import {
   useCameraDevice,
   useCameraPermission,
 } from "react-native-vision-camera";
+import { MapPin } from "lucide-react-native";
 
 const tours = () => {
   const device = useCameraDevice("back");
@@ -53,9 +54,13 @@ const tours = () => {
   }
 
   return (
-    <View className="flex-1 items-center pt-8 bg-black">
-      { hasPermission && <Text className="text-3xl font-bold text-white mt-14 mb-6 text-center">Scan a landmark to receive a Virtual Tour!</Text>}
-      <Camera device={device} isActive={true} style={{height:'80%',width:'90%'}}/>
+    <View className="flex-1 items-center pt-8 bg-black relative">
+      {/* { hasPermission && <Text className="text-3xl font-bold text-white mt-14 mb-6 text-center">Scan a landmark to receive a Virtual Tour!</Text>} */}
+      <Camera device={device} isActive={true} style={{height:'100%',width:'100%',}}/>
+      <View className="bg-button z-100 absolute bottom-8 flex-row p-3 items-center gap-2 rounded-2xl border border-border">
+        <MapPin size={18} color={'#312746'}/>
+        <Text className="text-bg">Point your camera at landmarks for automatic detection.</Text>
+      </View>
     </View>
   );
 };
