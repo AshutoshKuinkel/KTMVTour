@@ -936,3 +936,9 @@ useEffect(() => {
 I think it's better if we let user decide. So keep it as is for now.
 
 - When i did password select false on my user model I forgot to add select password after like user.findone(id) so bcrypt got undefined/null user password hence why it was throwing the data and hash arguments required.
+
+- I got some images into the dataset aswell today, but now I gotta start gaining an understanding of how I can connect the tf lite model when ready to my rn vision camera. I asked a question on discord about this and some guy responded to me saying:
+
+    It’s just running the model every frame
+    If you don’t want to run the model every frame, do a frame by frame comparison like structural similarity index
+So now im guessing if I just import the model It'll work how I want it to because it's running the model every frame? Who knows though, i'll have to dive deeper into it later.
