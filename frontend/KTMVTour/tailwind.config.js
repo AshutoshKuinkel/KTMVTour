@@ -14,7 +14,8 @@ module.exports = {
         post:'#1A1A1A',
         border:'#2d1b69',
         third:'#2A2A2A',
-        bg:'#312746'
+        bg:'#312746',
+        fourth:'#231639'
       }
     },
   },
