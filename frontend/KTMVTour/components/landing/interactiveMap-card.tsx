@@ -35,7 +35,7 @@ const InteractiveMapCard = () => {
           </View>
         </LinearGradient> :
         <View className="w-full h-[200px]  flex items-center justify-center rounded-t-2xl">
-          <MapView style={{height:200}}/>
+          <MapView/>
         </View>
       }
 
