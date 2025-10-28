@@ -1,7 +1,6 @@
 import { Map, MapPin } from "lucide-react-native";
 import { View, Text } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import MapView from "react-native-maps";
 import { useState } from "react";
 
 const InteractiveMapCard = () => {
@@ -9,7 +8,7 @@ const InteractiveMapCard = () => {
   return (
     <View className="bg-post w-[90vw] mt-12 rounded-2xl border border-border pb-5 overflow-hidden">
       {/* Image of card for loading state */}
-      { isLoading ?
+      {isLoading ? (
         <LinearGradient
           colors={["#1f1f1f", "rgba(45, 27, 105, 0.2)"]}
           className=" w-full bg-gradient-to-br from-[#1f1f1f] to-[#2d1b69]/20 h-[200px]  flex items-center justify-center rounded-t-2xl"
@@ -33,11 +32,10 @@ const InteractiveMapCard = () => {
               <MapPin size={24} color={"#8B5CF6"} />
             </View>
           </View>
-        </LinearGradient> :
-        <View className="w-full h-[200px]  flex items-center justify-center rounded-t-2xl">
-          <MapView/>
-        </View>
-      }
+        </LinearGradient>
+      ) : (
+        <View className="w-full h-[200px]  flex items-center justify-center rounded-t-2xl"></View>
+      )}
 
       {/* Listing nearby landmarks with distance */}
       <View className="mt-6">
