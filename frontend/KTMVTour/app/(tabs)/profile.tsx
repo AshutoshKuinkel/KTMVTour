@@ -1,4 +1,11 @@
-import { View, Text, Pressable, TextInput, ScrollView } from "react-native";
+import {
+  View,
+  Text,
+  Pressable,
+  TextInput,
+  ScrollView,
+  Image,
+} from "react-native";
 import React, { useState } from "react";
 import { useAuthStore } from "@/src/store/auth.store";
 import { getItem, removeItem } from "@/src/store/storage";
@@ -13,6 +20,7 @@ const profile = () => {
   const { logout } = useAuthStore();
   const { user } = useAuthStore();
 
+  const [pfp, setPfp] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [changePfpClicked, setChangePfpClicked] = useState(false);
 
@@ -51,8 +59,24 @@ const profile = () => {
           />
 
           {/* Profile Picture (Positioned inside gradient) */}
-          <View className="absolute left-[5%] bottom-[-55px] bg-third rounded-full p-7 z-10 border-[1px] border-border">
-            <User size={60} color={"white"} />
+          <View className="absolute left-[5%] bottom-[-55px] bg-third rounded-full z-10 border-[1px] border-border">
+            {pfp? <Image
+              source={require("@/assets/sample-images/form-bg.png")}
+              style={{
+                width: 100,
+                height: 100,
+                borderRadius: 50, 
+                resizeMode: "cover",
+              }}
+            /> : <Image
+              source={require("@/assets/sample-images/no-profile.png")}
+              style={{
+                width: 100,
+                height: 100,
+                borderRadius: 50, 
+                resizeMode: "cover",
+              }}
+            /> }
             {isEditing && (
               <Pressable
                 className="bg-bg rounded-full p-2 items-center absolute"
@@ -70,8 +94,13 @@ const profile = () => {
             className="bg-black/50 inset-0 absolute z-50 items-center justify-center "
             onPress={handleExitPfpClick}
           >
-            <Pressable onPress={(e)=>e.stopPropagation()}>
-              <ChangePictureOptions />
+            <Pressable onPress={(e) => e.stopPropagation()}>
+              <ChangePictureOptions
+                pfp={pfp}
+                setPfp={setPfp}
+                setChangePfpClicked={setChangePfpClicked}
+                ChangePfpClicked={changePfpClicked}
+              />
             </Pressable>
           </Pressable>
         )}
