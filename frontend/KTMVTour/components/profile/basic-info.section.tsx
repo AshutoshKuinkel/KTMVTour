@@ -1,5 +1,5 @@
 import { View, Text, TextInput, Pressable } from "react-native";
-import React, { useRef, useState } from "react";
+import React, { Dispatch, SetStateAction, useRef, useState } from "react";
 import { User, Pencil, Save, Camera } from "lucide-react-native";
 import { getItem, setItem} from "@/src/store/storage";
 import { useMutation } from "@tanstack/react-query";
@@ -11,9 +11,13 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { profileSchema } from "@/src/schema/user.schema";
 import { useAuthStore } from "@/src/store/auth.store";
 
-const BasicInfoSection = () => {
+interface stateTypes{
+  isEditing: boolean,
+  setIsEditing: Dispatch<SetStateAction<boolean>>
+}
+const BasicInfoSection = ({isEditing,setIsEditing}: stateTypes) => {
   const {user} = useAuthStore()
-  const [isEditing, setIsEditing] = useState(false);
+  
   const payloadRef = useRef<Partial<IUser>>({}); //using a useRef hook to update without rerendering + hold current payload.
 
   const {

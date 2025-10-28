@@ -1051,3 +1051,39 @@ Call Stack
   ```
 
 - I will try to rebuild app first because I know for rn maps you need to rebuild I haven't done that yet. I also haven't gotten an API key but I think it should work without that, if after rebuild I get some other error I'll try to get an API key for google maps and if that doesn't work im going to have to ask claude. While that's building I need to find something else to work on aswell. I'll probably work on trying to get a profile picture functionality going.
+
+- Ok, so i just learnt about lifting up in react which is when we want to share one state between lets say two components. I needed it in this case because we when user clicks edit on this basic info section, the change profile picture icon should also come up. However, the problem was that the basic info section was a component of its own and the profile + icon was in the profile.tsx file. So i removed state [isEditing,setIsEditing] from basic info section file, moved it into profile.tsx and i passed it down as a prop like this:
+
+```TypeScript
+{/* Basic info section */}
+          <BasicInfoSection 
+            isEditing={isEditing}
+            setIsEditing={setIsEditing}
+          />
+```
+
+- Then in my basic info file, I just passed the prop down like this:
+```TypeScript
+interface stateTypes{
+  isEditing: boolean,
+  setIsEditing: Dispatch<SetStateAction<boolean>>
+}
+const BasicInfoSection = ({isEditing,setIsEditing}: stateTypes) => {
+  //rest of code stays same
+}
+```
+
+- So now, this is all good. I need to setup sort of like an alert option, so when user clicks this change pfp button, it has an alert saying like take photo, choose from gallery, delete profile picture. Then after that, I can look into connecting a library for this then finally handle the backend stuff.
+
+- Btw this is the link from react documentation on sharing state between components: https://react.dev/learn/sharing-state-between-components
+
+- Anyways, that's finished. Tomorrow, i'll have to rebuild app after adding api key for rn maps then I'll also try to finish off the frontend of the profile picture then connect to backend.
+
+## 28 OCT 25 
+
+- Ok im rebuilding app right now after adding the api key, hopefully it'll work. Whilst thats going, let's try setting up profile picture more.
+
+- mann, it's not working. I got the api key, but I know its not working because I didn't enter my card details on gcp. Well, looks like 
+we're going to have to use expo maps instead 🤷‍♂️.
+
+- Ok, im on the profile picture part again and I need to rebuild my app again now. Whilst that's going I'll just go through some typescript video or do one of my assessments. Anyways, I think I will have to build again after I import expo maps, so I'll add expo maps then rebuild so I don't have to rebuild later.

@@ -1,15 +1,38 @@
-import { View, Text, Pressable, TextInput, ScrollView } from "react-native";
-import React from "react";
+import {
+  View,
+  Text,
+  Pressable,
+  TextInput,
+  ScrollView,
+  Image,
+} from "react-native";
+import React, { useState } from "react";
 import { useAuthStore } from "@/src/store/auth.store";
 import { getItem, removeItem } from "@/src/store/storage";
 import { LinearGradient } from "expo-linear-gradient";
 import { User } from "lucide-react-native";
 import BasicInfoSection from "../../components/profile/basic-info.section";
 import RecentActivitySection from "../../components/profile/recent-activity.section";
+import { Camera } from "lucide-react-native";
+import ChangePictureOptions from "@/components/profile/change-pfp.options";
 
 const profile = () => {
   const { logout } = useAuthStore();
-  const {user} = useAuthStore()
+  const { user } = useAuthStore();
+
+  const [pfp, setPfp] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [changePfpClicked, setChangePfpClicked] = useState(false);
+
+  const handlePfpClick = () => {
+    setChangePfpClicked(true);
+    console.log(`Set state true`);
+  };
+
+  const handleExitPfpClick = () => {
+    setChangePfpClicked(false);
+    console.log(`Set state false`);
+  };
 
   const handlelogout = () => {
     removeItem("user");
@@ -36,10 +59,51 @@ const profile = () => {
           />
 
           {/* Profile Picture (Positioned inside gradient) */}
-          <View className="absolute left-[5%] bottom-[-55px] bg-third rounded-full p-7 z-10 border-[1px] border-border">
-            <User size={60} color={"white"} />
+          <View className="absolute left-[5%] bottom-[-55px] bg-third rounded-full z-10 border-[1px] border-border">
+            {pfp? <Image
+              source={require("@/assets/sample-images/form-bg.png")}
+              style={{
+                width: 100,
+                height: 100,
+                borderRadius: 50, 
+                resizeMode: "cover",
+              }}
+            /> : <Image
+              source={require("@/assets/sample-images/no-profile.png")}
+              style={{
+                width: 100,
+                height: 100,
+                borderRadius: 50, 
+                resizeMode: "cover",
+              }}
+            /> }
+            {isEditing && (
+              <Pressable
+                className="bg-bg rounded-full p-2 items-center absolute"
+                onPress={handlePfpClick}
+              >
+                <Camera color={"#8B5CF6"} />
+              </Pressable>
+            )}
           </View>
         </View>
+
+        {/* options to change/delete pfp */}
+        {changePfpClicked && (
+          <Pressable
+            className="bg-black/50 inset-0 absolute z-50 items-center justify-center "
+            onPress={handleExitPfpClick}
+          >
+            <Pressable onPress={(e) => e.stopPropagation()}>
+              <ChangePictureOptions
+                pfp={pfp}
+                setPfp={setPfp}
+                setChangePfpClicked={setChangePfpClicked}
+                ChangePfpClicked={changePfpClicked}
+              />
+            </Pressable>
+          </Pressable>
+        )}
 
         {/* Content section {below header} */}
         <View className="mt-16">
@@ -59,20 +123,20 @@ const profile = () => {
             <View className="mt-2 flex-row gap-8 items-center justify-center">
               {/* Posts stats */}
               <View className="flex items-center">
-                <Text className="text-white text-2xl font-semibold">12</Text>
+                <Text className="text-white text-2xl font-semibold">-</Text>
                 <Text className="text-white">Posts</Text>
               </View>
 
               {/* Places visited. */}
               <View className="flex items-center">
-                <Text className="text-white text-2xl font-semibold">18</Text>
+                <Text className="text-white text-2xl font-semibold">-</Text>
                 <Text className="text-white">Check Ins</Text>
               </View>
             </View>
           </View>
 
           {/* Basic info section */}
-          <BasicInfoSection />
+          <BasicInfoSection isEditing={isEditing} setIsEditing={setIsEditing} />
 
           {/* Recent Activity section */}
           <RecentActivitySection />
