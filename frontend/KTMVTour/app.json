@@ -46,7 +46,9 @@
       ],
       [
         "react-native-vision-camera",
-        {"cameraPermissionText": "$(PRODUCT_NAME) needs access to your Camera."}
+        {
+          "cameraPermissionText": "$(PRODUCT_NAME) needs access to your Camera."
+        }
       ],
       [
         "expo-location",
@@ -58,7 +60,14 @@
         "expo-image-picker",
         {
           "photosPermission": "Allow $(PRODUCT_NAME) to access your photos",
-          "cameraPermission" : "Allow $(PRODUCT_NAME) to access your camera"
+          "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera"
+        }
+      ],
+      [
+        "expo-maps",
+        {
+          "requestLocationPermission": true,
+          "locationPermission": "Allow $(PRODUCT_NAME) to use your location"
         }
       ]
     ],

@@ -1078,3 +1078,12 @@ const BasicInfoSection = ({isEditing,setIsEditing}: stateTypes) => {
 - Btw this is the link from react documentation on sharing state between components: https://react.dev/learn/sharing-state-between-components
 
 - Anyways, that's finished. Tomorrow, i'll have to rebuild app after adding api key for rn maps then I'll also try to finish off the frontend of the profile picture then connect to backend.
+
+## 28 OCT 25 
+
+- Ok im rebuilding app right now after adding the api key, hopefully it'll work. Whilst thats going, let's try setting up profile picture more.
+
+- mann, it's not working. I got the api key, but I know its not working because I didn't enter my card details on gcp. Well, looks like 
+we're going to have to use expo maps instead 🤷‍♂️.
+
+- Ok, im on the profile picture part again and I need to rebuild my app again now. Whilst that's going I'll just go through some typescript video or do one of my assessments. Anyways, I think I will have to build again after I import expo maps, so I'll add expo maps then rebuild so I don't have to rebuild later.
