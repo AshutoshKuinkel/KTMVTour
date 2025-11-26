@@ -100,7 +100,7 @@ const PostItem = ({ post, itemHeight }: PostItemProps) => {
       </View>
 
       {/* Header Section - Overlay on top */}
-      <View className="absolute top-0 left-0 right-0 flex flex-row items-center justify-between px-4 pt-8 z-10">
+      <View className="absolute top-0 left-0 right-0 flex flex-row items-center justify-between px-4 z-10" style={{paddingTop:insets.top + 4}}>
         <View className="flex-row gap-2 items-center bg-black/10 rounded-xl p-2">
           {/* profile picture */}
           <View className="w-12 bg-third rounded-full border-2 border-secondary items-center">

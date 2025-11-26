@@ -5,7 +5,7 @@ import { feedAPI } from "@/src/api/feed.api";
 import PostItem from "./postItem";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-const screenHeight = Dimensions.get("window").height;
+const screenHeight = Dimensions.get("screen").height;
 
 const Feed = () => {
   
