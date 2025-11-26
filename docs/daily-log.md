@@ -1900,3 +1900,22 @@ a certain distance from the landmark to actually say the landmark detected for n
 ## 26 NOV 25
 
 - I need to buy a domain for my backend server before I can put it through cloudflare. In the mean time, I guess I can only focus on redis (caching) and trying to add some rate limiting with express rate limiter.
+
+- Alright, im putting this pic here to benchmark against how much faster redis makes the feed load once I implement it:
+
+![alt text](./images-for-log/image28.png)
+
+- Currently response time is like 2.46s. So if I can use redis and get it down to under one sec and set expiry time of like 30 mins then I should be good. I also need to see where else i can implement this.
+
+- 316 ms response time for feed with redis (if my calculations are correct then this is like an 87% less time than our 2.4s cold start from db just above):
+![alt text](./images-for-log/image29.png)
+
+- Alright, besides the feed what else should I cache? Maybe inidivudal posts and thats it. I don't really need to cache user profiles right now. But if I need to do it, I can do it later.
+
+- Ahh yes, tomorrow I should look into express rate limiter aswell.
+
+- Also on other physical devices Im getting an error because the tf lite model isn't being found I think. Let's try to either deploy that somewhere or I need to see how I can get it working. Ahh nvm, it's just because I forgot to download the new version of the app.
+
+- I think i def need to add cache on the comments. It's taking hella long to get them loaded. When there's just 24. If there was say 800 then gg without caching. Also one last thing is that the feed photos are sized weirdly on the physical device. I need it to take 100% width + height. Like rn, when I view the feed on a physical andriod device it's only taking like 80% of the available screen width + height. 
+
+- Ok so tasks for tomorrow are fixing the layout, caching comments + diving into express rate limiter.
