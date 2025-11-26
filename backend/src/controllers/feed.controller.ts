@@ -26,9 +26,11 @@ export const fetchFeed = async (
     }
 
     if (cachedFeed) {
+      const cachedData = JSON.parse(cachedFeed)
       return res.status(200).json({
         message: `Feed fetched from redis`,
-        data: JSON.parse(cachedFeed),
+        data: cachedData.data,
+        pagination: cachedData.pagination
       });
     }
 
