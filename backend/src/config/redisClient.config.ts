@@ -21,7 +21,12 @@ redisClient.on("connect", () => console.log("🔌 Connecting to Redis"));
 redisClient.on("ready", () => console.log("✅ Redis connected"));
 
 export const initRedis = async () => {
-  await redisClient.connect();
+   try {
+    await redisClient.connect();
+  } catch (error) {
+    console.error("❌ Failed to connect to Redis:", error);
+    throw error;
+  }
 };
 
 export default redisClient;
