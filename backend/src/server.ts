@@ -4,6 +4,7 @@ import 'dotenv/config'
 import { connectmongoDB,postgresPool } from './config/db.config';
 import { errorHandler } from './middlewares/error-handler.middleware';
 import cookieParser from 'cookie-parser';
+import { initRedis } from './config/redisClient.config';
 
 // initialisations:
 const app = express()
@@ -20,6 +21,8 @@ postgresPool.query('SELECT NOW()')
   .catch((err)=>{
     console.error(`Error connecting to PostgreSQL DB:`,err)
   })
+// redis connection
+initRedis()
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
