@@ -1919,3 +1919,14 @@ a certain distance from the landmark to actually say the landmark detected for n
 - I think i def need to add cache on the comments. It's taking hella long to get them loaded. When there's just 24. If there was say 800 then gg without caching. Also one last thing is that the feed photos are sized weirdly on the physical device. I need it to take 100% width + height. Like rn, when I view the feed on a physical andriod device it's only taking like 80% of the available screen width + height. 
 
 - Ok so tasks for tomorrow are fixing the layout, caching comments + diving into express rate limiter.
+
+## 27 NOV 25
+
+- The layout issue is fixed. I simply changed get dimensions (window) to screen and it worked. Also for the heading section for feed it was also messed up so just using useSafeAreaInsets() worked when I switched pt-8 to style={{paddingTop: insets.top + 4}}
+
+- Time to add caching for comments.
+
+- With comments aswell we went from 2.05s (2005 ms) load time for first fetch to a 309 ms on subsequent request which is like 85% less time I think.
+
+- All right, thats the comments cached aswell. Btw im like 99% sure this is the principle of ammortization being applied here. Because even though our first requests take longer to load between 1.5-2.5s on average the loading time has dropped to like 300 ms for the next subsequent requests. So even though we have something that takes longer, over the course of many requests we are responding very fast.
+
