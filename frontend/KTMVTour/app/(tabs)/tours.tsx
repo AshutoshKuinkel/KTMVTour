@@ -5,7 +5,14 @@ import {
   useCameraDevice,
   useCameraPermission,
 } from "react-native-vision-camera";
-import { Info, MapPin, LucideDot, Sparkles, XCircle } from "lucide-react-native";
+import {
+  Info,
+  MapPin,
+  LucideDot,
+  Sparkles,
+  XCircle,
+  X,
+} from "lucide-react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { loadTensorflowModel, TensorflowModel } from "react-native-fast-tflite";
 import RNFS from "react-native-fs";
@@ -22,6 +29,7 @@ const tours = () => {
   const [noLandmarkDetected, setNoLandmarkDetected] = useState(false);
   const [model, setModel] = useState<TensorflowModel | null>(null);
   const [isModelLoaded, setIsModelLoaded] = useState(false);
+  const [showInfoModal, setShowInfoModal] = useState(true);
 
   //useEffect hook in React is a built-in hook that allows functional components to perform "side effects."
   //Side effects are operations that interact with the outside world or affect things beyond the component's direct rendering, such as:
@@ -29,6 +37,10 @@ const tours = () => {
   //DOM manipulation
   //Subscriptions
   //Timers
+  useEffect(() => {
+    setShowInfoModal(true);
+  }, []);
+
   useEffect(() => {
     if (!hasPermission) {
       requestPermission();
@@ -123,16 +135,16 @@ const tours = () => {
         if (detectedLabel === "no-landmark") {
           setdetected(false);
           setDetectedLandmark("");
-          setNoLandmarkDetected(true)
+          setNoLandmarkDetected(true);
         } else {
           setdetected(true);
           setDetectedLandmark(detectedLabel);
-          setNoLandmarkDetected(false)
+          setNoLandmarkDetected(false);
         }
       } else {
         setdetected(false);
         setDetectedLandmark("");
-        setNoLandmarkDetected(false)
+        setNoLandmarkDetected(false);
       }
 
       // Clean up the temporary photo file
@@ -330,6 +342,86 @@ const tours = () => {
           </View>
         </LinearGradient>
       )}
+
+      <Modal
+        visible={showInfoModal}
+        transparent={true}
+        animationType="fade"
+        onRequestClose={() => setShowInfoModal(false)}
+      >
+        <View className="flex-1 bg-black/70 items-center justify-center px-6">
+          <LinearGradient
+            colors={[
+              "rgba(25, 25, 35, 0.98)",
+              "rgba(15, 15, 25, 0.95)",
+              "rgba(20, 10, 30, 0.98)",
+            ]}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 1 }}
+            style={{
+              width: "100%",
+              borderRadius: 24,
+              padding: 24,
+              borderWidth: 1,
+              borderColor: "rgba(139, 92, 246, 0.3)",
+            }}
+          >
+            {/* Close button */}
+            <Pressable
+              onPress={() => setShowInfoModal(false)}
+              className="absolute top-4 right-4 z-10 bg-fifth/50 p-2 rounded-full"
+            >
+              <X size={20} color="#fff" />
+            </Pressable>
+
+            {/* Icon */}
+            <View className="items-center mb-4">
+              <View className="bg-button/20 p-4 rounded-full">
+                <Info size={32} color="#8B5CF6" />
+              </View>
+            </View>
+
+            {/* Title */}
+            <Text className="text-white text-2xl font-bold text-center mb-3">
+              Virtual Tours Coming Soon
+            </Text>
+
+            {/* Message */}
+            <Text className="text-secondary text-center text-base leading-6 mb-6">
+              Currently, virtual tours are only available for{" "}
+              <Text className="text-button font-semibold">Boudha Stupa</Text>.
+              We're actively working on adding more landmarks to enhance your
+              experience. Stay tuned for exciting updates!
+            </Text>
+
+            {/* Status indicators */}
+            <View className="bg-fifth/30 rounded-xl p-4 mb-6">
+              <View className="flex-row items-center gap-2 mb-2">
+                <View className="w-2 h-2 rounded-full bg-green-500" />
+                <Text className="text-white font-medium">
+                  Available: Boudha Stupa
+                </Text>
+              </View>
+              <View className="flex-row items-center gap-2">
+                <View className="w-2 h-2 rounded-full bg-yellow-500" />
+                <Text className="text-secondary">
+                  In Progress: More landmarks
+                </Text>
+              </View>
+            </View>
+
+            {/* Button */}
+            <Pressable
+              onPress={() => setShowInfoModal(false)}
+              className="bg-button rounded-xl py-3 px-6"
+            >
+              <Text className="text-white text-center font-semibold text-base">
+                Got it, thanks!
+              </Text>
+            </Pressable>
+          </LinearGradient>
+        </View>
+      </Modal>
     </View>
   );
 };
