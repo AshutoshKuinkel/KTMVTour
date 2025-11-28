@@ -1876,7 +1876,7 @@ useEffect(() => {
 ```
 
 - Allright, I need to test this out with some pictures. Im not even gonna add the location check thing to make sure user is within
-a certain distance from the landmark to actually say the landmark detected for now. I think I should just create an alert to say this is only avaliable for landmark A right now and im working very hard to get it working for other landmarks aswell. But I also need to go and start creating the videos for the virtual tours. They have to be real good aswell, i gotta put some editing into them. I think if they're around a min long then that should be good.
+  a certain distance from the landmark to actually say the landmark detected for now. I think I should just create an alert to say this is only avaliable for landmark A right now and im working very hard to get it working for other landmarks aswell. But I also need to go and start creating the videos for the virtual tours. They have to be real good aswell, i gotta put some editing into them. I think if they're around a min long then that should be good.
 
 - After this I need to touch up on the home page and get the redis + security up for sure. Thne mvp should be good to release.
 
@@ -1889,7 +1889,6 @@ a certain distance from the landmark to actually say the landmark detected for n
 - The hero section's been redisgned completely with animations, a video in the back etc:
 
 ![alt text](./images-for-log/image27.png)
-
 
 ## 25 Nov 25
 
@@ -1908,7 +1907,7 @@ a certain distance from the landmark to actually say the landmark detected for n
 - Currently response time is like 2.46s. So if I can use redis and get it down to under one sec and set expiry time of like 30 mins then I should be good. I also need to see where else i can implement this.
 
 - 316 ms response time for feed with redis (if my calculations are correct then this is like an 87% less time than our 2.4s cold start from db just above):
-![alt text](./images-for-log/image29.png)
+  ![alt text](./images-for-log/image29.png)
 
 - Alright, besides the feed what else should I cache? Maybe inidivudal posts and thats it. I don't really need to cache user profiles right now. But if I need to do it, I can do it later.
 
@@ -1916,7 +1915,7 @@ a certain distance from the landmark to actually say the landmark detected for n
 
 - Also on other physical devices Im getting an error because the tf lite model isn't being found I think. Let's try to either deploy that somewhere or I need to see how I can get it working. Ahh nvm, it's just because I forgot to download the new version of the app.
 
-- I think i def need to add cache on the comments. It's taking hella long to get them loaded. When there's just 24. If there was say 800 then gg without caching. Also one last thing is that the feed photos are sized weirdly on the physical device. I need it to take 100% width + height. Like rn, when I view the feed on a physical andriod device it's only taking like 80% of the available screen width + height. 
+- I think i def need to add cache on the comments. It's taking hella long to get them loaded. When there's just 24. If there was say 800 then gg without caching. Also one last thing is that the feed photos are sized weirdly on the physical device. I need it to take 100% width + height. Like rn, when I view the feed on a physical andriod device it's only taking like 80% of the available screen width + height.
 
 - Ok so tasks for tomorrow are fixing the layout, caching comments + diving into express rate limiter.
 
@@ -1946,3 +1945,146 @@ a certain distance from the landmark to actually say the landmark detected for n
 - I won't be able to get shit done tomorrow, I got work and i got a function to go to aswell. Maybe if I can just quickly add clustering to my server.js because that's the only place that needs it (at least I think) for it to take effect on the whole server and then saturday I'll make login only compoulsury when users try to either comment on post, like post etc.. because I realised from my last job portal project people don't really wanna waste time loggin in.
 
 - Anyways, im very happy w what I learnt today. I learnt more about scaling an app and what production grade apps really look like.
+
+## 28 Nov 25
+
+```Bash
+PS C:\Users\ashut\Desktop\KTMVTour\backend> npm run dev
+
+> backend@1.0.0 dev
+> ts-node-dev --files ./src/server.ts
+
+[INFO] 18:15:37 ts-node-dev ver. 2.0.0 (using ts-node ver. 10.9.2, typescript ver. 5.9.3)
+[dotenv@17.2.3] injecting env (0) from .env -- tip: 🛠️  run anywhere with `dotenvx run -- yourcommand`
+Primary 35272 is running
+Connected to PostgreSQL
+[dotenv@17.2.3] injecting env (0) from .env -- tip: 🔑 add access controls to secrets: https://dotenvx.com/ops
+[dotenv@17.2.3] injecting env (0) from .env -- tip: ⚙️  write to custom object with { processEnv: myObject }
+[dotenv@17.2.3] injecting env (0) from .env -- tip: 🔄 add secrets lifecycle management: https://dotenvx.com/ops
+[dotenv@17.2.3] injecting env (0) from .env -- tip: 🛠️  run anywhere with `dotenvx run -- yourcommand`
+[dotenv@17.2.3] injecting env (0) from .env -- tip: 📡 add observability to secrets: https://dotenvx.com/ops
+[dotenv@17.2.3] injecting env (0) from .env -- tip: 🗂️ backup and recover secrets: https://dotenvx.com/ops
+Node version: v22.16.0
+Worker 30148 started
+[dotenv@17.2.3] injecting env (0) from .env -- tip: 🔄 add secrets lifecycle management: https://dotenvx.com/ops
+[dotenv@17.2.3] injecting env (0) from .env -- tip: ⚙️  load multiple .env files with { path: ['.env.local', '.env'] }
+Server: http://localhost:8080
+Node version: v22.16.0
+Worker 30300 started
+[dotenv@17.2.3] injecting env (0) from .env -- tip: 🛠️  run anywhere with `dotenvx run -- yourcommand`
+Server: http://localhost:8080
+[dotenv@17.2.3] injecting env (0) from .env -- tip: ⚙️  write to custom object with { processEnv: myObject }
+[dotenv@17.2.3] injecting env (0) from .env -- tip: 🔄 add secrets lifecycle management: https://dotenvx.com/ops
+[dotenv@17.2.3] injecting env (0) from .env -- tip: ⚙️  override existing env vars with { override: true }
+Node version: v22.16.0
+Worker 5168 started
+Node version: v22.16.0
+Worker 30972 started
+Server: http://localhost:8080
+Node version: v22.16.0
+Worker 6636 started
+Node version: v22.16.0
+Worker 21888 started
+Server: http://localhost:8080
+Server: http://localhost:8080
+Server: http://localhost:8080
+Node version: v22.16.0
+Worker 15272 started
+Node version: v22.16.0
+Worker 32188 started
+Node version: v22.16.0
+Server: http://localhost:8080
+Worker 17192 started
+Node version: v22.16.0
+Worker 9692 started
+Server: http://localhost:8080
+Server: http://localhost:8080
+Server: http://localhost:8080
+Node version: v22.16.0
+Worker 21544 started
+Node version: v22.16.0
+Worker 29128 started
+Server: http://localhost:8080
+Server: http://localhost:8080
+Connected to MongoDB
+Connected to MongoDB
+Connected to MongoDB
+Connected to MongoDB
+🔌 Connecting to Redis
+Connected to MongoDB
+Connected to MongoDB
+Connected to MongoDB
+🔌 Connecting to Redis
+Connected to MongoDB
+🔌 Connecting to Redis
+🔌 Connecting to Redis
+🔌 Connecting to Redis
+🔌 Connecting to Redis
+🔌 Connecting to Redis
+🔌 Connecting to Redis
+🔌 Connecting to Redis
+🔌 Connecting to Redis
+🔌 Connecting to Redis
+🔌 Connecting to Redis
+Connected to MongoDB
+Connected to MongoDB
+Connected to MongoDB
+Connected to MongoDB
+Connected to PostgreSQL
+Connected to PostgreSQL
+✅ Redis connected
+✅ Redis connected
+✅ Redis connected
+✅ Redis connected
+✅ Redis connected
+✅ Redis connected
+✅ Redis connected
+✅ Redis connected
+✅ Redis connected
+✅ Redis connected
+✅ Redis connected
+✅ Redis connected
+Connected to PostgreSQL
+PostgreSQL connected
+Connected to PostgreSQL
+PostgreSQL connected
+Connected to PostgreSQL
+PostgreSQL connected
+Connected to PostgreSQL
+PostgreSQL connected
+PostgreSQL connected
+PostgreSQL connected
+Connected to PostgreSQL
+Connected to PostgreSQL
+PostgreSQL connected
+Connected to PostgreSQL
+Connected to PostgreSQL
+PostgreSQL connected
+Connected to PostgreSQL
+Connected to PostgreSQL
+PostgreSQL connected
+PostgreSQL connected
+PostgreSQL connected
+PostgreSQL connected
+```
+
+- Important part to consider:
+
+```bash
+Primary 35272 is running
+ Worker 30148 started
+ Worker 30300 started
+ Worker 5168 started
+ Worker 30972 started
+ Worker 6636 started
+ Worker 21888 started
+ Worker 15272 started
+ Worker 32188 started
+ Worker 17192 started
+ Worker 21544 started
+ Worker 29128 started
+```
+
+- Hmm, idk why there's the primary and 11 workers. I thought I only had 6 core cpu. I need to check why this is.
+
+- I should also test this on autocannon (what the guy was using in the video to test his api)
