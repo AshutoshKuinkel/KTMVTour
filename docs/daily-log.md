@@ -2088,3 +2088,11 @@ Primary 35272 is running
 - Hmm, idk why there's the primary and 11 workers. I thought I only had 6 core cpu. I need to check why this is.
 
 - I should also test this on autocannon (what the guy was using in the video to test his api)
+
+## 29 NOV 25
+
+- Starting off by only making users login when needed. Nah nvm, i'll add this later. maybe today I should just start on the video for virtual tour and create an alert to let users know that the virtual tour is only avaliable for one landmark so far. Alright so the alert modal is done. Now I should start on the video for virtual tour. I need to make it really good and ideally it shouldn't be too long.
+
+## 30 Nov 25
+
+- I didn't start on the video yesterday, all I got done was the alert. Today I need to start on the video.
