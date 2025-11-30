@@ -27,6 +27,7 @@ print('Model loaded')
 # Class names used in training (set in same order as dataset subfolders)
 class_names = np.array([
     'boudha-stupa',
+    'dharahara',
     'no-landmark',
     # ... add other class names when I create them
 ])
@@ -36,7 +37,6 @@ img_path = os.path.join(base_dir,os.getenv('TEST_IMAGE_PATH'))
 img = tf.io.read_file(img_path)
 img = tf.image.decode_jpeg(img, channels=3)  # Decode JPEG to tensor
 img = tf.image.resize(img, [224, 224])       # Resize to match training size
-img = img / 255.0                            # Normalize to [0, 1] like Rescaling layer
 img = tf.expand_dims(img, axis=0)            # Add a batch dimension to the image tensor (shape: [height, width, channels] -> [1, height, width, channels])
 # The model expects a batch of images, so this creates a single-item batch for prediction
 

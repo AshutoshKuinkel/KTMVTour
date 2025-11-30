@@ -96,9 +96,9 @@ class_names = np.array(train_ds.class_names)
 # So normalising helps model perform better/efficient because neural networks work better
 # w consistent scale of inputs e.g [0,1].
 # use the tf.keras.layers.Rescaling preprocessing layer to achieve this:
-normalisation_layer = keras.layers.Rescaling(1./255)
-train_ds = train_ds.map(lambda x,y: (normalisation_layer(x),y))
-val_ds = val_ds.map(lambda x,y: (normalisation_layer(x),y))
+# normalisation_layer = keras.layers.Rescaling(1./255)
+# train_ds = train_ds.map(lambda x,y: (normalisation_layer(x),y))
+# val_ds = val_ds.map(lambda x,y: (normalisation_layer(x),y))
 
 # ^--------------------------------------------------------------------------------------
 
@@ -155,6 +155,7 @@ num_classes = len(class_names)
 # Each layer processes the output from the previous layer and passes its own output to the next layer:
 
 model = keras.Sequential([
+  keras.layers.Rescaling(1./255, input_shape=(img_height, img_width, 3)),
   feature_extractor_layer,
   keras.layers.Dense(num_classes)
   # Dense Layer: The output layer where the classification happens. It will output num_classes predictions.
