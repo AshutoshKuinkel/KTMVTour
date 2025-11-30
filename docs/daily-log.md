@@ -2100,3 +2100,5 @@ Primary 35272 is running
 - When i put the model with a picture of my landmark A it was still showing no landmark detected. Then i realised it was because the frame captured images weren't being normalised. They were being sent as raw images. Hence, I had to retrain the model but this time adding the normalisation layer within the model export. Also I gathered 400 images of my landmark B and added it aswell. So I have 513 for landmark A, 401 for landmark B and like 2k no-landmark images. I need to import this into my app and see if it's correctly working now.
 
 - Before that I have to rebuild the app after adding the expo image manipulator.
+
+- Once again, I didn't start on the virtual tour vids, but I just want to make sure that the model itself is actually working before the virtual tour video. Because if the user can't even get the model to detect landmark, how is the virtual tour gonna work?
