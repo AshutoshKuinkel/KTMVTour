@@ -16,6 +16,7 @@ import {
 import { LinearGradient } from "expo-linear-gradient";
 import { loadTensorflowModel, TensorflowModel } from "react-native-fast-tflite";
 import RNFS from "react-native-fs";
+import * as ImageManipulator from "expo-image-manipulator";
 
 const tours = () => {
   const device = useCameraDevice("back");
@@ -98,23 +99,29 @@ const tours = () => {
       });
 
       // Run model on captured image:
-      // Read the image file as base64
-      const base64Image = await RNFS.readFile(photo.path, "base64");
 
-      // Convert base64 to Uint8Array
-      const binaryString = atob(base64Image);
-      const bytes = new Uint8Array(binaryString.length);
-      for (let i = 0; i < binaryString.length; i++) {
-        bytes[i] = binaryString.charCodeAt(i);
-      }
+      // Resize to 224x224 (same as Python code)
+      const resized = await ImageManipulator.manipulateAsync(
+        photo.path,
+        [{ resize: { width: 224, height: 224 } }],
+        { format: ImageManipulator.SaveFormat.JPEG, compress: 1 }
+      );
+
+      // Read as base64
+      const base64 = await RNFS.readFile(resized.uri, "base64");
+
+      // Convert to byte array
+      const imageBytes = Uint8Array.from(atob(base64), (c) => c.charCodeAt(0));
 
       // Run model with the typed array
-      const results = await model.run([bytes]);
+      const results = await model.run([imageBytes]);
 
       // update state w results:
       if (results && results.length > 0) {
         // Get the output tensor
         const output = results[0];
+
+        console.log(output);
 
         // Find the index with highest value
         let maxIndex = 0;
@@ -128,9 +135,10 @@ const tours = () => {
         }
 
         // Define your landmark labels
-        const landmarkLabels = ["Boudha-stupa", "no-landmark"];
+        const landmarkLabels = ["boudha-stupa", "dharahara", "no-landmark"];
 
         const detectedLabel = landmarkLabels[maxIndex];
+        console.log(detectedLabel);
 
         if (detectedLabel === "no-landmark") {
           setdetected(false);
@@ -389,9 +397,9 @@ const tours = () => {
             {/* Message */}
             <Text className="text-secondary text-center text-base leading-6 mb-6">
               Currently, virtual tours are only available for{" "}
-              <Text className="text-button font-semibold">Boudha Stupa</Text>.
-              We're actively working on adding more landmarks to enhance your
-              experience. Stay tuned for exciting updates!
+              <Text className="text-button font-semibold">Boudha Stupa</Text>{" "}
+              and <Text className="text-button font-semibold">Dharahara</Text>.
+              We're actively working on adding more landmarks!
             </Text>
 
             {/* Status indicators */}
@@ -399,7 +407,7 @@ const tours = () => {
               <View className="flex-row items-center gap-2 mb-2">
                 <View className="w-2 h-2 rounded-full bg-green-500" />
                 <Text className="text-white font-medium">
-                  Available: Boudha Stupa
+                  Available: Boudha Stupa, Dharahara
                 </Text>
               </View>
               <View className="flex-row items-center gap-2">
