@@ -7,3 +7,4 @@ no-landmark
 .env
 test/
 exported-tf-lite-model/
+exported_model_clean/
