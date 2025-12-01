@@ -2102,3 +2102,76 @@ Primary 35272 is running
 - Before that I have to rebuild the app after adding the expo image manipulator.
 
 - Once again, I didn't start on the virtual tour vids, but I just want to make sure that the model itself is actually working before the virtual tour video. Because if the user can't even get the model to detect landmark, how is the virtual tour gonna work?
+
+## 1 Dec 25
+
+- Im getting rid of the react-native fast tf lite and converting to tensorflow.js because fast tf lite doesn't really support what im trying to do. I guess I will have to build the app again, but after that it should be working. No nvm it's outdated.
+
+- Oh my god. Because of this one line I copied from chat gpt adding the normalisation layer to the exported model it gave me a 4-5 hour bug fix session today. Grok helped me with fixing the bug. So the tf lite model was broken, so I had to remove the line I added from chat gpt, retrain the model on 10 epochs and I ended up getting like 98.65 val acc, and then ask grok for a convert to tf lite converter file with some testing in it. But then I also had to add this in my tours because I was passing the raw image bytes to the model instead of the float32 RBG Tensor:
+
+```TypeScript
+const captureAndClassify = async () => {
+    if (!cameraRef.current || !model || !isModelLoaded) return;
+
+    try {
+      // Take photo from camera
+      const photo = await cameraRef.current.takePhoto({
+        flash: "off",
+        enableShutterSound: false,
+      });
+
+      // Run model on captured image:
+
+      // Resize to 224x224 (same as Python code)
+      const resized = await ImageManipulator.manipulateAsync(
+        photo.path,
+        [{ resize: { width: 224, height: 224 } }],
+        { base64: true }
+      );
+
+      // Convert JPEG to float32 RBG Tensor
+      const inputTensor = decodeJpegToTensor(resized.base64 as string, 224, 224);
+
+      // Model expects batch dimension, so wrap it in an array
+      const results = await model.run([inputTensor]);
+
+      ....
+      rest is same
+```
+
+- The decode JpegtoTensor was written by chat gpt:
+
+```TypeScript
+import jpeg from "jpeg-js";
+
+export function decodeJpegToTensor(
+  base64Image: string,
+  width: number,
+  height: number
+): Float32Array {
+  const binary = atob(base64Image);
+  const bytes = new Uint8Array(binary.length);
+  for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+
+  // Decode JPEG → raw RGBA pixels
+  const decoded = jpeg.decode(bytes, { useTArray: true });
+
+  // Flattened RGB tensor
+  const rgbTensor = new Float32Array(width * height * 3); // just the RGB channels
+
+  for (let i = 0, j = 0; i < decoded.data.length; i += 4, j += 3) {
+    rgbTensor[j] = (decoded.data[i] / 255.0) * 2.0 - 1.0; // R
+    rgbTensor[j + 1] = (decoded.data[i + 1] / 255.0) * 2.0 - 1.0; // G
+    rgbTensor[j + 2] = (decoded.data[i + 2] / 255.0) * 2.0 - 1.0; // B
+  }
+
+  return rgbTensor; // plain Float32Array
+}
+```
+
+- So yes the problem was that my model shouldn't have been exported with the normalisation layer like ai suggested and I was passing raw image bytes instead of the required float32 rbg tensor.
+
+- Lesson of the year:
+  Never put preprocessing layers (Rescaling, etc.) inside a Keras model when using TF Hub + TFLite.
+  Do it in the dataset or in the app instead. Also, make sure we feed our tf lite models the correct float32 tensor and
+  not just raw image bytes.
