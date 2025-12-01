@@ -17,6 +17,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { loadTensorflowModel, TensorflowModel } from "react-native-fast-tflite";
 import RNFS from "react-native-fs";
 import * as ImageManipulator from "expo-image-manipulator";
+import { decodeJpegToTensor } from "@/src/decodeJPEG2Tensor";
 
 const tours = () => {
   const device = useCameraDevice("back");
@@ -70,7 +71,7 @@ const tours = () => {
 
   const loadModel = async () => {
     try {
-      const modelPath = require("../../assets/model/model.tflite");
+      const modelPath = require("../../assets/model/model_PERFECT.tflite");
       const loadedModel = await loadTensorflowModel(modelPath);
 
       setModel(loadedModel);
@@ -104,17 +105,14 @@ const tours = () => {
       const resized = await ImageManipulator.manipulateAsync(
         photo.path,
         [{ resize: { width: 224, height: 224 } }],
-        { format: ImageManipulator.SaveFormat.JPEG, compress: 1 }
+        { base64: true }
       );
 
-      // Read as base64
-      const base64 = await RNFS.readFile(resized.uri, "base64");
+      // Convert JPEG to float32 RBG Tensor
+      const inputTensor = decodeJpegToTensor(resized.base64 as string, 224, 224);
 
-      // Convert to byte array
-      const imageBytes = Uint8Array.from(atob(base64), (c) => c.charCodeAt(0));
-
-      // Run model with the typed array
-      const results = await model.run([imageBytes]);
+      // Model expects batch dimension, so wrap it in an array
+      const results = await model.run([inputTensor]);
 
       // update state w results:
       if (results && results.length > 0) {
