@@ -2175,3 +2175,11 @@ export function decodeJpegToTensor(
   Never put preprocessing layers (Rescaling, etc.) inside a Keras model when using TF Hub + TFLite.
   Do it in the dataset or in the app instead. Also, make sure we feed our tf lite models the correct float32 tensor and
   not just raw image bytes.
+
+## 2 Dec 25
+
+- Im thinknig I will get the virtual tour only avaliable when user is within like a km distance from the landmark later on after I release my app and a while after release aswell.
+
+- With that being said, i need to do the video editing today.
+
+- Ahh, also my free render postgres is expiring Dec 9. So i got like a week left, before i either pay for it or idk i need to do something.
