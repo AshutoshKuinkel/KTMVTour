@@ -2183,3 +2183,11 @@ export function decodeJpegToTensor(
 - With that being said, i need to do the video editing today.
 
 - Ahh, also my free render postgres is expiring Dec 9. So i got like a week left, before i either pay for it or idk i need to do something.
+
+## 3 Dec 25
+
+- Hold up, I got a good idea for what to do in terms of the Ar component. Maybe I could spawn in like an AR chest that when the user presses on the chest, a badge pops out of the landmark and the badge is added to their profile aswell to show they've been at that landmark. Also I was thinking to make it more immersive and connect people we could have people leave messages at the landmarks aswell for others to see. But that's for later alright, maybe at most I can add the chest thing after release.
+
+- Yeah for sure. I got this idea in my head and now im gonna make it happen. The new plan is to use viroReact to spwan in a fictional character and you take a walk with them. So it essientially is a tour guide but just on your phone. I will publish the app with a short 2 min video for boudha stupa as the virtual tour but in the alert I need to add that im making an actual AR virtual tour component. I need to publish the app and then start working on that feature asap. I got the vision in my head and imma do all it takes to get it working.
+
+- So this video im making right now will just be a place holder until I get the real thing working. I need to research into this virtual tour though. I've come too far to settle for any less then this. Playing just a video with stock footage is ass. It's either I get, no there's no option about it. I have to get it working the actual virtual tour.
