@@ -29,6 +29,15 @@ export const commentOnPost = async (
       content.trim()
     );
 
+    try {
+      const keys = await redisClient.keys(`comments:post:${postId}:page:*`);
+      if (keys.length > 0) {
+        await redisClient.del(keys);
+      }
+    } catch (err: any) {
+      console.error(`Redis delete err:`, err);
+    }
+
     res.status(201).json({
       message: `Successfully commented`,
       data: comment,
@@ -48,7 +57,7 @@ export const getAllComments = async (
     const { currentPage } = req.query;
     const page = Number(currentPage) || 1;
     const limit = 20;
-    const cachedKey = `comments:all:page:${page}`;
+    const cachedKey = `comments:post:${postId}:page:${page}`;
     let cachedComments;
     try {
       cachedComments = await redisClient.get(cachedKey);
@@ -56,12 +65,12 @@ export const getAllComments = async (
       console.error(`Redis get err:`, err);
     }
 
-    if(cachedComments){
+    if (cachedComments) {
       return res.status(200).json({
-        message:`Comments fetched from redis`,
-        data:JSON.parse(cachedComments).data,
+        message: `Comments fetched from redis`,
+        data: JSON.parse(cachedComments).data,
         pagination: JSON.parse(cachedComments).pagination,
-      })
+      });
     }
 
     // total count of comments:
@@ -76,20 +85,22 @@ export const getAllComments = async (
     const pagination = getPagination(page, limit, total);
 
     const responseData = {
-      data:comments,
-      pagination
-    }
+      data: comments,
+      pagination,
+    };
 
-    try{
-      await redisClient.set(cachedKey,JSON.stringify(responseData),{EX: 1800})
-    }catch(err:any){
-      console.error(`Redis set err:`,err)
+    try {
+      await redisClient.set(cachedKey, JSON.stringify(responseData), {
+        EX: 1800,
+      });
+    } catch (err: any) {
+      console.error(`Redis set err:`, err);
     }
 
     // response:
     res.status(200).json({
       message: `Comments fetched for post: ${postId}`,
-      ...responseData
+      ...responseData,
     });
   } catch (err: any) {
     next(err);
