@@ -16,22 +16,26 @@ export const fetchFeed = async (
     // Fetch 5 posts at once, client shows them one by one
     const limit = 5;
 
-    const cachedKey = `feed:all:page:${page}:limit:${limit}`;
-    let cachedFeed = null;
+    let version = 1;
     try {
-      cachedFeed = await redisClient.get(cachedKey);
-    } catch (redisErr) {
-      console.error("Redis get error:", redisErr);
-      // Continue without cache - will fetch from DB
-    }
+      const v = await redisClient.get("feed:version");
+      version = v ? Number(v) : 1;
+    } catch {}
 
-    if (cachedFeed) {
-      const cachedData = JSON.parse(cachedFeed)
-      return res.status(200).json({
-        message: `Feed fetched from redis`,
-        data: cachedData.data,
-        pagination: cachedData.pagination
-      });
+    const cachedKey = `feed:v${version}:page:${page}:limit:${limit}`;
+
+    try {
+      const cached = await redisClient.get(cachedKey);
+      if (cached) {
+        const cachedData = JSON.parse(cached);
+        return res.status(200).json({
+          message: `Feed fetched from redis`,
+          data: cachedData.data,
+          pagination: cachedData.pagination,
+        });
+      }
+    } catch (err: any) {
+      console.error("Redis get error:", err);
     }
 
     // total count of posts:
