@@ -1,8 +1,6 @@
 import { View, ScrollView, Dimensions, Animated } from "react-native";
 import Heading from "../../components/landing/heading";
 import TakeToLandmark from "../../components/landing/take2landmark-card";
-import ShareExperienceCard from "../../components/landing/share-experience.card";
-import CategoryCards from "../../components/landing/historical&temples.cards";
 import Video from "react-native-video";
 import { useRef } from "react";
 import PopularDestinations from "@/components/landing/popularDestinations";

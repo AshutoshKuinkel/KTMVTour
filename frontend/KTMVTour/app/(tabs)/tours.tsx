@@ -18,6 +18,7 @@ import { loadTensorflowModel, TensorflowModel } from "react-native-fast-tflite";
 import RNFS from "react-native-fs";
 import * as ImageManipulator from "expo-image-manipulator";
 import { decodeJpegToTensor } from "@/src/decodeJPEG2Tensor";
+import { router } from "expo-router";
 
 const tours = () => {
   const device = useCameraDevice("back");
@@ -32,6 +33,25 @@ const tours = () => {
   const [model, setModel] = useState<TensorflowModel | null>(null);
   const [isModelLoaded, setIsModelLoaded] = useState(false);
   const [showInfoModal, setShowInfoModal] = useState(true);
+  const [startedVTour, setStartedVTour] = useState<boolean>(false);
+
+  const handleVTourClick = () => {
+    if (!detectedLandmark) return;
+
+    // Stop frame capturing
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+    }
+
+    // Navigate based on the detected landmark
+    switch (detectedLandmark) {
+      case "boudha-stupa":
+        router.push("/boudhaVTour");
+        break;
+      default:
+        console.warn("No VTour avaliable yet for this landmark");
+    }
+  };
 
   //useEffect hook in React is a built-in hook that allows functional components to perform "side effects."
   //Side effects are operations that interact with the outside world or affect things beyond the component's direct rendering, such as:
@@ -109,7 +129,11 @@ const tours = () => {
       );
 
       // Convert JPEG to float32 RBG Tensor
-      const inputTensor = decodeJpegToTensor(resized.base64 as string, 224, 224);
+      const inputTensor = decodeJpegToTensor(
+        resized.base64 as string,
+        224,
+        224
+      );
 
       // Model expects batch dimension, so wrap it in an array
       const results = await model.run([inputTensor]);
@@ -146,6 +170,12 @@ const tours = () => {
           setdetected(true);
           setDetectedLandmark(detectedLabel);
           setNoLandmarkDetected(false);
+
+          // if (intervalRef.current) {
+          //   clearInterval(intervalRef.current);
+          //   intervalRef.current = null;
+          //   console.log("frame capture off after landmark detection");
+          // }
         }
       } else {
         setdetected(false);
@@ -336,7 +366,10 @@ const tours = () => {
             </View>
 
             <View className="animate-pulse">
-              <Pressable className="bg-button items-center justify-center flex-row gap-2 rounded-lg p-2">
+              <Pressable
+                className="bg-button items-center justify-center flex-row gap-2 rounded-lg p-2"
+                onPress={handleVTourClick}
+              >
                 <View>
                   <Sparkles color={"#fff"} />
                 </View>
@@ -394,10 +427,12 @@ const tours = () => {
 
             {/* Message */}
             <Text className="text-secondary text-center text-base leading-6 mb-6">
-              Currently, virtual tours are only available for{" "}
+              Currently, immserive virtual tours are under development. Whilst
+              they're being made please enjoy the placeholder videos that are
+              currently only avaliable for{" "}
               <Text className="text-button font-semibold">Boudha Stupa</Text>{" "}
-              and <Text className="text-button font-semibold">Dharahara</Text>.
-              We're actively working on adding more landmarks!
+              We're actively working on the virtual tour and trying to release
+              it ASAP!
             </Text>
 
             {/* Status indicators */}
@@ -405,7 +440,7 @@ const tours = () => {
               <View className="flex-row items-center gap-2 mb-2">
                 <View className="w-2 h-2 rounded-full bg-green-500" />
                 <Text className="text-white font-medium">
-                  Available: Boudha Stupa, Dharahara
+                  Available: Boudha Stupa (Placeholder Video)
                 </Text>
               </View>
               <View className="flex-row items-center gap-2">

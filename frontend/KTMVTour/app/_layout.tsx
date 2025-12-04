@@ -58,6 +58,7 @@ export default function RootLayout() {
         <Stack.Protected guard={isAuthenticated}>
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
           <Stack.Screen name="upload" options={{ headerShown: false }} />
+          <Stack.Screen name="boudhaVTour" options={{ headerShown: false }} />
         </Stack.Protected>
         <Stack.Protected guard={!isAuthenticated}>
           <Stack.Screen name="login" options={{ headerShown: false }} />
