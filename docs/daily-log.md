@@ -2232,6 +2232,8 @@ const cachedKey = `comments:post:${postId}:page:${page}`;
 
 - So that's the cache invalidation logic added. Now i need to get onto the VR/Ar whatever it is component.
 
+- https://ibjects.medium.com/react-native-unity-3d-tutorial-6ef230df81a8
+
 - Viro might be good for a very simple AR experience tour, but i've asked grok, deepseek etc. they all say use unity it'll be a lot better for what im trying to do and I can implement it within my react native app. But then this means I will have to use C# or c++ or one of those languages for this. I may only pick up what I need to do in this. I will see if going with unity is possible.
 
 - Alright who would've thought this? From my vision yesterday to wanting to make it happen I am now building this virtual tour in unity using c#. Btw the app should be ready for release. If i can get it out there within another week or two.. and just aim to gather some feedback that'd be good. I want to pay as least amount of money as possible, so I may only release on andriod for now... and whilst that's going on I will also continue building the virtual tour.
