@@ -5,6 +5,7 @@ import {
   TextInput,
   Image,
   ScrollView,
+  ActivityIndicator,
 } from "react-native";
 import React, { useState } from "react";
 import { router } from "expo-router";
@@ -54,9 +55,9 @@ const Upload = () => {
 
     const index2Remove = currentImageindex;
     const newImageUri = imageUri.filter((_, index) => index !== index2Remove);
-    
+
     setImageUri(newImageUri);
-    
+
     // Adjust current index if needed
     if (newImageUri.length === 0) {
       setCurrentImageIndex(0);
@@ -100,7 +101,7 @@ const Upload = () => {
   };
 
   const handleBackClick = () => {
-    router.push('/community')
+    router.push("/community");
   };
 
   const {
@@ -155,6 +156,15 @@ const Upload = () => {
     await mutate(formData);
     console.log(`mutated func`);
   };
+
+  if (isPending) {
+    return (
+      <View className="flex-1 items-center justify-center bg-black">
+        <ActivityIndicator size="large" color="#8B5CF6" />
+        <Text className="text-white mt-4 text-lg">Posting...</Text>
+      </View>
+    );
+  }
 
   return (
     <ScrollView
@@ -321,7 +331,8 @@ const Upload = () => {
                 <LucideDot color={"#fff"} />
                 <Text className="text-secondary">
                   For any feature requests or problems please contact our
-                  support team at ktmvtour@gmail.com, any feedback,issue or concern is greatly appreciated.
+                  support team at ktmvtour@gmail.com, any feedback,issue or
+                  concern is greatly appreciated.
                 </Text>
               </View>
             </View>
