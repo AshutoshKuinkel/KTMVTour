@@ -2217,3 +2217,17 @@ const cachedKey = `comments:post:${postId}:page:${page}`;
   Cache invalidation is the process of invalidating cache by removing data from a system’s cache when that data is no longer valid or useful. In other words, you’re getting rid of old or outdated cached content that’s stored in the cache. This ensures that the cache only contains relevant and up-to-date information, which can improve cache consistency and prevent errors.
 
 - Essientially cache invalidation just removes the old cached data and helps make sure we're getting the new n updated data.
+
+- Alright, if I can get the invalidation added. It shouldn't take too long, the social media implementation doc I had (link is above) I think outlines where I should add the cache invalidation logic. But I can tell u rn, we should add it when a new post it made, a new comment (already added this one), etc... when the stuff we need to display changes.. Then after that i'll start having a look at what I can use either three+Ar js or viro (which is somewhat outdated) or react native three fiber i think it was called.
+
+- Right so apparenly instead of deleting keys we could also just use version keys since deleting keys takes O(n) time and if we have a million users that would be bad. It could potentially freeze up some things. Instead with version bumps / version keys we just use a version and everytime a new post is made we increment the version. So i.e version 1 of redis feed had 5 posts and then I make another post and then boom it shows me version 2 of feed with 6 posts.
+
+- Idk the post wasn't showing up, I just added some logs to the backend and then added this line to initialise version if it doesn't exist:
+```TypeScript
+    if (!versionStr) {
+      await redisClient.set("feed:version", 1);
+      versionStr = "1";
+    }
+```    
+
+- So that's the cache invalidation logic added. Now i need to get onto the VR/Ar whatever it is component.

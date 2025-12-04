@@ -16,11 +16,18 @@ export const fetchFeed = async (
     // Fetch 5 posts at once, client shows them one by one
     const limit = 5;
 
-    let version = 1;
-    try {
-      const v = await redisClient.get("feed:version");
-      version = v ? Number(v) : 1;
-    } catch {}
+    // Read version from Redis
+    let versionStr = await redisClient.get("feed:version");
+    console.log(versionStr)
+
+    // If key doesn’t exist, initialise it
+    if (!versionStr) {
+      await redisClient.set("feed:version", 1);
+      versionStr = "1";
+    }
+
+    // Convert string to number
+    const version: number = Number(versionStr);
 
     const cachedKey = `feed:v${version}:page:${page}:limit:${limit}`;
 

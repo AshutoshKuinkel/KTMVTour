@@ -55,7 +55,8 @@ export const createPost = async (
     // Invalidate cache safely using version bump
     //{better than deleteing cache which is O(n) and could cause issues if we have many users within our app}
     try {
-      await redisClient.incr("feed:version");
+      const versionAfter = await redisClient.incr("feed:version");
+      console.log("Redis version after new post:", versionAfter);
     } catch (err) {
       console.error("Redis version increment error:", err);
     }
