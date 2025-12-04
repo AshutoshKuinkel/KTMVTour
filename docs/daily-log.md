@@ -2191,3 +2191,29 @@ export function decodeJpegToTensor(
 - Yeah for sure. I got this idea in my head and now im gonna make it happen. The new plan is to use viroReact to spwan in a fictional character and you take a walk with them. So it essientially is a tour guide but just on your phone. I will publish the app with a short 2 min video for boudha stupa as the virtual tour but in the alert I need to add that im making an actual AR virtual tour component. I need to publish the app and then start working on that feature asap. I got the vision in my head and imma do all it takes to get it working.
 
 - So this video im making right now will just be a place holder until I get the real thing working. I need to research into this virtual tour though. I've come too far to settle for any less then this. Playing just a video with stock footage is ass. It's either I get, no there's no option about it. I have to get it working the actual virtual tour.
+
+## 4 Dec 25
+
+- I may be able to do this with viroReact but idk if AR js + three js is a better option since it's more supported and up to date. However, the thing is that Ar/three js is for web. Apparently it's possible to get it working with react native but idk. I seen some other react native three fiber or something like that aswell which may be an option. But anyways, I need to figure out which library to use and get it setup today.
+
+- Also, I got the placeholder video ready. I'll just put it in the alert saying whilst the actual virtual tour is being developed please enjoy this short video that serves as a placeholder.
+
+- Hold up, it's showing the wrong coments. for the video. Also, I may have to add stop frame capture once a landmark is detected within the tours page.
+
+- I think the problem is happening when I load up comments with redis or something like that. I went to the last comments post and it loaded the 2 up. Now even when I go to the first post which has 24 comments, it only shows the 2.
+
+- Ah I had this in my backend comment controller:
+```TypeScript
+const cachedKey = `comments:all:page:${page}`;
+```
+
+- But instead it's meant to be:
+```TypeScript
+const cachedKey = `comments:post:${postId}:page:${page}`;
+```
+
+- Also, i completely forgot to add the cache invalidation for postss etc. Here is a defintion of cache invalidation:
+
+  Cache invalidation is the process of invalidating cache by removing data from a system’s cache when that data is no longer valid or useful. In other words, you’re getting rid of old or outdated cached content that’s stored in the cache. This ensures that the cache only contains relevant and up-to-date information, which can improve cache consistency and prevent errors.
+
+- Essientially cache invalidation just removes the old cached data and helps make sure we're getting the new n updated data.
