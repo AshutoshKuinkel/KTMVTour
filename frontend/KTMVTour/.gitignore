@@ -50,10 +50,13 @@ src/.env
 
 #android + ios files
 android
-ios
+KTMVTour/ios
 
 #priv file:
 dLink.md
 
 #assets folder
 /assets
+
+#unity builds
+unity/builds
