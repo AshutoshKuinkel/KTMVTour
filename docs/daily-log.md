@@ -2251,3 +2251,5 @@ const cachedKey = `comments:post:${postId}:page:${page}`;
 - So I can't run this in my emulator because the emulator doesn't support like google Ar services or something like that... However, if I just click play on unity I can see how it'd look within a real device.... 
 
 - So yeah, right now Im just getting the animations setup.. So the character should initially be facing the user and then wave introduce themselves and then start the tour... prompting user to follow them...Ideally the character should follow the user though.
+
+- Finally got the intro animation setup... I need to add the rest of the intro voiceover tomorrow and get it connected to my react native app to see if its working.
