@@ -2241,3 +2241,13 @@ const cachedKey = `comments:post:${postId}:page:${page}`;
 - The thing is i've never used unity before or c#. I don't want to spend time on tutorials etc.. im just downloading unity and boom playing around with it until I figure it out. Any questions go straight to claude, no time wasting.
 
 - Unity is currently installing and I think it'll take some hours, it's like a 13 gb download.
+
+## 5 Dec 25
+
+- It took me a long time, but I finally got the Ar scene setup and then I got a monk character for the virtual tour of landmark A setup with textures...
+
+## 6 Dec 25
+
+- So I can't run this in my emulator because the emulator doesn't support like google Ar services or something like that... However, if I just click play on unity I can see how it'd look within a real device.... 
+
+- So yeah, right now Im just getting the animations setup.. So the character should initially be facing the user and then wave introduce themselves and then start the tour... prompting user to follow them...Ideally the character should follow the user though.
