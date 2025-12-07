@@ -53,7 +53,7 @@ dLink.md
 #unity builds
 unity/builds
 
-/android/build
-/android/.gradle
-/ios/build
-/ios/Pods
+android/build/**
+android/.gradle/**
+ios/build/**
+ios/Pods/**
