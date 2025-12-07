@@ -49,7 +49,7 @@ assets/sample-images
 src/.env
 
 #android + ios files
-android
+KTMVTour/android
 KTMVTour/ios
 
 #priv file:
@@ -58,5 +58,3 @@ dLink.md
 #assets folder
 /assets
 
-#unity builds
-unity/builds
