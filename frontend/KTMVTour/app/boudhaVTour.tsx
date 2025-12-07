@@ -2,7 +2,7 @@ import { View, Text } from "react-native";
 import React from "react";
 import Video from "react-native-video";
 import { router } from "expo-router";
-import UnityView from '@azesmway/react-native-unity';
+import UnityView from "@azesmway/react-native-unity";
 
 const boudhaVTour = () => {
   return (
@@ -26,11 +26,7 @@ const boudhaVTour = () => {
       /> */}
       <UnityView
         style={{
-          position: "absolute",
-          height: "100%",
-          width: "100%",
-          top: 1,
-          bottom: 1,
+          flex: 1,
         }}
       />
     </View>
