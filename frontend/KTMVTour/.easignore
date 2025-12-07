@@ -1,2 +1,11 @@
-*
-!*.*
+# CRITICAL HIGH-IMPACT EXCLUSIONS (Standard)
+android/build/**
+android/.gradle/**
+ios/build/**
+ios/Pods/**
+
+# EXCLUSIONS FOR SIBLING FOLDERS (Likely Source of 1.9 GB)
+# These folders are one level above your current project root.
+../backend
+../images-for-log
+../docs
