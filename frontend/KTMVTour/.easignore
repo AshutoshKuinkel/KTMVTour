@@ -1,15 +1,2 @@
-# CRITICAL DIAGNOSTIC TEST - IGNORE EVERYTHING EXCEPT ESSENTIALS
-# The dot MUST be the first line to ignore EVERYTHING
 *
 !*.*
-
-# Re-include ONLY the absolute necessities for EAS
-!app.json
-!app.config.js
-!package.json
-!package-lock.json
-!yarn.lock
-!tsconfig.json
-!assets/**
-!ios/**
-!android/**
