@@ -36,20 +36,6 @@
     "plugins": [
       "expo-router",
       [
-        "expo-build-properties",
-        {
-          "android": {
-            "compileSdkVersion": 36,
-            "targetSdkVersion": 36,
-            "buildToolsVersion": "34.0.0"
-          }
-        }
-      ],
-      [
-        "expo-asset",
-        { "android": { "adaptiveIcon": null } }
-      ],
-      [
         "expo-splash-screen",
         {
           "image": "./assets/images/splash-icon.png",
