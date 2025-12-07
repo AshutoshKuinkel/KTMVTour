@@ -2259,3 +2259,5 @@ const cachedKey = `comments:post:${postId}:page:${page}`;
 - Ok, so I've gotten the audios synced and stuff up till the point where it starts walking... trying to import in app now.
 
 - Letting app rebuild rn...
+
+- Didn't work, I will try again tomorrow.
