@@ -2253,3 +2253,9 @@ const cachedKey = `comments:post:${postId}:page:${page}`;
 - So yeah, right now Im just getting the animations setup.. So the character should initially be facing the user and then wave introduce themselves and then start the tour... prompting user to follow them...Ideally the character should follow the user though.
 
 - Finally got the intro animation setup... I need to add the rest of the intro voiceover tomorrow and get it connected to my react native app to see if its working.
+
+## 7 Dec 25
+
+- Ok, so I've gotten the audios synced and stuff up till the point where it starts walking... trying to import in app now.
+
+- Letting app rebuild rn...
