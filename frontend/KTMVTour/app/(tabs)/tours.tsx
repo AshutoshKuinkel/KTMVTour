@@ -162,13 +162,13 @@ const tours = () => {
         const detectedLabel = landmarkLabels[maxIndex];
         console.log(detectedLabel);
 
-        if (detectedLabel !== "no-landmark") {
+        if (detectedLabel == "no-landmark") {
           setdetected(false);
           setDetectedLandmark("");
           setNoLandmarkDetected(true);
         } else {
           setdetected(true);
-          setDetectedLandmark("boudha-stupa");
+          setDetectedLandmark(detectedLabel);
           setNoLandmarkDetected(false);
 
           // if (intervalRef.current) {
