@@ -1,5 +1,10 @@
 apply plugin: 'com.android.library'
 
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
