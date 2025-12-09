@@ -9,7 +9,7 @@ pluginManagement {
 
 include ':launcher', ':unityLibrary'
 include ':xrmanifest.androidlib'
-project(':xrmanifest.androidlib').projectDir = new File(rootProject.projectDir, 'unityLibrary/xrmanifest.androidlib')
+project(':xrmanifest.androidlib').projectDir = new File(settingsDir, 'unityLibrary/xrmanifest.androidlib')
 
 
 dependencyResolutionManagement {
