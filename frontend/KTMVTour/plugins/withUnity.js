@@ -6,6 +6,9 @@ const withUnity = (config) => {
     const unityInclude = `
 include ':unityLibrary'
 project(':unityLibrary').projectDir = new File(rootProject.projectDir, '../unity/builds/android/unityLibrary')
+
+include ':xrmanifest.androidlib'
+project(':xrmanifest.androidlib').projectDir = new File(rootProject.projectDir, '../unity/builds/android/unityLibrary/xrmanifest.androidlib')
 `;
     
     if (!config.modResults.contents.includes(':unityLibrary')) {
