@@ -2261,3 +2261,154 @@ const cachedKey = `comments:post:${postId}:page:${page}`;
 - Letting app rebuild rn...
 
 - Didn't work, I will try again tomorrow.
+
+## 8 Dec 25
+
+- Im getting the prod build... but in coming to terms and thinking of it.. maybe this project is just a good MVP to give whoever I collab with an idea of what could be built... I made this ktmvtour... but at the end of the day, why not target a bigger market or even the whole world? This project I guess can just help demonstrate the vision I see for this Augmented reality powered tourism, where you go on a walk with a user.... 
+
+- Let me just try to get another seperate unity app opened when user clicks start virtual tour instead... Then maybe I can gather feedback on the experience.
+
+## 9 Dec 25
+
+- Alright, I got the aab production build... Idk if I want to publish to google play yet... Let me just try to get the unity loaded even if it's a seperate app..
+
+- Nah that's not feasable, I have to get two seperate apps reelased. I asked for help with the unity build on discord and I got some help:
+
+```Bash
+ᴋʙ ᴅɪᴢᴢᴇᴇ 🕷 — 16:12
+Hey, so I've been trying to connect my unity project to my react native app (on android). I did all the steps it required me to do in azesmway
+react-native-unity library. I've done everything and then when I do eas build --platform android --profile development... it takes 5.5 hours for the 1.9 gb build and then when it gets to the end I get an error saying:
+* Where:Build file '/home/expo/workingdir/build/frontend/KTMVTour/unity/builds/android/unityLibrary/build.gradle' line: 10* What went wrong:
+
+
+A problem occurred evaluating project ':unityLibrary'.
+> Project with path 'xrmanifest.androidlib' could not be found in project ':unityLibrary'
+
+2: Task failed with an exception.-----------* What went wrong:A problem occurred configuring project ':unityLibrary'.> Android Gradle Plugin: project ':unityLibrary' does not specify compileSdk in build.gradle (/home/expo/workingdir/build/frontend/KTMVTour/unity/builds/android/unityLibrary/build.gradle).* 
+
+BUILD FAILED in 1m 45sDeprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.For more on this, please refer to https://docs.gradle.org/8.14.3/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.28 actionable tasks: 28 executedError: Gradle build failed with unknown error. See logs for the "Run gradlew" phase for more information.
+
+
+I've specified these and even asked claude grok, chat gpt etc.. for help numerous times... I've been stuck on this for like 2 days and have wasted about 15 hours just waiting for the builds. Can someone please help me understand why xrmanifest.androidlib couldn't be found even though it's in the unityLIbrary folder and i've listed the compile SDK version in the build.gradle aswell, so idk why its telling me this. 
+timothyolt — 22:16
+Share your build.gradle for unityLibrary
+ᴋʙ ᴅɪᴢᴢᴇᴇ 🕷 — 22:19
+apply plugin: 'com.android.library'
+
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation(name: 'arcore_client', ext:'aar')
+Expand
+message.txt
+5 KB
+Image
+That's my folder strcutrue
+timothyolt — 22:20
+The error is correct, you are missing compileSdk
+ᴋʙ ᴅɪᴢᴢᴇᴇ 🕷 — 22:20
+So what do I need to add here?
+Is it not just meant to be compileSdkVersion 36
+timothyolt — 22:20
+That's compileSdkVersion not compileSdk
+Remove Version
+Ai hallucination
+ᴋʙ ᴅɪᴢᴢᴇᴇ 🕷 — 22:21
+Ok... what about the 
+A problem occurred evaluating project ':unityLibrary'.
+Project with path 'xrmanifest.androidlib' could not be found in project ':unityLibrary'
+timothyolt — 22:22
+Show your settings.gradle
+ᴋʙ ᴅɪᴢᴢᴇᴇ 🕷 — 22:22
+this is my frontend/KTMVTour/android/settings.gradle:
+pluginManagement {
+  def reactNativeGradlePlugin = new File(
+    providers.exec {
+      workingDir(rootDir)
+      commandLine("node", "--print", "require.resolve('@react-native/gradle-plugin/package.json', { paths: [require.resolve('react-native/package.json')] })")
+    }.standardOutput.asText.get().trim()
+  ).getParentFile().absolutePath
+  includeBuild(reactNativeGradlePlugin)
+  
+  def expoPluginsPath = new File(
+    providers.exec {
+      workingDir(rootDir)
+      commandLine("node", "--print", "require.resolve('expo-modules-autolinking/package.json', { paths: [require.resolve('expo/package.json')] })")
+    }.standardOutput.asText.get().trim(),
+    "../android/expo-gradle-plugin"
+  ).absolutePath
+  includeBuild(expoPluginsPath)
+}
+
+plugins {
+  id("com.facebook.react.settings")
+  id("expo-autolinking-settings")
+}
+
+extensions.configure(com.facebook.react.ReactSettingsExtension) { ex ->
+  if (System.getenv('EXPO_USE_COMMUNITY_AUTOLINKING') == '1') {
+    ex.autolinkLibrariesFromCommand()
+  } else {
+    ex.autolinkLibrariesFromCommand(expoAutolinking.rnConfigCommand)
+  }
+}
+expoAutolinking.useExpoModules()
+
+rootProject.name = 'KTMVTour'
+
+expoAutolinking.useExpoVersionCatalog()
+
+include ':app'
+includeBuild(expoAutolinking.reactNativeGradlePlugin)
+
+include ':unityLibrary'
+project(':unityLibrary').projectDir = new File(rootProject.projectDir, '../unity/builds/android/unityLibrary')
+ 
+timothyolt — 22:23
+The xrmanifest.androidlib project isn't specified in there
+Also do you have a build.gradle in xrmanifest.androidlib?
+ᴋʙ ᴅɪᴢᴢᴇᴇ 🕷 — 22:25
+Yep:
+Image
+timothyolt — 22:25
+Then yeah the main problem is it's not in your settings.gradle 
+ᴋʙ ᴅɪᴢᴢᴇᴇ 🕷 — 22:25
+Do you mind showing me what that looks like please? I went to the documentation for this library all it told me to do was this:
+Image
+timothyolt — 22:26
+It looks like how you added the other projects with include
+ᴋʙ ᴅɪᴢᴢᴇᴇ 🕷 — 22:26
+It made it look simple but idk maybe the documentation needs work or something's just messed up on my end
+timothyolt — 22:26
+You can copy the part that adds the unityLibrary and modify it to match the xrmanifest project
+ᴋʙ ᴅɪᴢᴢᴇᴇ 🕷 — 22:27
+Im pretty sure I added that at the very end of the file here
+is it not this part:
+
+include ':unityLibrary'
+project(':unityLibrary').projectDir = new File(rootProject.projectDir, '../unity/builds/android/unityLibrary')
+timothyolt — 22:27
+You added unityLibrary but not xrmanifest
+ᴋʙ ᴅɪᴢᴢᴇᴇ 🕷 — 22:27
+ahhh so we point to the xrmanifest just like how we did with the unity library? Ok I get u
+timothyolt — 22:28
+Xrmanifest is also a gradle project and needs to be added the same way unityLibrary is
+ᴋʙ ᴅɪᴢᴢᴇᴇ 🕷 — 22:28
+Yes, ok I will try this hopefully it works thank u so much... I have to wait like 5.5 hours for my eas dev build tho its 1.9gb
+timothyolt — 22:29
+Yeah I'd try to get that building locally 😂
+
+ᴋʙ ᴅɪᴢᴢᴇᴇ 🕷 — 22:30
+Yep lol , but I also wanna get my MVP to the play store so I have to go through that 1.9gb either way sooner or later...
+Thank u so much for ur help, so I just added this in settings.gradle:
+include ':xrmanifest.androidlib'
+project(':xrmanifest.androidlib').projectDir (rootProject.projectDir, '../unity/builds/android/unityLibrary/xrmanifest.androidlib')
+
+
+and changed this in my build.gradle:
+compileSdkVersion 36 
+to this: compileSdk 36
+Btw do u suggest I make a pr/issue to improve the documentation here? or are things just messed up on my end only? 
+```
+
+- I need that build to work now... hopefully it does. Let the build run over night...
