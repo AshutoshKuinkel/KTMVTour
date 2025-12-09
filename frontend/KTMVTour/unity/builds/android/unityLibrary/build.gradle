@@ -1,10 +1,5 @@
 apply plugin: 'com.android.library'
 
-android {
-    ndkPath "C:/Program Files/Unity/Hub/Editor/2022.3.62f3/Editor/Data/PlaybackEngines/AndroidPlayer/NDK"
-    ndkVersion "23.1.7779620"
-}
-
 repositories {
     flatDir {
         dirs 'libs'
