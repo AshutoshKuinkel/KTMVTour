@@ -32,12 +32,14 @@
     },
     "plugins": [
       "./plugins/withUnity",
-      "expo-build-properties",
+      [
+        "expo-build-properties",
         {
           "android": {
             "ndkVersion": "23.1.7779620"
           }
-        },
+        }
+      ],
       "expo-router",
       [
         "expo-splash-screen",
