@@ -2505,3 +2505,14 @@ C:\Users\ashut\Desktop\KTMVTour\frontend\KTMVTour>
 
 - That's enough for today for this project... i'll start on sevre side of client site today instead...
 
+## Dec 25 25
+
+- Right, so I've basically finished the client site, and now I can finally try to get my unity integrated here. Idk if I wrote it on here, but I updated my unity to the newest version, so Im not using the 22.3 LTS or whatever anymore on unity Im using the latest version.
+
+- Ran into some problems again man, chat gpt is suggesting me to downgrade to unity 2021.3 LTS...
+
+- Ahh, i think yeah I gotta give up on this react native + unity integration... it's gonna give me more trouble than anyting...
+what I need to do instead is focus on the overall design of this idea... I feel like it'd just be better off as a unity app 
+maybe? I feel like there's no point in trying to get unity into react native... maybe I should just do this in unity..
+
+- Or im thinking maybe we could take this have an AR character walk and talk w u and implemenet into real estate industry somehow...
